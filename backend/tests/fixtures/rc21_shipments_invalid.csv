@@ -1,0 +1,10 @@
+external_reference,customer_ref,transport_mode,route_group,recipient_name,recipient_city,recipient_country_code,contents_description,package_weights_kg,items
+TEST-BAD-0001,STCA-999999,,VCA,Người Nhận,Toronto,CA,Quà,1,
+TEST-BAD-0002,STCA-000001,ocean,VCA,Người Nhận,Toronto,CA,Quà,1,
+TEST-BAD-0003,STCA-000001,,VCA,Người Nhận,Toronto,CA,Quà,abc,
+TEST-BAD-0004,STCA-000001,,VCA,Người Nhận,Hà Nội,VN,Quà,1,
+TEST-BAD-0005,STCA-000001,,VCA,,Toronto,CA,Quà,1,
+=1+2,STCA-000001,,VCA,Người Nhận,Toronto,CA,Quà,1,
+TEST-BAD-0007,STCA-000001,,VCA,Người Nhận,Toronto,CA,Quà,1,Áo|1|barrel|5
+TEST-OK-0008,STCA-000001,air,VCA,Người Nhận,Toronto,CA,Quà,1,
+TEST-OK-0008,STCA-000001,air,VCA,Người Nhận,Toronto,CA,Quà,1,

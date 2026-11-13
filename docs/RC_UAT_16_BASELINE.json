@@ -1,0 +1,499 @@
+{
+  "identifier": "RC-UAT-16",
+  "is_prerelease": true,
+  "production_ready": false,
+  "frozen_at": "2026-10-19",
+  "frozen_from_branch": "fix/uat-round-12",
+  "measured_at_commit": "58f2039e798e3876d2fd341cd4de4c63ca6baa41",
+  "refreeze_history": [
+    {
+      "date": "2026-10-19",
+      "commit": "58f2039e798e3876d2fd341cd4de4c63ca6baa41",
+      "branch": "fix/uat-round-12",
+      "reason": "First freeze of RC-UAT-16: UAT round 12 owner decisions (PROJECT_STATUS.md section 43), measured at the application commit. The two commits after it touch only docs and scripts."
+    }
+  ],
+  "supersedes": "RC-UAT-15",
+  "superseded_baseline_commit": "b81ad85581f6b34c71818aba2b6aa4c37179ebb9",
+  "supersession_reason": "UAT round 12 changed a screen (the shipment page shows the booking reference, DEC-0163; registration refuses a misshapen Canadian or US postal code inline, DEC-0165; the ZIP hint), a response field (booking_reference on AccountShipmentDetail, 25 fields), request validation (the lenient postal code shapes, registration and the profile address proposal) and an API default (billing_same_as_shipping true, DEC-0166). The identifier therefore moves. No route, migration or dependency changed.",
+  "rc_uat_1_baseline_commit": "ee14523c258122a5ea90b28ccdf10b1ed0ed38fa",
+  "rc_uat_3_baseline_commit": "98f1fdece89254ae92905843ee494f599c6ea97e",
+  "phase_11_closure_commit": "bafbbc8",
+  "alembic_head": "6af30fcdd3a8",
+  "toolchain": {
+    "python": "3.12.10",
+    "node": "24.11.1",
+    "npm": "11.6.2",
+    "sqlite": "3.49.1"
+  },
+  "dependency_locks": {
+    "backend/requirements.lock.txt": "2db64d6b56ab5d05c94a6fc04b2ae5294c20198b781f60a253dedb66b744c590",
+    "frontend/package-lock.json": "e2c92eeb8777165683a994c6d07259999556b1b17f2bafa799ea0023f70e613f"
+  },
+  "dependency_lock_note": "Unchanged from RC-UAT-15 back to RC-UAT-4: no dependency was added, removed or re-resolved.",
+  "dependency_audit": {
+    "npm_audit_before_cleanup": {
+      "critical": 2,
+      "high": 3,
+      "moderate": 5
+    },
+    "npm_audit_at_this_commit": {
+      "critical": 0,
+      "high": 0,
+      "moderate": 2
+    },
+    "residual_findings": [
+      {
+        "advisory": "GHSA-wrjc-x8rr-h8h6",
+        "title": "React Router: open redirect via backslash in <Link> and useNavigate (CVE-2025-68470 bypass)",
+        "package": "react-router 6.30.6 (via react-router-dom)",
+        "severity": "moderate",
+        "cwe": "CWE-601",
+        "cvss": "none published",
+        "fixed_in": "7.18.4 (major)",
+        "exploitable_here": false,
+        "reason": "Requires an attacker-controlled string with a leading backslash to reach a <Link to> or navigate() target. Every dynamic target in frontend/src is either a path this application wrote into history state (checked for the /account/ prefix before use), a value from a fixed set returned by destinationForSession(), or a report/dashboard link built server-side in report_service.py as a literal '/...' path with enum values in the query string. No URL query parameter, form field or API string is ever passed to a navigation."
+      },
+      {
+        "advisory": "GHSA-337j-9hxr-rhxg",
+        "title": "React Router: arbitrary constructor injection via deserializeErrors() in SSR hydration",
+        "package": "react-router 6.30.6 (via react-router-dom)",
+        "severity": "moderate",
+        "cwe": "CWE-470",
+        "cvss": "6.1 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N)",
+        "fixed_in": "7.18.4 (major)",
+        "exploitable_here": false,
+        "reason": "Requires server-side rendering with a data router and hydrateRoot. main.jsx uses createRoot; there is no StaticRouter, createBrowserRouter, RouterProvider or hydrateRoot anywhere in frontend/src."
+      }
+    ],
+    "residual_findings_note": "Both are closed only by React Router 7, a major version. Neither is reachable in this application's setup. The upgrade is assessed in docs/DECISION_REGISTER.md and is post-launch engineering work, not a UAT or production blocker.",
+    "pip_audit": "not run; no Python audit tool is in the dev extra.",
+    "npm_audit_note": "Lockfile unchanged since RC-UAT-5; the same two moderate react-router advisories, both unreachable."
+  },
+  "test_counts": {
+    "backend": 3045,
+    "frontend_unit": 538,
+    "playwright": 295,
+    "accessibility_screens_audited": 64,
+    "accessibility_audit_invocations": 127,
+    "audited_viewports": 2,
+    "uat_cases": 49,
+    "customer_account_uat_cases": 60,
+    "uat_cases_executed": 0,
+    "customer_account_uat_cases_executed": 0
+  },
+  "test_count_notes": {
+    "backend": "2,971 at RC-UAT-15, plus test_uat_round_12.py (42), the 30 register checks of AS-17 to AS-26 in test_superseded_assertions.py, one more round 11 postal-code parametrisation and one profile proposal test in test_account_profile.py. Measured on the tree of 58f2039 in a worktree: 3,043 passed and 2 failed, the same environmental pair as RC-UAT-13 to RC-UAT-15 (test_e2e_safety.py and test_incident_cleanup.py need the gitignored data/solaris_crm.db and data/uat/solaris_uat.uat.db, which a worktree does not have). To be confirmed in the main checkout.",
+    "frontend_unit": "506 at RC-UAT-15, plus uatRound12.test.jsx (32); a round 8 case now picks Vietnam for a Vietnamese billing code and a round 11 case types its free-form code for Vietnam. 39 files. Measured at fc83f16 (58f2039 adds only a backend test): 538 passed.",
+    "playwright": "289 at RC-UAT-15, plus accountRoundTwelve.spec.js (4) and two accountMobile.spec.js cases (a 60-character booking reference on the shipment page at 375 px; a misshapen postal code at 375 px). Measured through `npm run e2e` on ports 8160 and 5360 at fc83f16: 295 passed, retries 0, 11.0 minutes, second full run (the first failed one new test on its own locator).",
+    "accessibility_screens_audited": "Unchanged at 64. The booking reference is one more row inside the already-audited shipment detail states, and the postal code error uses the audited error pattern of the registration form.",
+    "accessibility_audit_invocations": "Unchanged: 127.",
+    "uat_cases": "Unchanged at 49.",
+    "customer_account_uat_cases": "60 by heading (DEC-0162), unchanged: CA-REG-01, CA-SHP-05, CA-SHP-06, CA-SHP-20 and CA-XP-01 updated for DEC-0163 to DEC-0166. No case added."
+  },
+  "route_counts": {
+    "backend_total_path_method_pairs": 139,
+    "backend_staff_api": 119,
+    "backend_customer_account": 15,
+    "backend_customer_account_mutations": 11,
+    "backend_customer_account_shipment_reads": 2,
+    "backend_customer_account_review_staff": 15,
+    "backend_public": 2,
+    "backend_non_api": 3,
+    "backend_provider_webhook": 0,
+    "frontend_customer_account": 15,
+    "frontend_staff": 17,
+    "frontend_public": 3
+  },
+  "route_count_notes": {
+    "backend_customer_account_mutations": "Eleven. The seven of RC-UAT-4, plus profile/direct, profile/proposals, profile/proposals/withdraw and consent/marketing. Two of the four write canonical data by design (FIELD_MATRIX §3.1 preferred language, §4 consent row); a proposal writes none. No route books, cancels, edits or claims a shipment.",
+    "backend_customer_account_review_staff": "Fourteen at RC-UAT-7 plus identities/{ref}/deactivate (Admin only, DEC-0131).",
+    "frontend_customer_account": "Fourteen at RC-UAT-5 plus /account/profile.",
+    "frontend_staff": "Sixteen at RC-UAT-5 plus /customer-accounts/:ref/profile-change.",
+    "backend_staff_api": "117 at RC-UAT-7 plus the deactivate route and POST /customers/{id}/consent/suppressions (DEC-0130)."
+  },
+  "field_counts": {
+    "public_tracking_result": 24,
+    "account_shipment_list_item": 18,
+    "account_shipment_detail": 25,
+    "registration_field_allowlist": 43
+  },
+  "field_count_note": "AccountShipmentDetail gained booking_reference (DEC-0163), 25 fields: the 24 values the public contract holds, re-declared field by field in its own module, plus the customer's own booking reference. AccountShipmentListItem stays at 18. Neither schema inherits from the other, PublicTrackingResult stays at 24 and never carries the booking reference, and `test_public_contract_unchanged.py` is untouched.",
+  "customer_account_filters": {
+    "approved": 5,
+    "names": [
+      "status_group",
+      "booked_from/booked_to",
+      "reference",
+      "route_group",
+      "q"
+    ],
+    "added_by_od_41": [
+      "reference",
+      "route_group"
+    ],
+    "added_by_dec_0156": [
+      "q"
+    ],
+    "free_text_search": "q, the keyword search (DEC-0156, DEC-0161): public_id, booking_reference, origin_city, destination_city, and the shipment's own package_reference values through an EXISTS correlated on shipment_id; folded for case and accents; LIKE wildcards escaped; bound parameter; 64 characters; after the ownership clause. The screen sends q, not reference. Cancelled packages match too, still own shipments only (confirmed by DEC-0164).",
+    "extended_by_dec_0161": [
+      "q: package references"
+    ]
+  },
+  "accessibility": {
+    "measured_from": "the auditAndAssert call sites and three complete Playwright runs at commit fcd07a7",
+    "screens_audited": 64,
+    "public_screens": 7,
+    "staff_screens": 26,
+    "customer_account_screens": 31,
+    "audit_invocations": 127,
+    "viewports": {
+      "1280x800": 64,
+      "375x812": 63
+    },
+    "violations_critical": 0,
+    "violations_serious": 0,
+    "suppressed_rules": 0,
+    "suppressed_rules_note": "EXPECTED_FINDINGS in frontend/tests/e2e/axeHelpers.js is empty, and a test fails if an entry stops matching. Nothing is suppressed globally and nothing per screen.",
+    "findings_fixed_rather_than_suppressed": [
+      "link-in-text-block (serious): the Customer Account's inline links were distinguished from their sentence by colour alone. Inline links are underlined now."
+    ],
+    "human_validation": "NONE. No screen reader has been run against the Customer Account, no zoom level above 100% has been tested, forced-colors mode has not been exercised, and only Chromium has been used. Automated auditing is not human validation (OD-19, open)."
+  },
+  "invariants": {
+    "public_contract_fields": 24,
+    "production_adapters": 0,
+    "integration_resource_host_allowlist": 0,
+    "integration_resource_path_prefix_allowlist": 0,
+    "tracking_source_modes": [
+      "manual",
+      "external_link"
+    ],
+    "integration_health": "not_configured",
+    "provider_webhook_routes": 0,
+    "public_correlation_header": "absent"
+  },
+  "provisional_uat_dispositions": {
+    "public_carrier_link_hosts": 9,
+    "public_help_url": "",
+    "mfa": "undecided",
+    "retention_deletion": "disabled",
+    "proxy_trust": "disabled",
+    "production_deployment": "prohibited",
+    "shipment_import": "deferred",
+    "legacy_history": "deferred",
+    "provider_allowlists": "empty",
+    "uat_database": "data/uat/solaris_uat.uat.db (git-ignored)",
+    "return_shipment_records": "no workflow creates one; OD-22 open",
+    "customer_account_email": "development capture only; no production transport is written (OD-34). ACCOUNT_REHEARSE_NO_EMAIL_PROVIDER rehearses the closed-registration gate outside production (CA-REG-09)",
+    "customer_account_terms_version": "PLACEHOLDER-terms-unapproved (OD-37)",
+    "customer_account_privacy_version": "PLACEHOLDER-privacy-unapproved (OD-37)",
+    "customer_account_language": "English only, no language control rendered (OD-39)",
+    "customer_profile_editing": "built in fix pack 2 (DEC-0123): preferred language direct, one source (DEC-0128); names, phone and pickup address by staff-reviewed proposal, reviewed by Operations (DEC-0124); email change deferred (DEC-0125)",
+    "customer_consent_screens": "marketing consent built in fix pack 2; operational notification preferences after registration not built",
+    "customer_account_deactivation": "routed, Admin only, reason code and audit (DEC-0126, DEC-0131); the link row is kept and does not block a merge (DEC-0134)",
+    "staff_suppression": "Suppress address on the Consent tab, suppression:add for Marketing and Admin, evidence and reason required (DEC-0130); Operations cannot suppress by any path (DEC-0133); the evidence reference is shown on Audit access (DEC-0137)"
+  },
+  "open_owner_decisions": {
+    "register": "docs/OWNER_DECISIONS.md",
+    "recorded": 41,
+    "answered": 19,
+    "open": 22,
+    "carrying_a_temporary_disposition": 7,
+    "blocking_uat": 5,
+    "blocking_production": 17,
+    "provider_only": 1,
+    "identifiers_with_no_record": 0,
+    "decision_log_records": 166
+  },
+  "unresolved_launch_blockers": [
+    "OD-34 - no production email provider is selected; data residency, an authenticated sending domain, and bounce and complaint handling are all unaddressed. Customer Account registration cannot launch in production.",
+    "OD-37 - no approved terms or privacy text exists. Both versions are placeholders that name themselves as placeholders, and production registration refuses while either is one.",
+    "OD-39 - the customer-facing English copy has not been reviewed. REVIEW_customer_account_copy.md is written and blank.",
+    "OD-19 - no accessibility reviewer is assigned. 125 automated audits are not a human review.",
+    "OD-01 / OD-36 - retention periods are undecided, so no canonical deletion schedule exists.",
+    "DEC-0006 - rate limiting is in-process and per-worker. More than one worker needs a shared store.",
+    "OD-17 - staff MFA is undecided. OD-33 defers customer MFA separately.",
+    "Secrets are not in a secret store; credential_ref must name an entry, never a value.",
+    "Provider integration remains deferred (DEC-0075). No adapter, no allowlisted host, no webhook."
+  ],
+  "human_uat": {
+    "staff_pack_cases": 49,
+    "staff_pack_executed": 0,
+    "customer_account_pack_cases": 60,
+    "customer_account_pack_executed": 0,
+    "review_sheets": 5,
+    "review_sheets_completed": 0,
+    "note": "No human has executed any case in either pack and no review sheet has been filled in. Every Evidence obtained, Result, Defect, Tester, Date and sign-off field is blank, checked by scripts/verify_uat_blank.py rather than by eye.",
+    "evidence_field_correction": "The single prewritten 'Evidence' row was split into 'Evidence to capture' (prewritten, part of the case definition) and 'Evidence obtained' (blank until a tester records what they captured), and the review sheets were separated into Content under review / Reviewer response / Evidence obtained / Result-sign-off. A UAT-record correction only: no case step, expected result, test or application file changed, and the tested application commit is unchanged at 48abca5.",
+    "blank_field_verifier": "scripts/verify_uat_blank.py"
+  },
+  "blank_page_observation": {
+    "status": "unresolved intermittent observation",
+    "first_seen": "RC-UAT-1, staffKeyboard.spec.js:212, run 5 of 7",
+    "recurrence_at_rc_uat_4": true,
+    "runs_at_rc_uat_4": 3,
+    "note": "Three consecutive complete suites at this commit passed, 259 each, retries 0, one worker. Earlier in the phase, at an intermediate commit, two instances of the same class were seen: once as staffAccessibility.spec.js failing to find a report heading that was there on every other run, and once as the Vite dev server answering ERR_CONNECTION_REFUSED mid-run with nothing in its log. Neither reproduced and neither is explained. It is not classified as fixed.",
+    "recurrence_at_rc_uat_5": "One run during the fix pack failed once waiting for the staff applications heading inside an activation helper, and passed in every other run; the same unexplained class. Not classified as fixed."
+  },
+  "measurement_note": "Every gate was measured on 2026-10-19 on this machine (Windows 11, Python 3.12.10, Node 24.11.1), in the worktree C:/solaris-wt/round9: ruff check and ruff format --check clean over 329 files; backend 3,043 passed and 2 environmental failures at 58f2039 (test_count_notes.backend); eslint clean; frontend unit 538 passed in 39 files; vite build succeeds; Alembic from empty 8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8, on a disposable database; Playwright 295 passed through npm run e2e at fc83f16; verify_rc_baseline.py 10 of 10; the other three verifiers pass. 58f2039 adds one backend test and one paragraph of DEC-0165 to fc83f16 and nothing else, so the frontend gates hold for it.",
+  "rollback": {
+    "to": "b81ad85581f6b34c71818aba2b6aa4c37179ebb9 (RC-UAT-15), or revert the merge of fix/uat-round-12.",
+    "schema": "No migration was added; head 6af30fcdd3a8 on both sides.",
+    "steps": [
+      "git checkout the RC-UAT-15 commit in a clean working tree. No dependency step.",
+      "No data changes: postal codes accepted under the new check are ones RC-UAT-15 also accepts; the detail field writes nothing; the API default changes only what an omitted flag means.",
+      "Run scripts/verify_rc_baseline.py --baseline docs/RC_UAT_15_BASELINE.json from the restored checkout."
+    ],
+    "data": "data/solaris_crm.db, data/uat/, backups/ and .env were not opened by this work; the worktree it ran in contains none of them. Playwright used its own scratch databases, removed after each run."
+  },
+  "rc_uat_4_baseline_commit": "0b772e0125431b7d2d42aa09f9b88a80ad6f277f",
+  "known_risks_at_freeze": [
+    "A client that omits billing_same_as_shipping but sends a billing address is now refused with the conflict sentence (DEC-0166; PROJECT_STATUS.md section 43.4 point 1).",
+    "The ZIP+4 check requires the hyphen; the Canadian check does not exclude any letters (DEC-0165; section 43.4 point 2).",
+    "The postal code shapes also apply, server-side, to the customer's address-change proposal; the Staff Portal's address forms are unchecked (DEC-0165; section 43.4 point 3).",
+    "The authenticated detail is no longer at parity with Public Tracking: it is the public 24 plus booking_reference, by decision (DEC-0163; section 43.4 point 4).",
+    "DEC-0155 (committed refused sign-ins, per-account lockout over HTTP) is kept by owner decision (DEC-0157).",
+    "The country lists start on Canada by owner decision (DEC-0157).",
+    "The Customer Account is English only (OD-39, DEC-0154); Vietnamese customer copy is a later pack.",
+    "Audit access shows old and new values only for an approved change request (DEC-0148).",
+    "Registration, verification, password reset, lockout, session revocation and refused sign-ins still read 'system' as actor (DEC-0153).",
+    "A linked customer's email cannot be changed by staff while its account is active or suspended; the account must be deactivated first (DEC-0142). Customers cannot change their own (DEC-0125).",
+    "A takeover sends no message to the deactivated account's former holder, by owner decision (DEC-0144).",
+    "No shipment email exists; when built it must not read contact_suppressions (DEC-0143), which test_uat_round_7.py checks structurally.",
+    "Evidence references may still contain a typed name; the field now asks for none (DEC-0141) and the display refuses values containing @.",
+    "The profile screen is audited at desktop width only.",
+    "Public tracking shows only published milestones (DEC-0118).",
+    "Two moderate npm audit findings remain on react-router 6.30.6; neither is reachable in this application (dependency_audit.residual_findings).",
+    "eslint 9.39.5 is marked unsupported on the registry; development tooling only.",
+    "The unexplained intermittent blank page (blank_page_observation) is still not classified as fixed.",
+    "The nine launch blockers in unresolved_launch_blockers are unchanged; none is a development task.",
+    "The CA-SEC-07 browser-history residual is accepted by the owner (DEC-0122).",
+    "Two backend tests need the main checkout's gitignored databases and fail in a worktree; to be confirmed green there before merge (section 43.2)."
+  ],
+  "defects_found_during_validation": [
+    "None in the application. In the tests: the first full Playwright run failed one new test on its own locator (\"Cancelled\" is both a cancelled package's status pill and its flag); the test now reads the flag and the second full run passed. While writing PROJECT_STATUS section 43 the profile address proposal was found to share the new postal check, untested; 58f2039 adds the test and records it in DEC-0165, and the whole backend suite was re-run there."
+  ],
+  "rc_uat_5_baseline_commit": "0dfaf23e12008e4662c5238767c34d71147f73c3",
+  "route_counts_note": "Measured by walking the application's route table with the walker the permission tests use, not by counting source lines.",
+  "rc_uat_6_baseline_commit": "92d3331d8546b70db9a73845216b24ad864b8b89",
+  "rc_uat_7_baseline_commit": "d9f61ee3c5916a0a14e11794662dd34069b3e1fd",
+  "rc_uat_8_commits": [
+    "16ffc7a",
+    "4374407"
+  ],
+  "rc_uat_8_commits_note": "16ffc7a is the RC-UAT-7 freeze (docs and scripts only). 4374407 is this baseline's application work; 17fcddc after it is documents only.",
+  "validation_evidence_2026_10_15_round_4": {
+    "commits_reviewed": "16ffc7a..4374407 on fix/uat-round-4",
+    "summary": "UAT round 4 fix pack 4 (PROJECT_STATUS.md section 35); DEC-0129 to DEC-0132.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 313 files",
+      "pytest": "2811 passed, 0 failed, 780 s",
+      "eslint": "clean",
+      "vitest": "433 passed, 31 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "270 passed, 0 failed, one worker, retries 0, 10.3 minutes (one earlier run failed 3; fixed)",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0133"
+    }
+  },
+  "rc_uat_8_baseline_commit": "4374407f5c65bd8a5cc5ef87e604944c1a88b37d",
+  "rc_uat_9_commits": [
+    "81d18e8",
+    "e1720f4"
+  ],
+  "rc_uat_9_commits_note": "81d18e8 is the RC-UAT-8 freeze (docs and scripts only). e1720f4 is this baseline's application work; f7e743d after it is documents only.",
+  "validation_evidence_2026_10_15_round_5": {
+    "commits_reviewed": "81d18e8..e1720f4 on fix/uat-round-5",
+    "summary": "UAT round 5 fix pack 5 and owner decisions (PROJECT_STATUS.md section 36); DEC-0133 to DEC-0137.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 315 files",
+      "pytest": "2832 passed, 0 failed, 772 s",
+      "eslint": "clean",
+      "vitest": "444 passed, 32 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "272 passed, 0 failed, one worker, retries 0, 10.2 minutes, first run",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0138"
+    }
+  },
+  "rc_uat_9_baseline_commit": "e1720f409cfb9145715581a746b193c2a8cad8e8",
+  "rc_uat_10_commits": [
+    "4c5a3f9",
+    "ba3fce0"
+  ],
+  "rc_uat_10_commits_note": "4c5a3f9 is the RC-UAT-9 freeze (docs and scripts only). ba3fce0 is this baseline's application work; 436c262 after it is documents only.",
+  "validation_evidence_2026_10_15_round_6": {
+    "commits_reviewed": "4c5a3f9..ba3fce0 on fix/uat-round-6",
+    "summary": "UAT round 6 fix pack 6 and owner decisions (PROJECT_STATUS.md section 37); DEC-0138 to DEC-0141.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 317 files",
+      "pytest": "2850 passed, 0 failed, 774 s",
+      "eslint": "clean",
+      "vitest": "450 passed, 33 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "272 passed, 0 failed, one worker, retries 0, 10.3 minutes, first run",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0142"
+    }
+  },
+  "rc_uat_10_baseline_commit": "ba3fce09171a946e13591e24cbc9e69f326b2be2",
+  "rc_uat_11_commits": [
+    "03461eb",
+    "e74b388"
+  ],
+  "rc_uat_11_commits_note": "03461eb is the RC-UAT-10 freeze (docs and scripts only). e74b388 is this baseline's application work; 69df7ad after it is documents only.",
+  "validation_evidence_2026_10_16_round_7": {
+    "commits_reviewed": "03461eb..e74b388 on fix/uat-round-7",
+    "summary": "UAT round 7 owner decisions (PROJECT_STATUS.md section 38); DEC-0142 to DEC-0144.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 319 files",
+      "pytest": "2857 passed, 0 failed, 808 s",
+      "eslint": "clean",
+      "vitest": "455 passed, 34 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "272 passed, 0 failed, one worker, retries 0, 10.6 minutes, first run",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0145"
+    }
+  },
+  "rc_uat_11_baseline_commit": "e74b3882d3df91a8d52e51753ef8c12bd58fbe7a",
+  "rc_uat_12_commits": [
+    "179b501",
+    "3d46044"
+  ],
+  "rc_uat_12_commits_note": "179b501 is the RC-UAT-11 freeze (docs and scripts only). 3d46044 is this baseline's application work; the documents commit after it touches documents only.",
+  "validation_evidence_2026_10_17_round_8": {
+    "commits_reviewed": "179b501..3d46044 on fix/uat-round-8",
+    "summary": "UAT round 8 real-phone feedback and staff-side gaps (PROJECT_STATUS.md section 39); DEC-0145 to DEC-0149.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 321 files",
+      "pytest": "2874 passed, 0 failed, 794 s",
+      "eslint": "clean",
+      "vitest": "471 passed, 35 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "278 passed, 0 failed, one worker, retries 0, 10.6 minutes, second full run (the first failed one new test on its own assertion)",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0150"
+    }
+  },
+  "rc_uat_12_baseline_commit": "3d46044144a021f71ccfea8677840b9d86621c8e",
+  "rc_uat_13_commits": [
+    "da0e850",
+    "9037b82",
+    "ae3d62f",
+    "f872068"
+  ],
+  "rc_uat_13_commits_note": "da0e850 is the RC-UAT-12 freeze (docs and scripts only). 9037b82 (round 9), ae3d62f (DEC-0155) and f872068 (one e2e spec) are this baseline's application work; 8f0dbab after them is documents only.",
+  "validation_evidence_2026_10_18_round_9": {
+    "commits_reviewed": "da0e850..f872068 on fix/uat-round-9",
+    "summary": "UAT round 9 owner decisions (PROJECT_STATUS.md section 40); DEC-0150 to DEC-0155.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 323 files",
+      "pytest": "2902 passed, 2 failed (environmental, worktree without the gitignored databases), 791 s",
+      "eslint": "clean",
+      "vitest": "483 passed, 36 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "283 passed, 0 failed, one worker, retries 0, 10.9 minutes, second full run (the first failed one existing case that expected one problem)",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0156"
+    }
+  },
+  "rc_uat_13_baseline_commit": "f8720689265cb47ebc0c74dbeb41373cc0a94b2e",
+  "rc_uat_14_commits": [
+    "b41430d",
+    "04123c1"
+  ],
+  "rc_uat_14_commits_note": "b41430d is the RC-UAT-13 freeze (docs and scripts only). 04123c1 is this baseline's application work; 600e41e after it is documents only.",
+  "validation_evidence_2026_10_18_round_10": {
+    "commits_reviewed": "b41430d..04123c1 on fix/uat-round-10",
+    "summary": "UAT round 10 real-phone feedback (PROJECT_STATUS.md section 41); DEC-0156.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 325 files",
+      "pytest": "2923 passed, 2 failed (environmental, worktree without the gitignored databases), 816 s",
+      "eslint": "clean",
+      "vitest": "491 passed, 37 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "284 passed, 0 failed, one worker, retries 0, 10.8 minutes, first run",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0157"
+    }
+  },
+  "rc_uat_15_commits": [
+    "51550c3",
+    "b81ad85"
+  ],
+  "rc_uat_15_commits_note": "51550c3 is the RC-UAT-14 freeze (docs and scripts only). b81ad85 is this baseline's application work; the docs commit after it is documents and one verifier constant (verify_uat_blank.py, 60 cases).",
+  "validation_evidence_2026_10_18_round_11": {
+    "commits_reviewed": "51550c3..b81ad85 on fix/uat-round-11",
+    "summary": "UAT round 11 owner decisions (PROJECT_STATUS.md section 42); DEC-0157 to DEC-0162.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 327 files",
+      "pytest": "2969 passed, 2 failed (environmental, worktree without the gitignored databases), 773 s",
+      "eslint": "clean",
+      "vitest": "506 passed, 38 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "289 passed, 0 failed, one worker, retries 0, 10.9 minutes, first full run",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass (60 Customer Account cases)",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0163"
+    }
+  },
+  "rc_uat_14_baseline_commit": "04123c155386d6ffb313572f79fe7961a1934995",
+  "rc_uat_16_commits": [
+    "9ae1b90",
+    "fc83f16",
+    "58f2039"
+  ],
+  "rc_uat_16_commits_note": "9ae1b90 is the RC-UAT-15 freeze (docs and scripts only). fc83f16 (round 12) and 58f2039 (one profile test) are this baseline's application work; the docs commit after them touches documents only.",
+  "validation_evidence_2026_10_19_round_12": {
+    "commits_reviewed": "9ae1b90..58f2039 on fix/uat-round-12",
+    "summary": "UAT round 12 owner decisions (PROJECT_STATUS.md section 43); DEC-0163 to DEC-0166.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 329 files",
+      "pytest": "3043 passed, 2 failed (environmental, worktree without the gitignored databases), 784 s",
+      "eslint": "clean",
+      "vitest": "538 passed, 39 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "295 passed, 0 failed, one worker, retries 0, 11.0 minutes, second full run (the first failed one new test on its own locator)",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass (60 Customer Account cases)",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0167"
+    }
+  },
+  "rc_uat_15_baseline_commit": "b81ad85581f6b34c71818aba2b6aa4c37179ebb9"
+}

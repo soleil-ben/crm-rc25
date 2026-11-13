@@ -1,0 +1,176 @@
+/*
+ * Solaris Express design tokens - the single source for colour, type, spacing, radius,
+ * elevation and motion (Design.md section 3). Components reference these variables;
+ * literal brand colours never appear anywhere else in the codebase (Design.md section 18).
+ */
+
+:root {
+  /* --- Brand ------------------------------------------------------- */
+  --brand-navy-900: #102a43;
+  --brand-navy-800: #163b5c;
+  /*
+   * The orange scale, corrected in Phase 5B after an axe-core audit.
+   *
+   * `Design.md` section 3 gives `brand.orange.600` as #e9652a and annotates it
+   * "selected to retain white-text contrast". It does not: white on #e9652a measures
+   * **3.30:1**, and WCAG AA needs 4.5:1 for normal text. Every primary button in both
+   * applications failed on that one value -- Track, Sign in, Save, Import.
+   *
+   * `Design.md` section 15 also requires WCAG 2.2 AA, so the file contradicts itself.
+   * The requirement is what the token was trying to satisfy, so the requirement wins and
+   * the value is corrected. Both replacements keep the brand hue (18.5 degrees) and
+   * saturation exactly and move only lightness, so this is the same orange, deeper.
+   *
+   * Recorded as DEC-0086, and reported to the owner as a defect in `Design.md` rather
+   * than fixed silently.
+   */
+  --brand-orange-600: #c94d15; /* FILL behind white text. White on this: 4.61:1 */
+  --brand-orange-700: #bd4814; /* orange AS text: 5.12 white, 4.89 app bg, 4.60 badge */
+  --brand-orange-500: #f47a3a; /* non-text fills, and text on navy only (5.36:1) */
+  /*
+   * The original brand orange, retained as a decorative / reference token so the
+   * corporate palette stays on record (DEC-0086, owner-approved 2026-09-14).
+   *
+   * **Never use this where contrast carries meaning** -- not behind white text, not as
+   * text, not for a focus ring, not for an icon that has to be seen. White on it is
+   * 3.30:1 and fails AA. It exists to be cited, not applied.
+   */
+  --brand-orange-ref: #e9652a;
+  --brand-orange-100: #fff0e8;
+
+  /*
+   * Teal, corrected alongside the orange (DEC-0086). `Design.md` pairs `accent.teal.600`
+   * as badge text with `accent.teal.100` as its background; measured, that pair is
+   * **3.99:1** against the 4.5:1 that 12px badge text needs. It was the route badge on
+   * the customer and shipment lists -- the most repeated element in the staff interface.
+   *
+   * teal.600 is kept for non-text accents, where 3:1 is the bar and it clears it.
+   */
+  --accent-teal-600: #16867d; /* non-text accents, charts, borders */
+  --accent-teal-700: #147b73; /* teal AS text: 5.11 white, 4.88 app bg, 4.61 badge */
+  --accent-teal-100: #e5f7f4;
+
+  /* --- Neutrals ---------------------------------------------------- */
+  --neutral-950: #111827;
+  --neutral-700: #344054;
+  --neutral-500: #667085;
+  --neutral-300: #d0d5dd;
+  --neutral-200: #e4e7ec;
+  --neutral-100: #f2f4f7;
+  --neutral-50: #f8fafc;
+  --white: #ffffff;
+
+  /* --- Status ------------------------------------------------------ */
+  --success-700: #067647;
+  --success-100: #ecfdf3;
+  --warning-700: #b54708;
+  --warning-100: #fffaeb;
+  --danger-700: #b42318;
+  --danger-100: #fef3f2;
+  --info-700: #175cd3;
+  --info-100: #eff8ff;
+
+  /* --- Route colours (Design.md section 6) -------------------------- */
+  --route-vca: var(--brand-orange-500);
+  --route-cav: var(--brand-navy-900);
+  --route-cad: var(--accent-teal-600);
+  --route-xus: var(--info-700);
+
+  /* --- Semantic surfaces ------------------------------------------- */
+  --app-background: var(--neutral-50);
+  --surface: var(--white);
+  --surface-muted: var(--neutral-100);
+  --border-subtle: var(--neutral-200);
+  --border-strong: var(--neutral-300);
+  --text-primary: var(--neutral-950);
+  --text-secondary: var(--neutral-700);
+  --text-meta: var(--neutral-500);
+  --text-on-dark: var(--white);
+  /* The required-field asterisk (RC-UAT-25 item 1). One token, so a future dark theme
+     overrides it in one place; on the current light surfaces it is the danger red. */
+  --required-mark: var(--danger-700);
+  --sidebar-background: var(--brand-navy-900);
+  --sidebar-active: var(--brand-navy-800);
+  --sidebar-text: #b9cbdd;
+
+  /* --- Typography --------------------------------------------------- */
+  --font-heading: 'Poppins', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --text-page-title: 600 28px/36px var(--font-heading);
+  --text-section-title: 600 18px/28px var(--font-heading);
+  --text-card-value: 600 28px/34px var(--font-heading);
+  --text-card-title: 600 13px/20px var(--font-body);
+  --text-body: 400 14px/21px var(--font-body);
+  --text-table-header: 600 12px/18px var(--font-body);
+  --text-button: 600 14px/20px var(--font-body);
+  --text-meta-style: 400 12px/18px var(--font-body);
+
+  /* --- Spacing (4px base) ------------------------------------------ */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --page-padding: var(--space-6);
+
+  /* --- Shape and elevation ------------------------------------------ */
+  --radius-card: 12px;
+  --radius-control: 8px;
+  --radius-pill: 999px;
+  --shadow-card: 0 1px 3px rgba(16, 42, 67, 0.08);
+  --shadow-overlay: 0 12px 32px rgba(16, 42, 67, 0.18);
+
+  --control-height: 40px;
+  --control-height-compact: 32px;
+  --control-height-public: 48px;
+
+  /* --- Layout ------------------------------------------------------- */
+  --sidebar-width: 232px;
+  --sidebar-width-collapsed: 72px;
+  --topbar-height: 64px;
+  --content-max-width: 1600px;
+  --row-height: 52px;
+
+  /* --- Focus (2px ring outside the control with a 2px white gap) ---- */
+  --focus-ring: 0 0 0 2px var(--white), 0 0 0 4px var(--info-700);
+
+  /* --- Motion (120-200ms) ------------------------------------------- */
+  --motion-fast: 120ms;
+  --motion-base: 160ms;
+  --motion-slow: 200ms;
+  --easing: cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --page-padding: var(--space-5);
+  }
+}
+
+@media (max-width: 639px) {
+  :root {
+    --page-padding: var(--space-4);
+  }
+}
+
+/* Respect the viewer's reduced-motion preference (Design.md section 17). */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-base: 0ms;
+    --motion-slow: 0ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

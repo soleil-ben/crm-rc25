@@ -1,0 +1,6 @@
+legacy_reference,customer_ref,booked_on,final_status,transport_mode,received_on,departed_on,delivered_on
+TEST-OLDBAD-0001,STCA-000001,2024-03-10,delivered,,2024-03-12,2024-03-11,2024-03-20
+TEST-OLDBAD-0002,STCA-000001,2024-03-10,delivered,,,,
+TEST-OLDBAD-0003,STCA-000001,2099-01-01,lost,,,,
+TEST-OLDBAD-0004,STCA-000001,2024-03-10,lost,ocean,,,
+TEST-OLDBAD-0005,STCA-000001,10 March,lost,,,,

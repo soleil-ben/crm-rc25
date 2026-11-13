@@ -1,0 +1,72 @@
+{
+  "identifier": "RC-UAT-2",
+  "is_prerelease": true,
+  "production_ready": false,
+  "frozen_at": "2026-09-15",
+  "frozen_from_branch": "phase-6-release-candidate-uat",
+  "measured_at_commit": "21e01a71c75ca389a4a9ca5d10035466882437c1",
+  "supersedes": "RC-UAT-1",
+  "superseded_baseline_commit": "ee14523c258122a5ea90b28ccdf10b1ed0ed38fa",
+  "supersession_reason": "The pre-UAT gate review added failure-only diagnostic capture to the end-to-end harness and corrected two pre-existing harness defects (a hard-coded origin in axeHelpers, and a limiter drain that inferred a full window from a probe that cannot detect one). Those change the tested tree, so the tree handed to human UAT is no longer the tree RC-UAT-1 measured. No application code changed.",
+  "phase_5b_closure_commit": "8621b9e66b8eb7a69074061d583afc71d0b5e6de",
+  "harness_correction_commits": [
+    "71dd3f1",
+    "e962376",
+    "21e01a7"
+  ],
+  "alembic_head": "e5623fcf8018",
+  "toolchain": {
+    "python": "3.12.10",
+    "node": "24.11.1",
+    "npm": "11.6.2",
+    "sqlite": "3.49.1"
+  },
+  "dependency_locks": {
+    "backend/requirements.lock.txt": "13741cf2dc1c344528475a9ea9a4fba94be05c4fa84f56bf8e6ebba595d695fc",
+    "frontend/package-lock.json": "4ab7a6dee7d7eb22c622099c80fb5162788665445b29ce4497a1e26ef42e675d"
+  },
+  "test_counts": {
+    "backend": 1244,
+    "frontend_unit": 219,
+    "playwright": 149,
+    "accessibility_audit_calls": 34,
+    "audited_viewports": 2,
+    "uat_cases": 45,
+    "uat_cases_executed": 0
+  },
+  "test_count_notes": {
+    "backend": "Unchanged from RC-UAT-1. No backend file was touched.",
+    "frontend_unit": "206 at RC-UAT-1, plus the 13 redaction tests in tests/e2eDiagnostics.test.js.",
+    "playwright": "Unchanged from RC-UAT-1. The diagnostic capture adds no test.",
+    "accessibility_audit_calls": "Carried forward from RC-UAT-1 and not independently re-measured; no accessibility spec changed except its import line."
+  },
+  "invariants": {
+    "public_contract_fields": 24,
+    "production_adapters": 0,
+    "integration_resource_host_allowlist": 0,
+    "integration_resource_path_prefix_allowlist": 0,
+    "tracking_source_modes": [
+      "manual",
+      "external_link"
+    ],
+    "integration_health": "not_configured"
+  },
+  "provisional_uat_dispositions": {
+    "public_carrier_link_hosts": 9,
+    "public_help_url": "",
+    "mfa": "undecided",
+    "retention_deletion": "disabled",
+    "proxy_trust": "disabled",
+    "production_deployment": "prohibited",
+    "uat_database": "data/uat/solaris_uat.uat.db (git-ignored)",
+    "return_shipment_records": "no workflow creates one; OD-22 open"
+  },
+  "open_owner_decisions": {
+    "register": "docs/OWNER_DECISIONS.md",
+    "recorded": 10,
+    "answered": 0,
+    "blocking_uat": 7,
+    "blocking_production": 9,
+    "identifiers_cited_but_never_defined": 12
+  }
+}

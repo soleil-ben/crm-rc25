@@ -1,0 +1,53 @@
+{
+  "identifier": "RC-UAT-1",
+  "is_prerelease": true,
+  "production_ready": false,
+  "frozen_at": "2026-09-14",
+  "frozen_from_branch": "phase-6-release-candidate-uat",
+  "measured_at_commit": "ee14523c258122a5ea90b28ccdf10b1ed0ed38fa",
+  "phase_5b_closure_commit": "8621b9e66b8eb7a69074061d583afc71d0b5e6de",
+  "harness_correction_commits": [
+    "71dd3f1",
+    "e962376"
+  ],
+  "alembic_head": "e5623fcf8018",
+  "toolchain": {
+    "python": "3.12.10",
+    "node": "24.11.1",
+    "npm": "11.6.2",
+    "sqlite": "3.49.1"
+  },
+  "dependency_locks": {
+    "backend/requirements.lock.txt": "13741cf2dc1c344528475a9ea9a4fba94be05c4fa84f56bf8e6ebba595d695fc",
+    "frontend/package-lock.json": "4ab7a6dee7d7eb22c622099c80fb5162788665445b29ce4497a1e26ef42e675d"
+  },
+  "test_counts": {
+    "backend": 1244,
+    "frontend_unit": 206,
+    "playwright": 149,
+    "accessibility_audit_calls": 34,
+    "audited_viewports": 2,
+    "uat_cases": 45,
+    "uat_cases_executed": 0
+  },
+  "invariants": {
+    "public_contract_fields": 24,
+    "production_adapters": 0,
+    "integration_resource_host_allowlist": 0,
+    "integration_resource_path_prefix_allowlist": 0,
+    "tracking_source_modes": [
+      "manual",
+      "external_link"
+    ],
+    "integration_health": "not_configured"
+  },
+  "provisional_uat_dispositions": {
+    "public_carrier_link_hosts": 9,
+    "public_help_url": "",
+    "mfa": "undecided",
+    "retention_deletion": "disabled",
+    "proxy_trust": "disabled",
+    "production_deployment": "prohibited",
+    "uat_database": "data/uat/solaris_uat.uat.db (git-ignored)"
+  }
+}

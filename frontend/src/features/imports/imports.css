@@ -1,0 +1,177 @@
+/**
+ * Customer import flow (Design.md section 5).
+ *
+ * The step list is an ordered list, not a decorative row of circles: a screen reader
+ * announces "step 2 of 4" from the markup, and `aria-current="step"` marks where the
+ * operator is. Colour marks the current step as well, never instead.
+ */
+
+.import__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+}
+
+.import__steps li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: var(--text-body);
+  color: var(--text-meta);
+}
+
+.import__steps li[aria-current='step'] {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.import__step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  font: var(--text-meta-style);
+}
+
+.import__steps li[aria-current='step'] .import__step-number {
+  background: var(--brand-orange-600);
+  border-color: var(--brand-orange-600);
+  color: var(--text-on-dark);
+}
+
+.import__file {
+  display: block;
+  margin: 12px 0;
+}
+
+.import__file input[type='file'] {
+  font: var(--text-body);
+  padding: 12px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 520px;
+  background: var(--surface-muted);
+}
+
+.import__file input[type='file']:focus-visible {
+  outline: 2px solid var(--info-700);
+  outline-offset: 2px;
+}
+
+.import__mapping {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 8px 16px;
+}
+
+.import__mapping li {
+  font: var(--text-body);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.import__mapping code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--surface-muted);
+  border-radius: 4px;
+  padding: 1px 6px;
+}
+
+.import__mapping--unmapped {
+  color: var(--warning-700);
+}
+
+.import__issues {
+  margin: 0;
+  padding-left: 18px;
+  font: var(--text-meta-style);
+  color: var(--danger-700);
+}
+
+.import__issues li + li {
+  margin-top: 4px;
+}
+
+.import__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.import__cancel-note {
+  margin-top: 8px;
+}
+
+@media (max-width: 767px) {
+  .import__steps {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .import__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .import__actions .spacer {
+    display: none;
+  }
+}
+
+/* --- RC-UAT-21 Phase A: import kinds, legacy records ------------------------------ */
+
+.import__kinds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+
+.import__kind {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 6px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-primary);
+  font: var(--text-body);
+  text-decoration: none;
+}
+
+.import__kind--active,
+.import__kind[aria-current='page'] {
+  border-color: var(--brand-navy-800);
+  background: var(--brand-navy-800);
+  color: #fff;
+  font-weight: 600;
+}
+
+.import__records-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px 20px;
+  padding: 16px 16px 0;
+}
+
+.import__records-note {
+  padding: 0 16px;
+}

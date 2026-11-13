@@ -1,0 +1,190 @@
+/**
+ * Reports (Design.md section 12).
+ *
+ * Tables, not charts. The one graphical element is a proportion bar drawn *behind* a
+ * number inside its own cell, so removing every colour from the page loses nothing: the
+ * number is the content.
+ *
+ * Colours come from the shared tokens; nothing here is a literal.
+ */
+
+.reports__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.reports__range {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.reports__range label {
+  font: var(--text-card-title);
+  color: var(--text-secondary);
+}
+
+.reports__range input {
+  width: 170px;
+}
+
+.reports__presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.reports__routes {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.reports__routes legend {
+  font: var(--text-card-title);
+  color: var(--text-secondary);
+  padding: 0;
+  margin-bottom: 4px;
+}
+
+.reports__route-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: var(--text-body);
+  /* 40px target: Design.md section 15 asks for WCAG 2.2 target size. */
+  min-height: 40px;
+}
+
+.reports__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.reports__notes {
+  margin: 12px 0 0;
+  padding-left: 20px;
+  color: var(--text-secondary);
+  font: var(--text-meta-style);
+}
+
+.reports__notes li + li {
+  margin-top: 6px;
+}
+
+.report__definition {
+  margin: 0 0 12px;
+  color: var(--text-secondary);
+  font: var(--text-body);
+  max-width: 78ch;
+}
+
+.report__summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  margin: 0 0 16px;
+}
+
+.report__summary dt {
+  font: var(--text-meta-style);
+  color: var(--text-meta);
+  text-transform: none;
+}
+
+.report__summary dd {
+  margin: 2px 0 0;
+  font: var(--text-card-value);
+  color: var(--text-primary);
+}
+
+.report__table td,
+.report__table th {
+  position: relative;
+}
+
+.report__table .numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The proportion bar. Decorative, aria-hidden, and drawn under the value it belongs to. */
+.report__bar {
+  display: block;
+  height: 3px;
+  margin-top: 6px;
+  border-radius: 2px;
+  opacity: 0.75;
+  min-width: 2px;
+}
+
+.report__row-link {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.report__unknown {
+  color: var(--text-meta);
+  font-style: italic;
+}
+
+.report__empty {
+  color: var(--text-secondary);
+  font: var(--text-body);
+  margin: 0;
+}
+
+/* Scope is text, never colour alone: whether a figure describes the period or today is
+   the single most misreadable thing on this page. */
+.report__scope {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  font: var(--text-meta-style);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.report__scope--current {
+  background: var(--warning-100);
+  border-color: var(--warning-700);
+  color: var(--warning-700);
+}
+
+.report__scope--period {
+  background: var(--neutral-100);
+  color: var(--text-secondary);
+}
+
+@media (max-width: 767px) {
+  .reports__filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .reports__range input {
+    width: 100%;
+  }
+
+  .report__summary {
+    gap: 12px 20px;
+  }
+
+  .report__summary dd {
+    font: var(--text-section-title);
+  }
+}

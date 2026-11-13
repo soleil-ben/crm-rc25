@@ -1,0 +1,1195 @@
+/*
+ * The Customer Account stylesheet (`Design.md` §14a.2).
+ *
+ * Every colour, type step, space, radius and shadow is a token from
+ * `src/styles/tokens.css`. There is **no literal colour in this file** — a grep for `#`
+ * finds nothing — which is the section 18 rule and also what makes the DEC-0086 contrast
+ * correction apply here without anybody remembering to copy it.
+ *
+ * `--brand-orange-ref` is deliberately never used: it measures 3.30:1 against white and
+ * fails AA. The accessible replacements are `--brand-orange-600` (as a fill behind white
+ * text) and `--brand-orange-700` (as text).
+ *
+ * Mobile first. The base rules are the phone layout; the wide layout is added at 768 px.
+ * At 375 px nothing scrolls horizontally: the table is replaced by cards rather than
+ * squeezed, and the one element that could still overflow — a long Solaris Shipment ID —
+ * is allowed to break.
+ */
+
+.ca-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--app-background);
+  color: var(--text-primary);
+  font: var(--text-body);
+}
+
+/* --- Skip link ---------------------------------------------------------- */
+
+.ca-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface);
+  color: var(--text-primary);
+  border-radius: 0 0 var(--radius-control) 0;
+  font: var(--text-button);
+}
+
+.ca-skip-link:focus {
+  left: 0;
+  box-shadow: var(--focus-ring);
+}
+
+/* --- Header ------------------------------------------------------------- */
+
+.ca-header {
+  background: var(--brand-navy-900);
+  color: var(--text-on-dark);
+}
+
+.ca-header__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: var(--space-3) var(--page-padding);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.ca-header__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: inherit;
+  text-decoration: none;
+  border-radius: var(--radius-control);
+}
+
+.ca-header__brand:focus-visible {
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+
+.ca-header__surface {
+  font: var(--text-meta-style);
+  color: var(--sidebar-text);
+}
+
+.ca-wordmark {
+  font: var(--text-section-title);
+  letter-spacing: 0.01em;
+}
+
+.ca-wordmark__first {
+  color: inherit;
+}
+
+/* On the navy header this is the one place the lighter orange is legible: 5.36:1 on
+   navy, which clears AA for the 18px wordmark. */
+.ca-wordmark__second {
+  color: var(--brand-orange-500);
+  margin-left: 4px;
+}
+
+.ca-footer .ca-wordmark__second {
+  /* On a light footer the deeper orange is the one that passes. */
+  color: var(--brand-orange-700);
+}
+
+.ca-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* --- Language switch (OD-71) ---------------------------------------------- */
+
+/* No `overflow: hidden` here: it would clip the focus ring of the buttons. The end buttons
+   carry the rounding instead, and the focused one is lifted above its neighbour. */
+.ca-lang {
+  display: inline-flex;
+  border: 1px solid var(--sidebar-text);
+  border-radius: var(--radius-control);
+}
+
+.ca-lang__option:first-child {
+  border-radius: var(--radius-control) 0 0 var(--radius-control);
+}
+
+.ca-lang__option:last-child {
+  border-radius: 0 var(--radius-control) var(--radius-control) 0;
+}
+
+.ca-lang__option {
+  appearance: none;
+  background: transparent;
+  color: var(--text-on-dark);
+  border: 0;
+  font: var(--text-button);
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  cursor: pointer;
+}
+
+.ca-lang__option + .ca-lang__option {
+  border-left: 1px solid var(--sidebar-text);
+}
+
+.ca-lang__option:hover {
+  background: var(--brand-navy-800);
+}
+
+.ca-lang__option:focus-visible {
+  position: relative;
+  z-index: 1;
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+
+/* The chosen language is underlined as well as tinted: colour never carries meaning alone. */
+.ca-lang__option--active {
+  background: var(--brand-navy-800);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.ca-nav__link {
+  color: var(--text-on-dark);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  font: var(--text-button);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ca-nav__link:hover {
+  background: var(--brand-navy-800);
+}
+
+.ca-nav__link:focus-visible {
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+
+/* The current page is underlined as well as tinted: colour never carries meaning alone. */
+.ca-nav__link--active {
+  background: var(--brand-navy-800);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* --- Main and footer ---------------------------------------------------- */
+
+.ca-main {
+  flex: 1;
+  width: 100%;
+  padding: var(--space-6) var(--page-padding) var(--space-8);
+}
+
+.ca-narrow {
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.ca-wide {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.ca-footer {
+  border-top: 1px solid var(--border-subtle);
+  background: var(--surface);
+  padding: var(--space-5) var(--page-padding);
+  text-align: center;
+}
+
+.ca-footer__note {
+  font: var(--text-meta-style);
+  color: var(--text-secondary);
+  margin: var(--space-2) 0 0;
+  max-width: 60ch;
+  margin-inline: auto;
+}
+
+.ca-boot {
+  min-height: 40vh;
+}
+
+/* --- Page header -------------------------------------------------------- */
+
+.ca-page-header__title {
+  font: var(--text-page-title);
+  margin: 0;
+  /* A Solaris Shipment ID is the detail page's h1 and is long. It breaks rather than
+     pushing the page wider than the viewport. */
+  overflow-wrap: anywhere;
+}
+
+.ca-page-header__title:focus-visible {
+  box-shadow: var(--focus-ring);
+  outline: none;
+  border-radius: var(--radius-control);
+}
+
+.ca-page-header__intro {
+  color: var(--text-secondary);
+  margin: var(--space-2) 0 0;
+  max-width: 68ch;
+}
+
+.ca-breadcrumb {
+  margin: 0;
+  font: var(--text-meta-style);
+}
+
+/* --- Card --------------------------------------------------------------- */
+
+.ca-card {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.ca-card__head {
+  padding: var(--space-4) var(--space-5) 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.ca-card__title {
+  font: var(--text-section-title);
+  margin: 0;
+}
+
+.ca-card__body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ca-card__body > p {
+  margin: 0;
+  max-width: 68ch;
+}
+
+/* --- Forms -------------------------------------------------------------- */
+
+.ca-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ca-fieldset {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  padding: var(--space-4);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* The consent block is visibly a block of its own, so the terms control and the marketing
+   control are not read as two more ordinary fields. */
+.ca-fieldset--consent {
+  border-color: var(--border-strong);
+  background: var(--surface-muted);
+}
+
+.ca-fieldset__legend {
+  font: var(--text-card-title);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  padding: 0 var(--space-2);
+}
+
+.ca-fieldset__description,
+.ca-fieldset__note {
+  margin: 0;
+  font: var(--text-meta-style);
+  color: var(--text-secondary);
+  max-width: 68ch;
+}
+
+.ca-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.ca-field-pair {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ca-field__label {
+  font: var(--text-button);
+}
+
+/* "Optional", under the control (RC-UAT-25 item 1). Required fields carry the shared
+   `.required-mark` asterisk from styles/base.css instead of words. */
+.ca-field__optional {
+  margin: 0;
+  font: var(--text-meta-style);
+  color: var(--text-secondary);
+}
+
+.ca-field__hint {
+  margin: 0;
+  font: var(--text-meta-style);
+  color: var(--text-secondary);
+  max-width: 68ch;
+}
+
+.ca-field__error {
+  margin: 0;
+  font: var(--text-meta-style);
+  color: var(--danger-700);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+}
+
+/* The error mark is a shape beside the colour, so an invalid field is identifiable
+   without seeing red. */
+.ca-field__error-mark {
+  font-weight: 700;
+}
+
+.ca-input {
+  font: var(--text-body);
+  color: var(--text-primary);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
+  padding: 0 var(--space-3);
+  /* 48 px on a phone: the primary target size Design.md section 16 asks for, applied to
+     every control rather than only to buttons, because a 40 px date input is the one
+     people actually miss. */
+  min-height: 48px;
+  width: 100%;
+}
+
+.ca-input:focus-visible {
+  box-shadow: var(--focus-ring);
+  outline: none;
+  border-color: var(--info-700);
+}
+
+.ca-field--invalid .ca-input,
+.ca-input[aria-invalid='true'] {
+  border-color: var(--danger-700);
+  border-width: 2px;
+}
+
+.ca-select {
+  padding-right: var(--space-2);
+}
+
+.ca-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.ca-checkbox__input {
+  width: 24px;
+  height: 24px;
+  margin: 12px 0 0;
+  flex: none;
+  accent-color: var(--brand-orange-600);
+}
+
+.ca-checkbox__input:focus-visible {
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+
+.ca-checkbox__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  /* The whole block is a target, so a mis-aimed tap on a phone still lands on the label
+     rather than between two controls. */
+  padding: var(--space-2) 0;
+}
+
+.ca-checkbox__label {
+  font: var(--text-body);
+  cursor: pointer;
+}
+
+.ca-checkbox__hint {
+  margin: 0;
+  font: var(--text-meta-style);
+  color: var(--text-secondary);
+  max-width: 60ch;
+}
+
+.ca-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* --- Buttons ------------------------------------------------------------ */
+
+.ca-button {
+  font: var(--text-button);
+  border-radius: var(--radius-control);
+  min-height: 48px;
+  padding: 0 var(--space-5);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background var(--motion-fast) var(--easing);
+}
+
+.ca-button:focus-visible {
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+
+.ca-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* White on --brand-orange-600 measures 4.61:1 (DEC-0086). */
+.ca-button--primary {
+  background: var(--brand-orange-600);
+  color: var(--white);
+}
+
+.ca-button--primary:hover:not(:disabled) {
+  background: var(--brand-orange-700);
+}
+
+.ca-button--secondary {
+  background: var(--surface);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.ca-button--secondary:hover:not(:disabled) {
+  background: var(--surface-muted);
+}
+
+.ca-button--ghost {
+  background: transparent;
+  color: var(--text-on-dark);
+  border-color: var(--sidebar-text);
+  min-height: 44px;
+  padding: 0 var(--space-4);
+}
+
+.ca-button--ghost:hover:not(:disabled) {
+  background: var(--brand-navy-800);
+}
+
+.ca-button__spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: ca-spin 800ms linear infinite;
+}
+
+@keyframes ca-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- Notices and summaries ---------------------------------------------- */
+
+.ca-notice {
+  border-radius: var(--radius-control);
+  padding: var(--space-4);
+  border-left: 4px solid;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.ca-notice__tone {
+  margin: 0;
+  font: var(--text-card-title);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ca-notice__title {
+  margin: 0;
+  font: var(--text-button);
+}
+
+.ca-notice__body > p {
+  margin: var(--space-1) 0 0;
+  max-width: 68ch;
+}
+
+.ca-notice--info {
+  background: var(--info-100);
+  border-left-color: var(--info-700);
+  color: var(--text-primary);
+}
+
+.ca-notice--info .ca-notice__tone {
+  color: var(--info-700);
+}
+
+.ca-notice--success {
+  background: var(--success-100);
+  border-left-color: var(--success-700);
+}
+
+.ca-notice--success .ca-notice__tone {
+  color: var(--success-700);
+}
+
+.ca-notice--warning {
+  background: var(--warning-100);
+  border-left-color: var(--warning-700);
+}
+
+.ca-notice--warning .ca-notice__tone {
+  color: var(--warning-700);
+}
+
+.ca-notice--error {
+  background: var(--danger-100);
+  border-left-color: var(--danger-700);
+}
+
+.ca-notice--error .ca-notice__tone {
+  color: var(--danger-700);
+}
+
+.ca-error-summary {
+  border: 2px solid var(--danger-700);
+  border-radius: var(--radius-control);
+  padding: var(--space-4);
+  background: var(--danger-100);
+}
+
+.ca-error-summary:focus-visible {
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+
+.ca-error-summary__title {
+  font: var(--text-section-title);
+  margin: 0 0 var(--space-2);
+  color: var(--danger-700);
+}
+
+.ca-error-summary__list {
+  margin: 0;
+  padding-left: var(--space-5);
+}
+
+/* Each entry links to its field (UAT round 4). A block-level link at least 24 px tall
+   meets the WCAG 2.2 target size, which an inline link in a tight list does not. */
+.ca-error-summary__list a {
+  display: inline-block;
+  min-height: 24px;
+  padding-block: 2px;
+}
+
+.ca-error-summary__list li + li {
+  margin-top: var(--space-1);
+}
+
+/* --- Links -------------------------------------------------------------- */
+
+/*
+ * Inline links are underlined.
+ *
+ * axe found this on the first mobile audit: `link-in-text-block`, serious. A link inside
+ * a sentence that is distinguished from the text around it **only by colour** fails WCAG
+ * 1.4.1, because colour is not available to everybody — and the footer's "public
+ * tracking" link was exactly that. Underlining is the fix rather than a suppression: the
+ * rule is right.
+ *
+ * Links that are not inside a text block — the navigation, the link stack, a card's
+ * heading — turn it off again below, where the link *is* the content and an underline
+ * adds noise rather than distinction.
+ */
+a {
+  color: var(--info-700);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ca-nav__link,
+.ca-links a,
+.ca-header__brand,
+.ca-skip-link,
+.ca-breadcrumb a,
+.ca-table__reference a,
+.ca-shipment-card__reference a {
+  text-decoration: none;
+}
+
+.ca-nav__link:hover,
+.ca-links a:hover,
+.ca-breadcrumb a:hover,
+.ca-table__reference a:hover,
+.ca-shipment-card__reference a:hover {
+  text-decoration: underline;
+}
+
+.ca-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ca-links a {
+  /* A 44 px row rather than a bare line of text: a stack of links on a phone is the
+     easiest thing in an interface to mis-tap. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.ca-carrier-link__note {
+  font: var(--text-meta-style);
+  color: var(--text-secondary);
+}
+
+/* --- Status ------------------------------------------------------------- */
+
+.ca-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-pill);
+  padding: 2px var(--space-3);
+  font: var(--text-card-title);
+  border: 1px solid;
+}
+
+.ca-status__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.ca-status--success {
+  color: var(--success-700);
+  background: var(--success-100);
+  border-color: var(--success-700);
+}
+
+.ca-status--warning {
+  color: var(--warning-700);
+  background: var(--warning-100);
+  border-color: var(--warning-700);
+}
+
+.ca-status--progress {
+  color: var(--info-700);
+  background: var(--info-100);
+  border-color: var(--info-700);
+}
+
+.ca-status--muted {
+  color: var(--text-secondary);
+  background: var(--surface-muted);
+  border-color: var(--border-strong);
+}
+
+.ca-flag {
+  display: inline-block;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  padding: 0 var(--space-2);
+  font: var(--text-meta-style);
+  color: var(--text-secondary);
+  background: var(--surface-muted);
+  margin-right: var(--space-2);
+}
+
+.ca-flags {
+  margin: var(--space-1) 0 0;
+}
+
+/* --- States ------------------------------------------------------------- */
+
+.ca-loading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.ca-loading__spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-strong);
+  border-top-color: var(--info-700);
+  border-radius: 50%;
+  animation: ca-spin 800ms linear infinite;
+}
+
+.ca-empty {
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+}
+
+.ca-empty__title {
+  font: var(--text-section-title);
+  margin: 0;
+}
+
+.ca-empty__body {
+  margin: var(--space-2) auto 0;
+  color: var(--text-secondary);
+  max-width: 48ch;
+}
+
+.ca-empty__action {
+  margin-top: var(--space-4);
+}
+
+/* --- Filters ------------------------------------------------------------ */
+
+.ca-filters {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+.ca-filters__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.ca-results:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-card);
+}
+
+/* --- Table (wide) and cards (narrow) ------------------------------------ */
+
+.ca-table-wrap {
+  display: none;
+}
+
+.ca-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.ca-table th,
+.ca-table td {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: top;
+}
+
+.ca-table thead th {
+  font: var(--text-table-header);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  background: var(--surface-muted);
+}
+
+.ca-table__reference {
+  font: var(--text-button);
+  overflow-wrap: anywhere;
+}
+
+.ca-table__sub {
+  display: block;
+  font: var(--text-meta-style);
+  color: var(--text-secondary);
+  margin-top: var(--space-1);
+}
+
+/* A booking reference is free text up to 60 characters (UAT round 11). */
+.ca-table__booking-reference {
+  overflow-wrap: anywhere;
+}
+
+.ca-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ca-shipment-card {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-4);
+}
+
+.ca-shipment-card__reference {
+  font: var(--text-section-title);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.ca-shipment-card__reference a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.ca-shipment-card__status {
+  margin: var(--space-2) 0;
+}
+
+.ca-shipment-card__facts {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.ca-shipment-card__facts dt {
+  font: var(--text-card-title);
+  color: var(--text-secondary);
+}
+
+.ca-shipment-card__facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* The booking reference spans both columns, so a long one wraps rather than squeezing. */
+.ca-shipment-card__fact--wide {
+  grid-column: 1 / -1;
+}
+
+/* --- Pagination --------------------------------------------------------- */
+
+.ca-pagination {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.ca-pagination__summary {
+  margin: 0;
+  color: var(--text-secondary);
+  font: var(--text-meta-style);
+}
+
+.ca-pagination__controls {
+  display: flex;
+  gap: var(--space-3);
+}
+
+/* --- Detail ------------------------------------------------------------- */
+
+.ca-detail-grid {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+.ca-detail-row__label {
+  font: var(--text-card-title);
+  color: var(--text-secondary);
+}
+
+.ca-detail-row__value {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.ca-detail-status,
+.ca-detail-progress,
+.ca-detail-tracking,
+.ca-detail-carrier {
+  margin: 0;
+}
+
+.ca-summary {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.ca-summary__row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ca-summary__row dt {
+  font: var(--text-card-title);
+  color: var(--text-secondary);
+}
+
+.ca-summary__row dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.ca-packages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+.ca-package {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  padding: var(--space-3);
+}
+
+/* The selected package is marked with a border *and* the word in the reference line, so
+   the distinction is not carried by a border colour alone. */
+.ca-package--selected {
+  border-color: var(--info-700);
+  border-width: 2px;
+}
+
+.ca-package__reference {
+  margin: 0;
+  font: var(--text-button);
+  overflow-wrap: anywhere;
+}
+
+.ca-package__status {
+  margin: var(--space-2) 0 0;
+}
+
+.ca-package__date {
+  margin: var(--space-2) 0 0;
+  font: var(--text-meta-style);
+  color: var(--text-secondary);
+}
+
+.ca-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ca-timeline__entry {
+  border-left: 3px solid var(--accent-teal-600);
+  padding-left: var(--space-4);
+}
+
+.ca-timeline__when {
+  margin: 0;
+  font: var(--text-meta-style);
+  color: var(--text-secondary);
+}
+
+.ca-timeline__status {
+  margin: var(--space-1) 0;
+}
+
+.ca-timeline__message {
+  margin: 0;
+  max-width: 68ch;
+}
+
+/* Phase 15: the staff's published text beneath the standard sentence. */
+.ca-timeline__note {
+  margin: var(--space-1) 0 0;
+  max-width: 68ch;
+  color: var(--text-secondary);
+}
+
+.ca-timeline__where,
+.ca-timeline__packages {
+  margin: var(--space-1) 0 0;
+  font: var(--text-meta-style);
+  color: var(--text-secondary);
+}
+
+/* --- Utility ------------------------------------------------------------ */
+
+.ca-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Wide layout -------------------------------------------------------- */
+
+@media (min-width: 768px) {
+  .ca-table-wrap {
+    display: block;
+    overflow-x: auto;
+  }
+
+  /* The cards are the phone layout only. Both are rendered so neither needs a JS
+     breakpoint, which would disagree with the CSS one during a resize. */
+  .ca-cards {
+    display: none;
+  }
+
+  .ca-field-pair {
+    flex-direction: row;
+    gap: var(--space-4);
+  }
+
+  .ca-field-pair > .ca-field {
+    flex: 1;
+  }
+
+  .ca-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ca-filters__actions {
+    grid-column: 1 / -1;
+  }
+
+  .ca-detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ca-packages {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+
+  .ca-pagination {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .ca-summary {
+    flex-direction: row;
+    gap: var(--space-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .ca-filters {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* --- My profile (fix pack 2) -------------------------------------------------- */
+
+.ca-mono {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  overflow-wrap: anywhere;
+}
+
+.ca-meta {
+  color: var(--text-secondary);
+}
+
+.ca-request-list,
+.ca-request__fields {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ca-request {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.ca-request:first-child {
+  border-top: none;
+}
+
+.ca-request__head {
+  margin: 0;
+}
+
+.ca-request__fields li {
+  overflow-wrap: anywhere;
+}
+
+.ca-history summary {
+  cursor: pointer;
+}
+
+/* --- Notifications (OD-72) ------------------------------------------------- */
+
+.ca-notification-history {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.ca-notification-history__item {
+  display: grid;
+  gap: var(--space-1);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ca-notification-history__item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}

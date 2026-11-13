@@ -1,0 +1,4 @@
+external_reference,customer_ref,route_group,booking_state,booking_date,booking_reference,sender_name,sender_phone,sender_city,recipient_name,recipient_phone,recipient_email,recipient_address_line1,recipient_city,recipient_province_state,recipient_postal_code,recipient_country_code,contents_description,package_weights_kg,package_dimensions_cm,items,declared_value,declared_value_currency,internal_notes
+TEST-SHP-0001,STCA-000001,VCA,draft,,PO-TEST-1,Nguyễn Văn Thử,+84 28 5555 0101,Thành phố Hồ Chí Minh,Trần Thị Thử,+1 416 555 0102,thu.recipient@example.com,1 Test Street,Toronto,ON,M5V 0A1,CA,Quà tặng gia đình,12.5;8,40x30x30;30x30x20,Áo dài|2|piece|80;Cà phê|3|box|30,110,CAD,Synthetic test row
+TEST-SHP-0002,STCA-000002,VCA,confirmed,2026-10-01,,Công ty Thử,,Hà Nội,Lê Văn Thử,+1 604 555 0103,,2 Test Avenue,Vancouver,BC,V6B 0A2,CA,Tài liệu,2,,,,,
+TEST-SHP-0003,LEGACY-CUST-7,VN-CA,,,,,,,Phạm Thị Thử,,,3 Test Road,Calgary,AB,T2P 0A3,CA,Bánh kẹo,4.2,,,,,

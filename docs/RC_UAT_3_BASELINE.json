@@ -1,0 +1,125 @@
+{
+  "identifier": "RC-UAT-3",
+  "is_prerelease": true,
+  "production_ready": false,
+  "frozen_at": "2026-09-15",
+  "frozen_from_branch": "phase-6-release-candidate-uat",
+  "measured_at_commit": "98f1fdece89254ae92905843ee494f599c6ea97e",
+  "supersedes": "RC-UAT-2",
+  "superseded_baseline_commit": "21e01a71c75ca389a4a9ca5d10035466882437c1",
+  "supersession_reason": "Two changes that reach a human tester. (1) The shipment-status report's Returns row no longer carries the dead /shipments?returns_only=true drill-through, and four further generated links naming parameters nothing reads were corrected -- two of them (/follow-ups?view=open and ?view=due) rendered a page with no panel at all. That is staff UI behaviour, so the tested tree is no longer RC-UAT-2's. (2) The owner-decision register was restored from owner-provided material to 22 complete records, replacing the claim that twelve identifiers had no known subject.",
+  "rc_uat_1_baseline_commit": "ee14523c258122a5ea90b28ccdf10b1ed0ed38fa",
+  "phase_5b_closure_commit": "8621b9e66b8eb7a69074061d583afc71d0b5e6de",
+  "rc_uat_3_commits": [
+    "c3ed3525b361492d5444c07e5f0cecca0176f2c7",
+    "98f1fdece89254ae92905843ee494f599c6ea97e"
+  ],
+  "alembic_head": "e5623fcf8018",
+  "toolchain": {
+    "python": "3.12.10",
+    "node": "24.11.1",
+    "npm": "11.6.2",
+    "sqlite": "3.49.1"
+  },
+  "dependency_locks": {
+    "backend/requirements.lock.txt": "13741cf2dc1c344528475a9ea9a4fba94be05c4fa84f56bf8e6ebba595d695fc",
+    "frontend/package-lock.json": "4ab7a6dee7d7eb22c622099c80fb5162788665445b29ce4497a1e26ef42e675d"
+  },
+  "test_counts": {
+    "backend": 1256,
+    "frontend_unit": 223,
+    "playwright": 149,
+    "accessibility_screens_audited": 32,
+    "accessibility_audit_invocations": 64,
+    "audited_viewports": 2,
+    "uat_cases": 45,
+    "uat_cases_executed": 0
+  },
+  "test_count_notes": {
+    "backend": "1244 at RC-UAT-2, plus the 12 navigation guards in tests/test_report_navigation.py. 0 skipped.",
+    "frontend_unit": "219 at RC-UAT-2, plus 4 tests covering a report row the API sends with no link.",
+    "playwright": "Unchanged from RC-UAT-2. Run three times consecutively, retries 0, 149 passed each time.",
+    "accessibility_screens_audited": "RE-MEASURED, not carried forward. RC-UAT-1 and RC-UAT-2 both recorded 34 audit calls (26 staff, 8 public). That figure came from `grep -c auditAndAssert`, which counted the import line in each of the two specs. Counted from the axe attachments this run produced: 25 staff + 7 public = 32 distinct screen states.",
+    "accessibility_audit_invocations": "32 screen states x 2 viewports = 64 axe invocations, each one attaching its full result to the Playwright report."
+  },
+  "accessibility": {
+    "measured_from": "the axe attachments of a complete Playwright run at commit 98f1fde",
+    "screens_audited": 32,
+    "public_screens": 7,
+    "staff_screens": 25,
+    "audit_invocations": 64,
+    "invocations_by_project": {
+      "desktop": 7,
+      "mobile-375": 7,
+      "staff": 25,
+      "staff-mobile": 25
+    },
+    "viewports": {
+      "1280x800": 32,
+      "375x812": 32
+    },
+    "violations_critical": 0,
+    "violations_serious": 0,
+    "violations_moderate": 0,
+    "violations_minor": 0,
+    "suppressed_rules": 0,
+    "suppressed_rules_note": "EXPECTED_FINDINGS in frontend/tests/e2e/axeHelpers.js is empty. Nothing is suppressed globally and nothing is suppressed per screen.",
+    "skipped_tests": 0,
+    "skipped_tests_note": "Six conditional test.skip guards exist across the e2e specs, all of the form 'the demo data has no X'. None fired: Playwright reported 0 skipped in all three runs.",
+    "incomplete_rules": {
+      "color-contrast": 34
+    },
+    "incomplete_rules_note": "axe 'incomplete' is not a violation. color-contrast returns incomplete where axe cannot compute a background it can see through; it needs human confirmation and is part of what OD-19 covers.",
+    "screens_changed_by_the_return_report_correction": [
+      "staff-reports",
+      "staff-reports-filtered",
+      "staff-dashboard"
+    ],
+    "screens_changed_note": "staff-reports and staff-reports-filtered render the shipment-status table whose Returns row lost its link and gained a note. staff-dashboard renders the Active shipments and Follow-ups due cards whose links changed. All three were audited at both viewports after the change, with 0 serious and 0 critical.",
+    "human_validation": "NONE. No screen reader has been run against this application, no zoom level above 100% has been tested, forced-colors mode has not been exercised, and only Chromium has been used. Automated auditing is not human validation (OD-19, open)."
+  },
+  "invariants": {
+    "public_contract_fields": 24,
+    "production_adapters": 0,
+    "integration_resource_host_allowlist": 0,
+    "integration_resource_path_prefix_allowlist": 0,
+    "tracking_source_modes": [
+      "manual",
+      "external_link"
+    ],
+    "integration_health": "not_configured",
+    "provider_webhook_routes": 0,
+    "public_correlation_header": "absent"
+  },
+  "provisional_uat_dispositions": {
+    "public_carrier_link_hosts": 9,
+    "public_help_url": "",
+    "mfa": "undecided",
+    "retention_deletion": "disabled",
+    "proxy_trust": "disabled",
+    "production_deployment": "prohibited",
+    "shipment_import": "deferred",
+    "legacy_history": "deferred",
+    "provider_allowlists": "empty",
+    "uat_database": "data/uat/solaris_uat.uat.db (git-ignored)",
+    "return_shipment_records": "no workflow creates one; OD-22 open"
+  },
+  "open_owner_decisions": {
+    "register": "docs/OWNER_DECISIONS.md",
+    "recorded": 22,
+    "answered": 0,
+    "open": 22,
+    "carrying_a_temporary_disposition": 7,
+    "blocking_uat": 5,
+    "blocking_production": 15,
+    "provider_only": 1,
+    "identifiers_with_no_record": 0
+  },
+  "blank_page_observation": {
+    "status": "unresolved intermittent observation",
+    "first_seen": "RC-UAT-1, staffKeyboard.spec.js:212, run 5 of 7",
+    "recurrence_at_rc_uat_3": false,
+    "runs_at_rc_uat_3": 3,
+    "note": "Three consecutive complete Playwright suites at this commit, retries 0, one worker: 149 passed each time, no diagnostic bundle produced. It is still not explained and is still not classified as fixed. The failure-only diagnostic capture added at RC-UAT-2 remains in place."
+  }
+}

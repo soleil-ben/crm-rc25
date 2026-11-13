@@ -1,0 +1,427 @@
+/* Staff application shell (Design.md section 4). */
+
+.shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  min-height: 100vh;
+}
+
+/* --- Sidebar ---------------------------------------------------------- */
+
+.sidebar {
+  background: var(--sidebar-background);
+  color: var(--sidebar-text);
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-5) 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar__brand {
+  padding: 0 var(--space-6) var(--space-6);
+  font: 600 20px/28px var(--font-heading);
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+
+.sidebar__brand-accent {
+  /* Left as orange-500 deliberately: the sidebar is navy-900, where this measures
+     5.36:1 and passes. Darkening it here would reduce contrast, not improve it. */
+  color: var(--brand-orange-500);
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 var(--space-3);
+  flex: 1;
+}
+
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3);
+  border-radius: var(--radius-control);
+  color: var(--sidebar-text);
+  font: var(--text-button);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition:
+    background-color var(--motion-fast) var(--easing),
+    color var(--motion-fast) var(--easing);
+}
+
+.sidebar__link:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.sidebar__link.is-active {
+  background: var(--sidebar-active);
+  color: var(--white);
+  border-left-color: var(--brand-orange-500);
+}
+
+.sidebar__icon {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+.sidebar__footer {
+  padding: var(--space-4) var(--space-6) 0;
+  font: var(--text-meta-style);
+  color: rgba(255, 255, 255, 0.55);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  margin-top: var(--space-4);
+}
+
+.sidebar__footer a {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* --- Top bar ----------------------------------------------------------- */
+
+.topbar {
+  height: var(--topbar-height);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--page-padding);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.topbar__search {
+  position: relative;
+  flex: 1;
+  max-width: 520px;
+}
+
+.topbar__search input {
+  height: var(--control-height);
+  width: 100%;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
+  background: var(--neutral-50);
+  font: var(--text-body);
+}
+
+.topbar__results {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-overlay);
+  z-index: 30;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: var(--space-2);
+}
+
+.topbar__group-label {
+  font: var(--text-table-header);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-meta);
+  padding: var(--space-2) var(--space-3) var(--space-1);
+}
+
+.topbar__result {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  border: none;
+  background: none;
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  font: var(--text-body);
+  color: var(--text-primary);
+}
+
+.topbar__result:hover,
+.topbar__result:focus-visible {
+  background: var(--surface-muted);
+}
+
+.topbar__user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-control);
+}
+
+.topbar__user:hover {
+  background: var(--surface-muted);
+}
+
+.topbar__user-name {
+  font: 600 13px/18px var(--font-body);
+  color: var(--text-primary);
+  text-align: left;
+}
+
+.topbar__user-role {
+  font: var(--text-meta-style);
+  color: var(--text-meta);
+}
+
+.topbar__menu {
+  position: absolute;
+  top: calc(var(--topbar-height) - 8px);
+  right: var(--page-padding);
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-overlay);
+  padding: var(--space-2);
+  z-index: 30;
+  min-width: 200px;
+}
+
+.topbar__menu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  font: var(--text-body);
+  color: var(--text-primary);
+}
+
+.topbar__menu-item:hover {
+  background: var(--surface-muted);
+}
+
+.topbar__menu-toggle {
+  display: none;
+}
+
+/* --- Main content ------------------------------------------------------ */
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.content {
+  padding: var(--page-padding);
+  max-width: var(--content-max-width);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.page-header__text {
+  min-width: 0;
+}
+
+.page-header__subtitle {
+  color: var(--text-secondary);
+  margin-top: var(--space-1);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--text-meta-style);
+  color: var(--text-meta);
+  margin-bottom: var(--space-2);
+}
+
+.demo-banner {
+  background: var(--brand-orange-100);
+  border-bottom: 1px solid #ffd7c4;
+  color: #a8410f;
+  font: 600 12px/18px var(--font-body);
+  padding: var(--space-2) var(--page-padding);
+  text-align: center;
+}
+
+/* --- Grids -------------------------------------------------------------- */
+
+.grid-kpi {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.grid-2-1 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.grid-7-5 {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.grid-halves {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  align-items: start;
+}
+
+/* --- Responsive (Design.md section 16) ----------------------------------- */
+
+@media (max-width: 1279px) {
+  .grid-7-5,
+  .grid-2-1 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1023px) {
+  .shell {
+    grid-template-columns: var(--sidebar-width-collapsed) 1fr;
+  }
+
+  .sidebar__brand {
+    padding: 0 var(--space-3) var(--space-5);
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .sidebar__label,
+  .sidebar__footer {
+    display: none;
+  }
+
+  .sidebar__link {
+    justify-content: center;
+  }
+
+  .grid-kpi {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--sidebar-width);
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform var(--motion-slow) var(--easing);
+    box-shadow: var(--shadow-overlay);
+  }
+
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .sidebar__brand,
+  .sidebar__label,
+  .sidebar__footer {
+    display: block;
+  }
+
+  .sidebar__brand {
+    text-align: left;
+    padding: 0 var(--space-6) var(--space-6);
+    font-size: 20px;
+  }
+
+  .sidebar__link {
+    justify-content: flex-start;
+  }
+
+  .topbar__menu-toggle {
+    display: inline-flex;
+  }
+
+  .topbar {
+    gap: var(--space-2);
+    padding: 0 var(--space-3);
+  }
+
+  .topbar__search {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  /* Keep the avatar as the account affordance; the name would crowd out search. */
+  .topbar__user-name,
+  .topbar__user-role {
+    display: none;
+  }
+
+  .grid-halves {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-scrim {
+    position: fixed;
+    inset: 0;
+    background: rgba(16, 42, 67, 0.36);
+    z-index: 45;
+  }
+}
+
+@media (max-width: 639px) {
+  .grid-kpi {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Phase 15: the approver's count of tariff drafts and held senders awaiting review. */
+.sidebar__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 var(--space-2);
+  margin-left: auto;
+  border-radius: 999px;
+  background: var(--warning-700);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  line-height: 1;
+}

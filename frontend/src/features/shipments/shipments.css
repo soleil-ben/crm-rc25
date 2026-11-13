@@ -1,0 +1,779 @@
+/*
+ * Shipment, booking, and label styles.
+ *
+ * Every colour, space, radius, and duration comes from the tokens in styles/tokens.css.
+ * No literal brand colour appears here (Design.md section 18).
+ */
+
+/* --- List ------------------------------------------------------------------ */
+
+.shipment-row__flags {
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+.shipment-progress__count {
+  white-space: nowrap;
+}
+
+.chip--demo {
+  background: var(--brand-orange-100);
+  color: var(--warning-700);
+}
+
+.chip--public {
+  background: var(--info-100);
+  color: var(--info-700);
+}
+
+.chip--final {
+  background: var(--success-100);
+  color: var(--success-700);
+}
+
+/* --- Booking workflow ------------------------------------------------------- */
+
+.booking {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  /* Room for the sticky footer so the last field is never hidden behind it. */
+  padding-bottom: 96px;
+}
+
+.booking__step-title {
+  font: var(--text-section-title);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.booking__step-title:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-control);
+}
+
+.booking__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.booking__saved {
+  margin: 0;
+}
+
+.booking__footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  margin: 0 calc(var(--page-padding) * -1) calc(var(--page-padding) * -1);
+  background: var(--surface);
+  border-top: 1px solid var(--border-subtle);
+  box-shadow: 0 -1px 3px rgb(16 42 67 / 8%);
+}
+
+/* --- Stepper ---------------------------------------------------------------- */
+
+.stepper {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+}
+
+.stepper__step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text-meta);
+  font: var(--text-card-title);
+}
+
+.stepper__index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
+}
+
+.stepper__step.is-current {
+  border-color: var(--brand-orange-600);
+  color: var(--text-primary);
+}
+
+.stepper__step.is-current .stepper__index {
+  background: var(--brand-orange-600);
+  color: var(--text-on-dark);
+}
+
+.stepper__step.is-done {
+  color: var(--text-secondary);
+}
+
+.stepper__step.is-done .stepper__index {
+  background: var(--success-100);
+  color: var(--success-700);
+}
+
+/* --- Customer step ---------------------------------------------------------- */
+
+.booking-customer {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.booking-customer__name {
+  font: var(--text-section-title);
+  margin: 0;
+}
+
+.booking-results {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.booking-results__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  text-align: left;
+  cursor: pointer;
+  font: var(--text-body);
+  color: var(--text-primary);
+  flex-wrap: wrap;
+}
+
+.booking-results__item:hover {
+  background: var(--surface-muted);
+}
+
+.booking-results__item:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.booking-results__name {
+  font-weight: 600;
+}
+
+/* --- Packages step ---------------------------------------------------------- */
+
+.form-grid--tight {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.field--inline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* --- Review step ------------------------------------------------------------ */
+
+.review-row {
+  display: grid;
+  grid-template-columns: minmax(140px, 220px) 1fr;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.review-row:last-child {
+  border-bottom: none;
+}
+
+.review-row__label {
+  color: var(--text-meta);
+  font: var(--text-card-title);
+}
+
+.review-row__value {
+  color: var(--text-primary);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.review-packages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.review-packages li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.review-packages li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.validation-list {
+  margin: 0;
+  padding-left: var(--space-5);
+}
+
+/* --- Confirmed step --------------------------------------------------------- */
+
+.booking-confirmed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.booking-confirmed__title {
+  font: var(--text-page-title);
+  margin: 0;
+  color: var(--success-700);
+}
+
+.booking-confirmed__title:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-control);
+}
+
+.booking-confirmed__id {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.booking-confirmed__references {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* --- Shipment detail header -------------------------------------------------- */
+
+.shipment-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.shipment-header__id {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.shipment-header__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+@media (max-width: 1023px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Address snapshot ---------------------------------------------------------- */
+
+.address-block__name {
+  font-weight: 600;
+  margin: 0 0 var(--space-1);
+}
+
+.address-block__line {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.address-block__note {
+  margin-top: var(--space-2);
+}
+
+/* --- Operational timeline ------------------------------------------------------ */
+
+.op-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.op-timeline__item {
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: var(--space-3);
+  position: relative;
+}
+
+.op-timeline__item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 16px;
+  bottom: calc(var(--space-4) * -1);
+  width: 2px;
+  background: var(--border-subtle);
+}
+
+.op-timeline__marker {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--brand-orange-500);
+  margin-top: 4px;
+  z-index: 1;
+}
+
+.op-timeline__item.is-voided {
+  opacity: 0.6;
+}
+
+.op-timeline__item.is-voided .op-timeline__marker {
+  background: var(--neutral-300);
+}
+
+.op-timeline__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.op-timeline__public {
+  margin: var(--space-1) 0 0;
+  padding: var(--space-2);
+  border-left: 3px solid var(--info-700);
+  background: var(--info-100);
+  color: var(--text-primary);
+}
+
+.op-timeline__internal {
+  margin: var(--space-1) 0 0;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+}
+
+/* --- Packages, legs, references -------------------------------------------------- */
+
+.package-summary,
+.reference-list,
+.audit-list {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.package-summary li,
+.reference-list li,
+.audit-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.audit-list li {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.package-summary li.is-cancelled,
+.reference-list li.is-retired,
+.table tbody tr.is-cancelled {
+  opacity: 0.65;
+}
+
+.table tbody tr.is-cancelled .table__id {
+  text-decoration: line-through;
+}
+
+.leg-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.leg-list__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+}
+
+.leg-list__sequence {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
+  font: var(--text-card-title);
+}
+
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--info-700);
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+}
+
+/* --- Label drawer and preview ------------------------------------------------------ */
+
+.label-drawer {
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 260px);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .label-drawer {
+    grid-template-columns: 1fr;
+  }
+}
+
+.label-drawer__selection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.label-drawer__packages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.label-drawer__packages li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.label-drawer__history {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.label-drawer__history li {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/*
+ * The preview keeps the exact 4 x 6 portrait ratio (2:3). `aspect-ratio` is what
+ * guarantees it, so the on-screen proportions cannot drift from the PDF.
+ */
+.label-preview {
+  width: 100%;
+  max-width: 240px;
+  aspect-ratio: 4 / 6;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  background: var(--white);
+  color: var(--neutral-950);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+  font-size: 9px;
+  line-height: 1.25;
+}
+
+.label-preview__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.label-preview__wordmark {
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.label-preview__route {
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.02em;
+}
+
+.label-preview__route-name {
+  text-align: right;
+  font-size: 7px;
+  color: var(--neutral-700);
+}
+
+.label-preview__rule {
+  border: none;
+  border-top: 1px solid var(--neutral-950);
+  margin: 3px 0;
+  width: 100%;
+}
+
+.label-preview__caption {
+  font-size: 6px;
+  letter-spacing: 0.06em;
+  color: var(--neutral-700);
+}
+
+.label-preview__row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.label-preview__id {
+  font-weight: 700;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.label-preview__reference {
+  font-weight: 700;
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+
+.label-preview__barcode {
+  height: 34px;
+  margin: 3px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--neutral-300);
+  color: var(--neutral-500);
+  font-size: 6px;
+  text-align: center;
+  padding: 0 4px;
+}
+
+.label-preview__recipient {
+  font-weight: 700;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.label-preview__destination {
+  font-size: 9px;
+}
+
+.label-preview__footer-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.label-preview__value {
+  font-weight: 700;
+  font-size: 9px;
+  margin-bottom: 3px;
+  overflow-wrap: anywhere;
+}
+
+.label-preview__qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 auto;
+  border: 1px dashed var(--neutral-300);
+  color: var(--neutral-500);
+  font-size: 8px;
+}
+
+.label-preview__qr-caption {
+  font-size: 5px;
+}
+
+.label-preview__warning {
+  border-top: 1px solid var(--neutral-950);
+  margin-top: 4px;
+  padding-top: 3px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 6px;
+}
+
+/*
+ * Nine columns do not fit 1280 px comfortably. Rather than drop a column Design.md
+ * section 9 lists as a default, the table keeps a readable minimum width and the
+ * wrapper scrolls horizontally, with the identifying column left readable.
+ */
+.shipments-table {
+  min-width: 1140px;
+}
+
+.shipments-table td[data-label='Customer'] {
+  min-width: 150px;
+}
+
+.shipments-table td[data-label='Solaris Shipment ID'],
+.shipments-table td[data-label='Booking date'],
+.shipments-table td[data-label='Packages'] {
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  /* The stacked card layout takes over; the minimum width would force a scrollbar. */
+  .shipments-table {
+    min-width: 0;
+  }
+
+  .shipments-table td[data-label='Solaris Shipment ID'],
+  .shipments-table td[data-label='Booking date'],
+  .shipments-table td[data-label='Packages'] {
+    white-space: normal;
+  }
+}
+
+/* --- Public update composer ------------------------------------------------------- */
+
+/* Grouped so the template choice, the preview, and the wording field read as one
+   decision rather than three unrelated controls stacked under a checkbox. */
+.public-update {
+  margin-top: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--surface-muted);
+}
+
+/* What the customer actually reads, in both languages, before it is sent. A staff member
+   cannot be asked to vouch for a translation they are not shown. */
+.public-update__preview {
+  margin-top: var(--space-2);
+  padding: var(--space-2);
+  border-left: 3px solid var(--info-700);
+  background: var(--info-100);
+}
+
+.public-update__preview p {
+  margin: 0 0 var(--space-1);
+}
+
+.public-update__preview-title {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* The language tag is a label, not decoration: it is the only thing distinguishing the
+   two sentences, so it must survive a screen reader and a monochrome screen. */
+.public-update__lang {
+  display: inline-block;
+  min-width: 2.2em;
+  margin-right: var(--space-2);
+  font: var(--text-table-header);
+  color: var(--info-700);
+}
+
+.public-update__note {
+  color: var(--text-secondary);
+  font: var(--text-meta-style);
+}
+
+.chip--template {
+  margin-left: var(--space-2);
+}
+
+/* RC-UAT-25 item 6: correcting a recorded event, and its edit history. */
+.event-edit {
+  margin-top: var(--space-3, 12px);
+  padding: var(--space-3, 12px);
+  border: 1px solid var(--color-border, #d0d5dd);
+  border-radius: var(--radius-md, 8px);
+  display: grid;
+  gap: var(--space-3, 12px);
+}
+
+.event-edit__packages {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.event-history {
+  margin-top: var(--space-4, 16px);
+}
+
+.event-history__list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2, 8px);
+}

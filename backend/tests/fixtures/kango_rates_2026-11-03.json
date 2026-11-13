@@ -1,0 +1,1743 @@
+{
+ "version": "2026-11-03",
+ "method_version": "v0.6",
+ "source": {
+  "file": "Kango rate sheet, uploaded by Louis 2026-11-03 (attachment 01M6GY70F563BB4HM6ZTHGZZDF.xlsx)",
+  "sha256": "77111422e68d31580b8dc6b6b622f5c1351cb30de331fe38f64632bd78372ca9",
+  "previous_file": "Kango rate sheet uploaded 2026-10-30 (01M677SC4BQ5J2PRQS28CHVCKZ.xlsx), used by method v0.5",
+  "sheets_compared": "all 8 sheets, every cell"
+ },
+ "fx": {
+  "cad_vnd": 19500,
+  "cell": "HCM-AIR-CAD!A58 / HN-AIR-CAD!A56 \"TỶ GIÁ CỐ ĐỊNH 1 $CAD = 19,500 Vnđ\"",
+  "changed": false
+ },
+ "warehouse": {
+  "address": "Mississauga, ON, L5A 3K6",
+  "postal_code": "L5A 3K6",
+  "fsa": "L5A",
+  "air_standard_zone": 2,
+  "air_express_zone": 3,
+  "verified": "2026-11-03 on the Zone CAD tab of the 2026-11-03 sheet",
+  "source": "Zone CAD!N821='L5A', O821='ON', P821='2' (column P = AIR-CAD / KSN-SEA-CAD-PURO / KSN-SEA-CAD-BH-PURO), Q821='3' (column Q = AIR-CAD EXPRESS). Only L5A row in N3:N1677; neighbours L4X-L5E are also 2/3. Zone CAD sheet identical to the 30-Oct file and to the RC25 12-Oct fixture (same row 821).",
+  "rule": "Zone CAD!I3: VLOOKUP(LEFT(UPPER(SUBSTITUTE(postcode,' ','')),3), N3:Q1677, IF(service contains 'EXPRESS', 4, 3), FALSE). The zone is picked by the 3-character postal prefix (FSA) only; city is not used.",
+  "beyond_code": "L5A3K6 is not in the beyond-code list (Zone CAD!U3:V16202), so no remote-delivery surcharge."
+ },
+ "booking_selection": {
+  "rule": "At the start of each master booking the user selects origin (HCM/SG or HAN/HN) and service type (Air Standard, Air Express, UPS, Sea). The selection drives the base rate (Louis 2026-11-03).",
+  "mapping": {
+   "HCM + Air Standard": "HCM-AIR-CAD, AIR-CAD zone 2 (column C): bands C8:C48, tiers C50:C53",
+   "HAN + Air Standard": "HN-AIR-CAD, AIR-CAD zone 2 (column C): bands C7:C47, tiers C49:C52",
+   "HCM + Air Express": "manual cost; reference HCM-AIR-CAD AIR-CAD EXPRESS zone 3 (column G): G8:G48, G50:G53",
+   "HAN + Air Express": "manual cost; reference HN-AIR-CAD AIR-CAD EXPRESS zone 3 (column G): G7:G47, G49:G52",
+   "HCM or HAN + UPS": "manual (placeholder table)",
+   "HCM or HAN + Sea": "60,000 VND/kg (no Kango sheet), sell CAD 8/kg"
+  }
+ },
+ "bill_rules": {
+  "per_bill_bands": "bill CW ≤ 20.5 kg: price is the whole-bill price for the 0.5-kg band at/above the CW",
+  "per_kg_tiers": "bill CW ≥ 21 kg (Kango rounds up to whole kg above 20.5): tier price × bill kg",
+  "tier_basis": "Kango tier is picked on the WHOLE master bill CW (vendor cost). The customer quote is separate: CAD 18/kg if the customer own OD-50 CW ≥ 21, else 19 (Louis Q4)"
+ },
+ "piece_fees": {
+  "rule": "Lots of 21 kg and over (Louis Q4: \"21 and over, yes\"): each carton (kiện) < 12 kg actual or volumetric is charged per carton",
+  "air_standard_vnd": 300000,
+  "air_express_vnd": 700000,
+  "cells": "HCM-AIR-CAD!A54, HN-AIR-CAD!A53 (text unchanged)",
+  "cost_side_only": true,
+  "note": "Vendor cost only, allocated to the customers in that carton by weight; not a separate customer quote line (the 18/19 rate covers it)."
+ },
+ "air": {
+  "HCM": {
+   "air_standard": {
+    "product": "AIR-CAD",
+    "zone": 2,
+    "used_for": "vendor cost (table)",
+    "per_bill_bands": [
+     {
+      "up_to_kg": 0.5,
+      "cell": "HCM-AIR-CAD!C8",
+      "new_vnd": 427583.8,
+      "old_vnd": 422383.8,
+      "delta_vnd": 5200.0
+     },
+     {
+      "up_to_kg": 1.0,
+      "cell": "HCM-AIR-CAD!C9",
+      "new_vnd": 549882.3,
+      "old_vnd": 539482.3,
+      "delta_vnd": 10400.0
+     },
+     {
+      "up_to_kg": 1.5,
+      "cell": "HCM-AIR-CAD!C10",
+      "new_vnd": 678557.5,
+      "old_vnd": 662957.5,
+      "delta_vnd": 15600.0
+     },
+     {
+      "up_to_kg": 2.0,
+      "cell": "HCM-AIR-CAD!C11",
+      "new_vnd": 818826.7,
+      "old_vnd": 798026.7,
+      "delta_vnd": 20800.0
+     },
+     {
+      "up_to_kg": 2.5,
+      "cell": "HCM-AIR-CAD!C12",
+      "new_vnd": 954748.15,
+      "old_vnd": 928748.15,
+      "delta_vnd": 26000.0
+     },
+     {
+      "up_to_kg": 3.0,
+      "cell": "HCM-AIR-CAD!C13",
+      "new_vnd": 1090669.6,
+      "old_vnd": 1059469.6,
+      "delta_vnd": 31200.0
+     },
+     {
+      "up_to_kg": 3.5,
+      "cell": "HCM-AIR-CAD!C14",
+      "new_vnd": 1226591.05,
+      "old_vnd": 1190191.05,
+      "delta_vnd": 36400.0
+     },
+     {
+      "up_to_kg": 4.0,
+      "cell": "HCM-AIR-CAD!C15",
+      "new_vnd": 1362512.5,
+      "old_vnd": 1320912.5,
+      "delta_vnd": 41600.0
+     },
+     {
+      "up_to_kg": 4.5,
+      "cell": "HCM-AIR-CAD!C16",
+      "new_vnd": 1498433.95,
+      "old_vnd": 1451633.95,
+      "delta_vnd": 46800.0
+     },
+     {
+      "up_to_kg": 5.0,
+      "cell": "HCM-AIR-CAD!C17",
+      "new_vnd": 1629138.1,
+      "old_vnd": 1577138.1,
+      "delta_vnd": 52000.0
+     },
+     {
+      "up_to_kg": 5.5,
+      "cell": "HCM-AIR-CAD!C18",
+      "new_vnd": 1827016.3,
+      "old_vnd": 1769816.3,
+      "delta_vnd": 57200.0
+     },
+     {
+      "up_to_kg": 6.0,
+      "cell": "HCM-AIR-CAD!C19",
+      "new_vnd": 1949894.5,
+      "old_vnd": 1887494.5,
+      "delta_vnd": 62400.0
+     },
+     {
+      "up_to_kg": 6.5,
+      "cell": "HCM-AIR-CAD!C20",
+      "new_vnd": 2076250.9,
+      "old_vnd": 2008650.9,
+      "delta_vnd": 67600.0
+     },
+     {
+      "up_to_kg": 7.0,
+      "cell": "HCM-AIR-CAD!C21",
+      "new_vnd": 2199129.1,
+      "old_vnd": 2126329.1,
+      "delta_vnd": 72800.0
+     },
+     {
+      "up_to_kg": 7.5,
+      "cell": "HCM-AIR-CAD!C22",
+      "new_vnd": 2322007.3,
+      "old_vnd": 2244007.3,
+      "delta_vnd": 78000.0
+     },
+     {
+      "up_to_kg": 8.0,
+      "cell": "HCM-AIR-CAD!C23",
+      "new_vnd": 2444885.5,
+      "old_vnd": 2361685.5,
+      "delta_vnd": 83200.0
+     },
+     {
+      "up_to_kg": 8.5,
+      "cell": "HCM-AIR-CAD!C24",
+      "new_vnd": 2567763.7,
+      "old_vnd": 2479363.7,
+      "delta_vnd": 88400.0
+     },
+     {
+      "up_to_kg": 9.0,
+      "cell": "HCM-AIR-CAD!C25",
+      "new_vnd": 2690641.9,
+      "old_vnd": 2597041.9,
+      "delta_vnd": 93600.0
+     },
+     {
+      "up_to_kg": 9.5,
+      "cell": "HCM-AIR-CAD!C26",
+      "new_vnd": 2813520.1,
+      "old_vnd": 2714720.1,
+      "delta_vnd": 98800.0
+     },
+     {
+      "up_to_kg": 10.0,
+      "cell": "HCM-AIR-CAD!C27",
+      "new_vnd": 2926398.3,
+      "old_vnd": 2822398.3,
+      "delta_vnd": 104000.0
+     },
+     {
+      "up_to_kg": 10.5,
+      "cell": "HCM-AIR-CAD!C28",
+      "new_vnd": 3039276.5,
+      "old_vnd": 2930076.5,
+      "delta_vnd": 109200.0
+     },
+     {
+      "up_to_kg": 11.0,
+      "cell": "HCM-AIR-CAD!C29",
+      "new_vnd": 3155632.9,
+      "old_vnd": 3041232.9,
+      "delta_vnd": 114400.0
+     },
+     {
+      "up_to_kg": 11.5,
+      "cell": "HCM-AIR-CAD!C30",
+      "new_vnd": 3268511.1,
+      "old_vnd": 3148911.1,
+      "delta_vnd": 119600.0
+     },
+     {
+      "up_to_kg": 12.0,
+      "cell": "HCM-AIR-CAD!C31",
+      "new_vnd": 3381389.3,
+      "old_vnd": 3256589.3,
+      "delta_vnd": 124800.0
+     },
+     {
+      "up_to_kg": 12.5,
+      "cell": "HCM-AIR-CAD!C32",
+      "new_vnd": 3494267.5,
+      "old_vnd": 3364267.5,
+      "delta_vnd": 130000.0
+     },
+     {
+      "up_to_kg": 13.0,
+      "cell": "HCM-AIR-CAD!C33",
+      "new_vnd": 3607145.7,
+      "old_vnd": 3471945.7,
+      "delta_vnd": 135200.0
+     },
+     {
+      "up_to_kg": 13.5,
+      "cell": "HCM-AIR-CAD!C34",
+      "new_vnd": 3720023.9,
+      "old_vnd": 3579623.9,
+      "delta_vnd": 140400.0
+     },
+     {
+      "up_to_kg": 14.0,
+      "cell": "HCM-AIR-CAD!C35",
+      "new_vnd": 3832902.1,
+      "old_vnd": 3687302.1,
+      "delta_vnd": 145600.0
+     },
+     {
+      "up_to_kg": 14.5,
+      "cell": "HCM-AIR-CAD!C36",
+      "new_vnd": 3945780.3,
+      "old_vnd": 3794980.3,
+      "delta_vnd": 150800.0
+     },
+     {
+      "up_to_kg": 15.0,
+      "cell": "HCM-AIR-CAD!C37",
+      "new_vnd": 4058658.5,
+      "old_vnd": 3902658.5,
+      "delta_vnd": 156000.0
+     },
+     {
+      "up_to_kg": 15.5,
+      "cell": "HCM-AIR-CAD!C38",
+      "new_vnd": 4171536.7,
+      "old_vnd": 4010336.7,
+      "delta_vnd": 161200.0
+     },
+     {
+      "up_to_kg": 16.0,
+      "cell": "HCM-AIR-CAD!C39",
+      "new_vnd": 4289052.5,
+      "old_vnd": 4122652.5,
+      "delta_vnd": 166400.0
+     },
+     {
+      "up_to_kg": 16.5,
+      "cell": "HCM-AIR-CAD!C40",
+      "new_vnd": 4403090.1,
+      "old_vnd": 4231490.1,
+      "delta_vnd": 171600.0
+     },
+     {
+      "up_to_kg": 17.0,
+      "cell": "HCM-AIR-CAD!C41",
+      "new_vnd": 4517127.7,
+      "old_vnd": 4340327.7,
+      "delta_vnd": 176800.0
+     },
+     {
+      "up_to_kg": 17.5,
+      "cell": "HCM-AIR-CAD!C42",
+      "new_vnd": 4631165.3,
+      "old_vnd": 4449165.3,
+      "delta_vnd": 182000.0
+     },
+     {
+      "up_to_kg": 18.0,
+      "cell": "HCM-AIR-CAD!C43",
+      "new_vnd": 4745202.9,
+      "old_vnd": 4558002.9,
+      "delta_vnd": 187200.0
+     },
+     {
+      "up_to_kg": 18.5,
+      "cell": "HCM-AIR-CAD!C44",
+      "new_vnd": 4863878.1,
+      "old_vnd": 4671478.1,
+      "delta_vnd": 192400.0
+     },
+     {
+      "up_to_kg": 19.0,
+      "cell": "HCM-AIR-CAD!C45",
+      "new_vnd": 4977915.7,
+      "old_vnd": 4780315.7,
+      "delta_vnd": 197600.0
+     },
+     {
+      "up_to_kg": 19.5,
+      "cell": "HCM-AIR-CAD!C46",
+      "new_vnd": 5091953.3,
+      "old_vnd": 4889153.3,
+      "delta_vnd": 202800.0
+     },
+     {
+      "up_to_kg": 20.0,
+      "cell": "HCM-AIR-CAD!C47",
+      "new_vnd": 5205990.9,
+      "old_vnd": 4997990.9,
+      "delta_vnd": 208000.0
+     },
+     {
+      "up_to_kg": 20.5,
+      "cell": "HCM-AIR-CAD!C48",
+      "new_vnd": 5320028.5,
+      "old_vnd": 5106828.5,
+      "delta_vnd": 213200.0
+     }
+    ],
+    "per_kg_tiers": [
+     {
+      "label": "21-44",
+      "from_kg": 21,
+      "to_kg": 44,
+      "cell": "HCM-AIR-CAD!C50",
+      "new_vnd": 260000.0,
+      "old_vnd": 249000.0,
+      "delta_vnd": 11000.0
+     },
+     {
+      "label": "45-99",
+      "from_kg": 45,
+      "to_kg": 99,
+      "cell": "HCM-AIR-CAD!C51",
+      "new_vnd": 255000.0,
+      "old_vnd": 244000.0,
+      "delta_vnd": 11000.0
+     },
+     {
+      "label": "100-299",
+      "from_kg": 100,
+      "to_kg": 299,
+      "cell": "HCM-AIR-CAD!C52",
+      "new_vnd": 250000.0,
+      "old_vnd": 239000.0,
+      "delta_vnd": 11000.0
+     },
+     {
+      "label": "300KGS+",
+      "from_kg": 300,
+      "to_kg": null,
+      "cell": "HCM-AIR-CAD!C53",
+      "new_vnd": 245000.0,
+      "old_vnd": 234000.0,
+      "delta_vnd": 11000.0
+     }
+    ]
+   },
+   "air_express_reference": {
+    "product": "AIR-CAD EXPRESS",
+    "zone": 3,
+    "used_for": "REFERENCE ONLY: Express cost is entered manually (Louis Q9)",
+    "per_bill_bands": [
+     {
+      "up_to_kg": 0.5,
+      "cell": "HCM-AIR-CAD!G8",
+      "new_vnd": 349491.2,
+      "old_vnd": 349491.2,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 1.0,
+      "cell": "HCM-AIR-CAD!G9",
+      "new_vnd": 463691.2,
+      "old_vnd": 463691.2,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 1.5,
+      "cell": "HCM-AIR-CAD!G10",
+      "new_vnd": 602425.6,
+      "old_vnd": 602425.6,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 2.0,
+      "cell": "HCM-AIR-CAD!G11",
+      "new_vnd": 740860.8,
+      "old_vnd": 740860.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 2.5,
+      "cell": "HCM-AIR-CAD!G12",
+      "new_vnd": 867926.4,
+      "old_vnd": 867926.4,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 3.0,
+      "cell": "HCM-AIR-CAD!G13",
+      "new_vnd": 994992.0,
+      "old_vnd": 994992.0,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 3.5,
+      "cell": "HCM-AIR-CAD!G14",
+      "new_vnd": 1122057.6,
+      "old_vnd": 1122057.6,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 4.0,
+      "cell": "HCM-AIR-CAD!G15",
+      "new_vnd": 1249123.2,
+      "old_vnd": 1249123.2,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 4.5,
+      "cell": "HCM-AIR-CAD!G16",
+      "new_vnd": 1376188.8,
+      "old_vnd": 1376188.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 5.0,
+      "cell": "HCM-AIR-CAD!G17",
+      "new_vnd": 1488892.8,
+      "old_vnd": 1488892.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 5.5,
+      "cell": "HCM-AIR-CAD!G18",
+      "new_vnd": 1685572.8,
+      "old_vnd": 1685572.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 6.0,
+      "cell": "HCM-AIR-CAD!G19",
+      "new_vnd": 1807252.8,
+      "old_vnd": 1807252.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 6.5,
+      "cell": "HCM-AIR-CAD!G20",
+      "new_vnd": 1936412.8,
+      "old_vnd": 1936412.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 7.0,
+      "cell": "HCM-AIR-CAD!G21",
+      "new_vnd": 2058092.8,
+      "old_vnd": 2058092.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 7.5,
+      "cell": "HCM-AIR-CAD!G22",
+      "new_vnd": 2179772.8,
+      "old_vnd": 2179772.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 8.0,
+      "cell": "HCM-AIR-CAD!G23",
+      "new_vnd": 2301452.8,
+      "old_vnd": 2301452.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 8.5,
+      "cell": "HCM-AIR-CAD!G24",
+      "new_vnd": 2423132.8,
+      "old_vnd": 2423132.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 9.0,
+      "cell": "HCM-AIR-CAD!G25",
+      "new_vnd": 2544812.8,
+      "old_vnd": 2544812.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 9.5,
+      "cell": "HCM-AIR-CAD!G26",
+      "new_vnd": 2665296.0,
+      "old_vnd": 2665296.0,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 10.0,
+      "cell": "HCM-AIR-CAD!G27",
+      "new_vnd": 2769795.2,
+      "old_vnd": 2769795.2,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 10.5,
+      "cell": "HCM-AIR-CAD!G28",
+      "new_vnd": 2874593.6,
+      "old_vnd": 2874593.6,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 11.0,
+      "cell": "HCM-AIR-CAD!G29",
+      "new_vnd": 2979092.8,
+      "old_vnd": 2979092.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 11.5,
+      "cell": "HCM-AIR-CAD!G30",
+      "new_vnd": 3083592.0,
+      "old_vnd": 3083592.0,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 12.0,
+      "cell": "HCM-AIR-CAD!G31",
+      "new_vnd": 3188091.2,
+      "old_vnd": 3188091.2,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 12.5,
+      "cell": "HCM-AIR-CAD!G32",
+      "new_vnd": 3292590.4,
+      "old_vnd": 3292590.4,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 13.0,
+      "cell": "HCM-AIR-CAD!G33",
+      "new_vnd": 3397089.6,
+      "old_vnd": 3397089.6,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 13.5,
+      "cell": "HCM-AIR-CAD!G34",
+      "new_vnd": 3501588.8,
+      "old_vnd": 3501588.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 14.0,
+      "cell": "HCM-AIR-CAD!G35",
+      "new_vnd": 3606088.0,
+      "old_vnd": 3606088.0,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 14.5,
+      "cell": "HCM-AIR-CAD!G36",
+      "new_vnd": 3710587.2,
+      "old_vnd": 3710587.2,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 15.0,
+      "cell": "HCM-AIR-CAD!G37",
+      "new_vnd": 3815086.4,
+      "old_vnd": 3815086.4,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 15.5,
+      "cell": "HCM-AIR-CAD!G38",
+      "new_vnd": 3919884.8,
+      "old_vnd": 3919884.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 16.0,
+      "cell": "HCM-AIR-CAD!G39",
+      "new_vnd": 4030368.0,
+      "old_vnd": 4030368.0,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 16.5,
+      "cell": "HCM-AIR-CAD!G40",
+      "new_vnd": 4140252.8,
+      "old_vnd": 4140252.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 17.0,
+      "cell": "HCM-AIR-CAD!G41",
+      "new_vnd": 4250137.6,
+      "old_vnd": 4250137.6,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 17.5,
+      "cell": "HCM-AIR-CAD!G42",
+      "new_vnd": 4360022.4,
+      "old_vnd": 4360022.4,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 18.0,
+      "cell": "HCM-AIR-CAD!G43",
+      "new_vnd": 4469907.2,
+      "old_vnd": 4469907.2,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 18.5,
+      "cell": "HCM-AIR-CAD!G44",
+      "new_vnd": 4579792.0,
+      "old_vnd": 4579792.0,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 19.0,
+      "cell": "HCM-AIR-CAD!G45",
+      "new_vnd": 4689676.8,
+      "old_vnd": 4689676.8,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 19.5,
+      "cell": "HCM-AIR-CAD!G46",
+      "new_vnd": 4799561.6,
+      "old_vnd": 4799561.6,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 20.0,
+      "cell": "HCM-AIR-CAD!G47",
+      "new_vnd": 4909446.4,
+      "old_vnd": 4909446.4,
+      "delta_vnd": 0.0
+     },
+     {
+      "up_to_kg": 20.5,
+      "cell": "HCM-AIR-CAD!G48",
+      "new_vnd": 5025016.0,
+      "old_vnd": 5025016.0,
+      "delta_vnd": 0.0
+     }
+    ],
+    "per_kg_tiers": [
+     {
+      "label": "21-44",
+      "from_kg": 21,
+      "to_kg": 44,
+      "cell": "HCM-AIR-CAD!G50",
+      "new_vnd": 246000.0,
+      "old_vnd": 246000.0,
+      "delta_vnd": 0.0
+     },
+     {
+      "label": "45-99",
+      "from_kg": 45,
+      "to_kg": 99,
+      "cell": "HCM-AIR-CAD!G51",
+      "new_vnd": 241000.0,
+      "old_vnd": 241000.0,
+      "delta_vnd": 0.0
+     },
+     {
+      "label": "100-299",
+      "from_kg": 100,
+      "to_kg": 299,
+      "cell": "HCM-AIR-CAD!G52",
+      "new_vnd": 236000.0,
+      "old_vnd": 236000.0,
+      "delta_vnd": 0.0
+     },
+     {
+      "label": "300KGS+",
+      "from_kg": 300,
+      "to_kg": null,
+      "cell": "HCM-AIR-CAD!G53",
+      "new_vnd": 231000.0,
+      "old_vnd": 231000.0,
+      "delta_vnd": 0.0
+     }
+    ]
+   }
+  },
+  "HAN": {
+   "air_standard": {
+    "product": "AIR-CAD",
+    "zone": 2,
+    "used_for": "vendor cost (table)",
+    "per_bill_bands": [
+     {
+      "up_to_kg": 0.5,
+      "cell": "HN-AIR-CAD!C7",
+      "new_vnd": 431483.8,
+      "old_vnd": 411983.8,
+      "delta_vnd": 19500.0
+     },
+     {
+      "up_to_kg": 1.0,
+      "cell": "HN-AIR-CAD!C8",
+      "new_vnd": 557682.3,
+      "old_vnd": 518682.3,
+      "delta_vnd": 39000.0
+     },
+     {
+      "up_to_kg": 1.5,
+      "cell": "HN-AIR-CAD!C9",
+      "new_vnd": 690257.5,
+      "old_vnd": 631757.5,
+      "delta_vnd": 58500.0
+     },
+     {
+      "up_to_kg": 2.0,
+      "cell": "HN-AIR-CAD!C10",
+      "new_vnd": 834426.7,
+      "old_vnd": 756426.7,
+      "delta_vnd": 78000.0
+     },
+     {
+      "up_to_kg": 2.5,
+      "cell": "HN-AIR-CAD!C11",
+      "new_vnd": 974248.15,
+      "old_vnd": 876748.15,
+      "delta_vnd": 97500.0
+     },
+     {
+      "up_to_kg": 3.0,
+      "cell": "HN-AIR-CAD!C12",
+      "new_vnd": 1114069.6,
+      "old_vnd": 997069.6,
+      "delta_vnd": 117000.0
+     },
+     {
+      "up_to_kg": 3.5,
+      "cell": "HN-AIR-CAD!C13",
+      "new_vnd": 1253891.05,
+      "old_vnd": 1117391.05,
+      "delta_vnd": 136500.0
+     },
+     {
+      "up_to_kg": 4.0,
+      "cell": "HN-AIR-CAD!C14",
+      "new_vnd": 1393712.5,
+      "old_vnd": 1237712.5,
+      "delta_vnd": 156000.0
+     },
+     {
+      "up_to_kg": 4.5,
+      "cell": "HN-AIR-CAD!C15",
+      "new_vnd": 1533533.95,
+      "old_vnd": 1358033.95,
+      "delta_vnd": 175500.0
+     },
+     {
+      "up_to_kg": 5.0,
+      "cell": "HN-AIR-CAD!C16",
+      "new_vnd": 1668138.1,
+      "old_vnd": 1473138.1,
+      "delta_vnd": 195000.0
+     },
+     {
+      "up_to_kg": 5.5,
+      "cell": "HN-AIR-CAD!C17",
+      "new_vnd": 1869916.3,
+      "old_vnd": 1655416.3,
+      "delta_vnd": 214500.0
+     },
+     {
+      "up_to_kg": 6.0,
+      "cell": "HN-AIR-CAD!C18",
+      "new_vnd": 1996694.5,
+      "old_vnd": 1762694.5,
+      "delta_vnd": 234000.0
+     },
+     {
+      "up_to_kg": 6.5,
+      "cell": "HN-AIR-CAD!C19",
+      "new_vnd": 2126950.9,
+      "old_vnd": 1873450.9,
+      "delta_vnd": 253500.0
+     },
+     {
+      "up_to_kg": 7.0,
+      "cell": "HN-AIR-CAD!C20",
+      "new_vnd": 2253729.1,
+      "old_vnd": 1980729.1,
+      "delta_vnd": 273000.0
+     },
+     {
+      "up_to_kg": 7.5,
+      "cell": "HN-AIR-CAD!C21",
+      "new_vnd": 2380507.3,
+      "old_vnd": 2088007.3,
+      "delta_vnd": 292500.0
+     },
+     {
+      "up_to_kg": 8.0,
+      "cell": "HN-AIR-CAD!C22",
+      "new_vnd": 2507285.5,
+      "old_vnd": 2195285.5,
+      "delta_vnd": 312000.0
+     },
+     {
+      "up_to_kg": 8.5,
+      "cell": "HN-AIR-CAD!C23",
+      "new_vnd": 2634063.7,
+      "old_vnd": 2302563.7,
+      "delta_vnd": 331500.0
+     },
+     {
+      "up_to_kg": 9.0,
+      "cell": "HN-AIR-CAD!C24",
+      "new_vnd": 2760841.9,
+      "old_vnd": 2409841.9,
+      "delta_vnd": 351000.0
+     },
+     {
+      "up_to_kg": 9.5,
+      "cell": "HN-AIR-CAD!C25",
+      "new_vnd": 2887620.1,
+      "old_vnd": 2517120.1,
+      "delta_vnd": 370500.0
+     },
+     {
+      "up_to_kg": 10.0,
+      "cell": "HN-AIR-CAD!C26",
+      "new_vnd": 3004398.3,
+      "old_vnd": 2614398.3,
+      "delta_vnd": 390000.0
+     },
+     {
+      "up_to_kg": 10.5,
+      "cell": "HN-AIR-CAD!C27",
+      "new_vnd": 3121176.5,
+      "old_vnd": 2711676.5,
+      "delta_vnd": 409500.0
+     },
+     {
+      "up_to_kg": 11.0,
+      "cell": "HN-AIR-CAD!C28",
+      "new_vnd": 3241432.9,
+      "old_vnd": 2812432.9,
+      "delta_vnd": 429000.0
+     },
+     {
+      "up_to_kg": 11.5,
+      "cell": "HN-AIR-CAD!C29",
+      "new_vnd": 3358211.1,
+      "old_vnd": 2909711.1,
+      "delta_vnd": 448500.0
+     },
+     {
+      "up_to_kg": 12.0,
+      "cell": "HN-AIR-CAD!C30",
+      "new_vnd": 3474989.3,
+      "old_vnd": 3006989.3,
+      "delta_vnd": 468000.0
+     },
+     {
+      "up_to_kg": 12.5,
+      "cell": "HN-AIR-CAD!C31",
+      "new_vnd": 3591767.5,
+      "old_vnd": 3104267.5,
+      "delta_vnd": 487500.0
+     },
+     {
+      "up_to_kg": 13.0,
+      "cell": "HN-AIR-CAD!C32",
+      "new_vnd": 3708545.7,
+      "old_vnd": 3201545.7,
+      "delta_vnd": 507000.0
+     },
+     {
+      "up_to_kg": 13.5,
+      "cell": "HN-AIR-CAD!C33",
+      "new_vnd": 3825323.9,
+      "old_vnd": 3298823.9,
+      "delta_vnd": 526500.0
+     },
+     {
+      "up_to_kg": 14.0,
+      "cell": "HN-AIR-CAD!C34",
+      "new_vnd": 3942102.1,
+      "old_vnd": 3396102.1,
+      "delta_vnd": 546000.0
+     },
+     {
+      "up_to_kg": 14.5,
+      "cell": "HN-AIR-CAD!C35",
+      "new_vnd": 4058880.3,
+      "old_vnd": 3493380.3,
+      "delta_vnd": 565500.0
+     },
+     {
+      "up_to_kg": 15.0,
+      "cell": "HN-AIR-CAD!C36",
+      "new_vnd": 4175658.5,
+      "old_vnd": 3590658.5,
+      "delta_vnd": 585000.0
+     },
+     {
+      "up_to_kg": 15.5,
+      "cell": "HN-AIR-CAD!C37",
+      "new_vnd": 4292436.7,
+      "old_vnd": 3687936.7,
+      "delta_vnd": 604500.0
+     },
+     {
+      "up_to_kg": 16.0,
+      "cell": "HN-AIR-CAD!C38",
+      "new_vnd": 4413852.5,
+      "old_vnd": 3789852.5,
+      "delta_vnd": 624000.0
+     },
+     {
+      "up_to_kg": 16.5,
+      "cell": "HN-AIR-CAD!C39",
+      "new_vnd": 4531790.1,
+      "old_vnd": 3888290.1,
+      "delta_vnd": 643500.0
+     },
+     {
+      "up_to_kg": 17.0,
+      "cell": "HN-AIR-CAD!C40",
+      "new_vnd": 4649727.7,
+      "old_vnd": 3986727.7,
+      "delta_vnd": 663000.0
+     },
+     {
+      "up_to_kg": 17.5,
+      "cell": "HN-AIR-CAD!C41",
+      "new_vnd": 4767665.3,
+      "old_vnd": 4085165.3,
+      "delta_vnd": 682500.0
+     },
+     {
+      "up_to_kg": 18.0,
+      "cell": "HN-AIR-CAD!C42",
+      "new_vnd": 4885602.9,
+      "old_vnd": 4183602.9,
+      "delta_vnd": 702000.0
+     },
+     {
+      "up_to_kg": 18.5,
+      "cell": "HN-AIR-CAD!C43",
+      "new_vnd": 5008178.1,
+      "old_vnd": 4286678.1,
+      "delta_vnd": 721500.0
+     },
+     {
+      "up_to_kg": 19.0,
+      "cell": "HN-AIR-CAD!C44",
+      "new_vnd": 5126115.7,
+      "old_vnd": 4385115.7,
+      "delta_vnd": 741000.0
+     },
+     {
+      "up_to_kg": 19.5,
+      "cell": "HN-AIR-CAD!C45",
+      "new_vnd": 5244053.3,
+      "old_vnd": 4483553.3,
+      "delta_vnd": 760500.0
+     },
+     {
+      "up_to_kg": 20.0,
+      "cell": "HN-AIR-CAD!C46",
+      "new_vnd": 5361990.9,
+      "old_vnd": 4581990.9,
+      "delta_vnd": 780000.0
+     },
+     {
+      "up_to_kg": 20.5,
+      "cell": "HN-AIR-CAD!C47",
+      "new_vnd": 5479928.5,
+      "old_vnd": 4680428.5,
+      "delta_vnd": 799500.0
+     }
+    ],
+    "per_kg_tiers": [
+     {
+      "label": "21-44",
+      "from_kg": 21,
+      "to_kg": 44,
+      "cell": "HN-AIR-CAD!C49",
+      "new_vnd": 268000.0,
+      "old_vnd": 229000.0,
+      "delta_vnd": 39000.0
+     },
+     {
+      "label": "45-99",
+      "from_kg": 45,
+      "to_kg": 99,
+      "cell": "HN-AIR-CAD!C50",
+      "new_vnd": 263000.0,
+      "old_vnd": 224000.0,
+      "delta_vnd": 39000.0
+     },
+     {
+      "label": "100-299",
+      "from_kg": 100,
+      "to_kg": 299,
+      "cell": "HN-AIR-CAD!C51",
+      "new_vnd": 258000.0,
+      "old_vnd": 219000.0,
+      "delta_vnd": 39000.0
+     },
+     {
+      "label": "300KGS+",
+      "from_kg": 300,
+      "to_kg": null,
+      "cell": "HN-AIR-CAD!C52",
+      "new_vnd": 253000.0,
+      "old_vnd": 214000.0,
+      "delta_vnd": 39000.0
+     }
+    ]
+   },
+   "air_express_reference": {
+    "product": "AIR-CAD EXPRESS",
+    "zone": 3,
+    "used_for": "REFERENCE ONLY: Express cost is entered manually (Louis Q9)",
+    "per_bill_bands": [
+     {
+      "up_to_kg": 0.5,
+      "cell": "HN-AIR-CAD!G7",
+      "new_vnd": 666168.8,
+      "old_vnd": 646668.8,
+      "delta_vnd": 19500.0
+     },
+     {
+      "up_to_kg": 1.0,
+      "cell": "HN-AIR-CAD!G8",
+      "new_vnd": 789468.8,
+      "old_vnd": 750468.8,
+      "delta_vnd": 39000.0
+     },
+     {
+      "up_to_kg": 1.5,
+      "cell": "HN-AIR-CAD!G9",
+      "new_vnd": 973207.2,
+      "old_vnd": 914707.2,
+      "delta_vnd": 58500.0
+     },
+     {
+      "up_to_kg": 2.0,
+      "cell": "HN-AIR-CAD!G10",
+      "new_vnd": 1172204.8,
+      "old_vnd": 1094204.8,
+      "delta_vnd": 78000.0
+     },
+     {
+      "up_to_kg": 2.5,
+      "cell": "HN-AIR-CAD!G11",
+      "new_vnd": 1340983.2,
+      "old_vnd": 1243483.2,
+      "delta_vnd": 97500.0
+     },
+     {
+      "up_to_kg": 3.0,
+      "cell": "HN-AIR-CAD!G12",
+      "new_vnd": 1509761.6,
+      "old_vnd": 1392761.6,
+      "delta_vnd": 117000.0
+     },
+     {
+      "up_to_kg": 3.5,
+      "cell": "HN-AIR-CAD!G13",
+      "new_vnd": 1678540.0,
+      "old_vnd": 1542040.0,
+      "delta_vnd": 136500.0
+     },
+     {
+      "up_to_kg": 4.0,
+      "cell": "HN-AIR-CAD!G14",
+      "new_vnd": 1847318.4,
+      "old_vnd": 1691318.4,
+      "delta_vnd": 156000.0
+     },
+     {
+      "up_to_kg": 4.5,
+      "cell": "HN-AIR-CAD!G15",
+      "new_vnd": 2016096.8,
+      "old_vnd": 1840596.8,
+      "delta_vnd": 175500.0
+     },
+     {
+      "up_to_kg": 5.0,
+      "cell": "HN-AIR-CAD!G16",
+      "new_vnd": 2138798.4,
+      "old_vnd": 1943798.4,
+      "delta_vnd": 195000.0
+     },
+     {
+      "up_to_kg": 5.5,
+      "cell": "HN-AIR-CAD!G17",
+      "new_vnd": 2382576.8,
+      "old_vnd": 2168076.8,
+      "delta_vnd": 214500.0
+     },
+     {
+      "up_to_kg": 6.0,
+      "cell": "HN-AIR-CAD!G18",
+      "new_vnd": 2551355.2,
+      "old_vnd": 2317355.2,
+      "delta_vnd": 234000.0
+     },
+     {
+      "up_to_kg": 6.5,
+      "cell": "HN-AIR-CAD!G19",
+      "new_vnd": 2765612.0,
+      "old_vnd": 2512112.0,
+      "delta_vnd": 253500.0
+     },
+     {
+      "up_to_kg": 7.0,
+      "cell": "HN-AIR-CAD!G20",
+      "new_vnd": 2934390.4,
+      "old_vnd": 2661390.4,
+      "delta_vnd": 273000.0
+     },
+     {
+      "up_to_kg": 7.5,
+      "cell": "HN-AIR-CAD!G21",
+      "new_vnd": 3103168.8,
+      "old_vnd": 2810668.8,
+      "delta_vnd": 292500.0
+     },
+     {
+      "up_to_kg": 8.0,
+      "cell": "HN-AIR-CAD!G22",
+      "new_vnd": 3271947.2,
+      "old_vnd": 2959947.2,
+      "delta_vnd": 312000.0
+     },
+     {
+      "up_to_kg": 8.5,
+      "cell": "HN-AIR-CAD!G23",
+      "new_vnd": 3440725.6,
+      "old_vnd": 3109225.6,
+      "delta_vnd": 331500.0
+     },
+     {
+      "up_to_kg": 9.0,
+      "cell": "HN-AIR-CAD!G24",
+      "new_vnd": 3609504.0,
+      "old_vnd": 3258504.0,
+      "delta_vnd": 351000.0
+     },
+     {
+      "up_to_kg": 9.5,
+      "cell": "HN-AIR-CAD!G25",
+      "new_vnd": 3776487.2,
+      "old_vnd": 3405987.2,
+      "delta_vnd": 370500.0
+     },
+     {
+      "up_to_kg": 10.0,
+      "cell": "HN-AIR-CAD!G26",
+      "new_vnd": 3935265.6,
+      "old_vnd": 3545265.6,
+      "delta_vnd": 390000.0
+     },
+     {
+      "up_to_kg": 10.5,
+      "cell": "HN-AIR-CAD!G27",
+      "new_vnd": 4139522.4,
+      "old_vnd": 3730022.4,
+      "delta_vnd": 409500.0
+     },
+     {
+      "up_to_kg": 11.0,
+      "cell": "HN-AIR-CAD!G28",
+      "new_vnd": 4298300.8,
+      "old_vnd": 3869300.8,
+      "delta_vnd": 429000.0
+     },
+     {
+      "up_to_kg": 11.5,
+      "cell": "HN-AIR-CAD!G29",
+      "new_vnd": 4457079.2,
+      "old_vnd": 4008579.2,
+      "delta_vnd": 448500.0
+     },
+     {
+      "up_to_kg": 12.0,
+      "cell": "HN-AIR-CAD!G30",
+      "new_vnd": 4615857.6,
+      "old_vnd": 4147857.6,
+      "delta_vnd": 468000.0
+     },
+     {
+      "up_to_kg": 12.5,
+      "cell": "HN-AIR-CAD!G31",
+      "new_vnd": 4774636.0,
+      "old_vnd": 4287136.0,
+      "delta_vnd": 487500.0
+     },
+     {
+      "up_to_kg": 13.0,
+      "cell": "HN-AIR-CAD!G32",
+      "new_vnd": 4933414.4,
+      "old_vnd": 4426414.4,
+      "delta_vnd": 507000.0
+     },
+     {
+      "up_to_kg": 13.5,
+      "cell": "HN-AIR-CAD!G33",
+      "new_vnd": 5092192.8,
+      "old_vnd": 4565692.8,
+      "delta_vnd": 526500.0
+     },
+     {
+      "up_to_kg": 14.0,
+      "cell": "HN-AIR-CAD!G34",
+      "new_vnd": 5250971.2,
+      "old_vnd": 4704971.2,
+      "delta_vnd": 546000.0
+     },
+     {
+      "up_to_kg": 14.5,
+      "cell": "HN-AIR-CAD!G35",
+      "new_vnd": 5409749.6,
+      "old_vnd": 4844249.6,
+      "delta_vnd": 565500.0
+     },
+     {
+      "up_to_kg": 15.0,
+      "cell": "HN-AIR-CAD!G36",
+      "new_vnd": 5568528.0,
+      "old_vnd": 4983528.0,
+      "delta_vnd": 585000.0
+     },
+     {
+      "up_to_kg": 15.5,
+      "cell": "HN-AIR-CAD!G37",
+      "new_vnd": 5772784.8,
+      "old_vnd": 5168284.8,
+      "delta_vnd": 604500.0
+     },
+     {
+      "up_to_kg": 16.0,
+      "cell": "HN-AIR-CAD!G38",
+      "new_vnd": 5702376.0,
+      "old_vnd": 5078376.0,
+      "delta_vnd": 624000.0
+     },
+     {
+      "up_to_kg": 16.5,
+      "cell": "HN-AIR-CAD!G39",
+      "new_vnd": 5861154.4,
+      "old_vnd": 5217654.4,
+      "delta_vnd": 643500.0
+     },
+     {
+      "up_to_kg": 17.0,
+      "cell": "HN-AIR-CAD!G40",
+      "new_vnd": 6019932.8,
+      "old_vnd": 5356932.8,
+      "delta_vnd": 663000.0
+     },
+     {
+      "up_to_kg": 17.5,
+      "cell": "HN-AIR-CAD!G41",
+      "new_vnd": 6178711.2,
+      "old_vnd": 5496211.2,
+      "delta_vnd": 682500.0
+     },
+     {
+      "up_to_kg": 18.0,
+      "cell": "HN-AIR-CAD!G42",
+      "new_vnd": 6337489.6,
+      "old_vnd": 5635489.6,
+      "delta_vnd": 702000.0
+     },
+     {
+      "up_to_kg": 18.5,
+      "cell": "HN-AIR-CAD!G43",
+      "new_vnd": 6496268.0,
+      "old_vnd": 5774768.0,
+      "delta_vnd": 721500.0
+     },
+     {
+      "up_to_kg": 19.0,
+      "cell": "HN-AIR-CAD!G44",
+      "new_vnd": 6655046.4,
+      "old_vnd": 5914046.4,
+      "delta_vnd": 741000.0
+     },
+     {
+      "up_to_kg": 19.5,
+      "cell": "HN-AIR-CAD!G45",
+      "new_vnd": 6813824.8,
+      "old_vnd": 6053324.8,
+      "delta_vnd": 760500.0
+     },
+     {
+      "up_to_kg": 20.0,
+      "cell": "HN-AIR-CAD!G46",
+      "new_vnd": 6972603.2,
+      "old_vnd": 6192603.2,
+      "delta_vnd": 780000.0
+     },
+     {
+      "up_to_kg": 20.5,
+      "cell": "HN-AIR-CAD!G47",
+      "new_vnd": 7176860.0,
+      "old_vnd": 6377360.0,
+      "delta_vnd": 799500.0
+     }
+    ],
+    "per_kg_tiers": [
+     {
+      "label": "21-44",
+      "from_kg": 21,
+      "to_kg": 44,
+      "cell": "HN-AIR-CAD!G49",
+      "new_vnd": 350000.0,
+      "old_vnd": 311000.0,
+      "delta_vnd": 39000.0
+     },
+     {
+      "label": "45-99",
+      "from_kg": 45,
+      "to_kg": 99,
+      "cell": "HN-AIR-CAD!G50",
+      "new_vnd": 345000.0,
+      "old_vnd": 306000.0,
+      "delta_vnd": 39000.0
+     },
+     {
+      "label": "100-299",
+      "from_kg": 100,
+      "to_kg": 299,
+      "cell": "HN-AIR-CAD!G51",
+      "new_vnd": 340000.0,
+      "old_vnd": 301000.0,
+      "delta_vnd": 39000.0
+     },
+     {
+      "label": "300KGS+",
+      "from_kg": 300,
+      "to_kg": null,
+      "cell": "HN-AIR-CAD!G52",
+      "new_vnd": 335000.0,
+      "old_vnd": 296000.0,
+      "delta_vnd": 39000.0
+     }
+    ]
+   }
+  }
+ },
+ "sea": {
+  "uses_kango_sheet": false,
+  "source": "Louis 2026-11-03 (photo: \"ĐƠN GIÁ 60,000Đ/KG; PHỤ PHÍ HÀNG THỰC PHẨM +30,000Đ/KG, TỐI THIỂU 400,000Đ/KIỆN; PHỤ PHÍ HÀNG THỰC PHẨM CHỨC NĂNG +40,000Đ/KG, TỐI THIỂU 500,000Đ/KIỆN\")",
+  "vendor_cost_vnd_per_kg": 60000,
+  "sell_cad_per_kg": 8,
+  "piece_fee": null,
+  "min_weight": null,
+  "surcharges": [
+   {
+    "code": "SEA-FOOD",
+    "name_vi": "Hàng thực phẩm",
+    "name_en": "Food",
+    "rate_vnd_per_kg": 30000,
+    "min_vnd_per_package": 400000,
+    "basis": "item kg",
+    "minimum_rule": "v0.7 (Louis 2026-11-03 PM): QUOTE per customer per type = max(own item kg x rate, minimum). COST (sea vendor) once per package per type = max(sum of item kg x rate over all owners in the package, minimum), split among those owners by item-kg share (CAD leftover cent to the largest-cost customer). Quote - cost = surcharge profit. If no customer-to-package record: whole master = one package (warning, not a block).",
+    "quote": "at cost (markup 0)"
+   },
+   {
+    "code": "SEA-FUNCFOOD",
+    "name_vi": "Hàng thực phẩm chức năng",
+    "name_en": "Functional food / supplements",
+    "rate_vnd_per_kg": 40000,
+    "min_vnd_per_package": 500000,
+    "basis": "item kg",
+    "minimum_rule": "v0.7 (Louis 2026-11-03 PM): QUOTE per customer per type = max(own item kg x rate, minimum). COST (sea vendor) once per package per type = max(sum of item kg x rate over all owners in the package, minimum), split among those owners by item-kg share (CAD leftover cent to the largest-cost customer). Quote - cost = surcharge profit. If no customer-to-package record: whole master = one package (warning, not a block).",
+    "quote": "at cost (markup 0)"
+   }
+  ],
+  "replaces": "Kango KSN-SEA-CAD tables, the Kango sea piece fee (<15 kg) and the Kango ocean surcharge list (inactive for sea from v0.6)"
+ },
+ "surcharges_check": {
+  "sheet": "PHỤ THU (105 rows)",
+  "changed": false,
+  "detail": "0 cell differences vs the 2026-10-30 file; data/surcharge_allocation_rules.csv stays as is"
+ },
+ "other_changes": [
+  "HCM-SEA-CAD!B50 and HN-SEA-CAD!B50 (sea Oversized note): \"≤ 32 kg\" became \"< 32 kg\". Sea sheet not used from v0.6.",
+  "Sea rate cells, Zone CAD, CHÍNH SÁCH ĐỀN BÙ, beyond-code tables: unchanged."
+ ],
+ "diff_summary": [
+  {
+   "origin": "HAN",
+   "product": "AIR-CAD",
+   "zone": 1,
+   "kind": "per_bill",
+   "cells": 41,
+   "changed": 41,
+   "delta_min_vnd": 19500.0,
+   "delta_max_vnd": 799500.0,
+   "delta_per_kg_vnd": [
+    39000.0
+   ]
+  },
+  {
+   "origin": "HAN",
+   "product": "AIR-CAD",
+   "zone": 1,
+   "kind": "per_kg",
+   "cells": 4,
+   "changed": 4,
+   "delta_min_vnd": 39000.0,
+   "delta_max_vnd": 39000.0,
+   "delta_per_kg_vnd": [
+    39000.0
+   ]
+  },
+  {
+   "origin": "HAN",
+   "product": "AIR-CAD",
+   "zone": 2,
+   "kind": "per_bill",
+   "cells": 41,
+   "changed": 41,
+   "delta_min_vnd": 19500.0,
+   "delta_max_vnd": 799500.0,
+   "delta_per_kg_vnd": [
+    39000.0
+   ]
+  },
+  {
+   "origin": "HAN",
+   "product": "AIR-CAD",
+   "zone": 2,
+   "kind": "per_kg",
+   "cells": 4,
+   "changed": 4,
+   "delta_min_vnd": 39000.0,
+   "delta_max_vnd": 39000.0,
+   "delta_per_kg_vnd": [
+    39000.0
+   ]
+  },
+  {
+   "origin": "HAN",
+   "product": "AIR-CAD",
+   "zone": 3,
+   "kind": "per_bill",
+   "cells": 41,
+   "changed": 41,
+   "delta_min_vnd": 19500.0,
+   "delta_max_vnd": 799500.0,
+   "delta_per_kg_vnd": [
+    39000.0
+   ]
+  },
+  {
+   "origin": "HAN",
+   "product": "AIR-CAD",
+   "zone": 3,
+   "kind": "per_kg",
+   "cells": 4,
+   "changed": 4,
+   "delta_min_vnd": 39000.0,
+   "delta_max_vnd": 39000.0,
+   "delta_per_kg_vnd": [
+    39000.0
+   ]
+  },
+  {
+   "origin": "HAN",
+   "product": "AIR-CAD EXPRESS",
+   "zone": 1,
+   "kind": "per_bill",
+   "cells": 41,
+   "changed": 41,
+   "delta_min_vnd": 19500.0,
+   "delta_max_vnd": 799500.0,
+   "delta_per_kg_vnd": [
+    39000.0
+   ]
+  },
+  {
+   "origin": "HAN",
+   "product": "AIR-CAD EXPRESS",
+   "zone": 1,
+   "kind": "per_kg",
+   "cells": 4,
+   "changed": 4,
+   "delta_min_vnd": 39000.0,
+   "delta_max_vnd": 39000.0,
+   "delta_per_kg_vnd": [
+    39000.0
+   ]
+  },
+  {
+   "origin": "HAN",
+   "product": "AIR-CAD EXPRESS",
+   "zone": 2,
+   "kind": "per_bill",
+   "cells": 41,
+   "changed": 41,
+   "delta_min_vnd": 19500.0,
+   "delta_max_vnd": 799500.0,
+   "delta_per_kg_vnd": [
+    39000.0
+   ]
+  },
+  {
+   "origin": "HAN",
+   "product": "AIR-CAD EXPRESS",
+   "zone": 2,
+   "kind": "per_kg",
+   "cells": 4,
+   "changed": 4,
+   "delta_min_vnd": 39000.0,
+   "delta_max_vnd": 39000.0,
+   "delta_per_kg_vnd": [
+    39000.0
+   ]
+  },
+  {
+   "origin": "HAN",
+   "product": "AIR-CAD EXPRESS",
+   "zone": 3,
+   "kind": "per_bill",
+   "cells": 41,
+   "changed": 41,
+   "delta_min_vnd": 19500.0,
+   "delta_max_vnd": 799500.0,
+   "delta_per_kg_vnd": [
+    39000.0
+   ]
+  },
+  {
+   "origin": "HAN",
+   "product": "AIR-CAD EXPRESS",
+   "zone": 3,
+   "kind": "per_kg",
+   "cells": 4,
+   "changed": 4,
+   "delta_min_vnd": 39000.0,
+   "delta_max_vnd": 39000.0,
+   "delta_per_kg_vnd": [
+    39000.0
+   ]
+  },
+  {
+   "origin": "HCM",
+   "product": "AIR-CAD",
+   "zone": 1,
+   "kind": "per_bill",
+   "cells": 41,
+   "changed": 41,
+   "delta_min_vnd": 5200.0,
+   "delta_max_vnd": 213200.0,
+   "delta_per_kg_vnd": [
+    10400.0
+   ]
+  },
+  {
+   "origin": "HCM",
+   "product": "AIR-CAD",
+   "zone": 1,
+   "kind": "per_kg",
+   "cells": 4,
+   "changed": 4,
+   "delta_min_vnd": 10000.0,
+   "delta_max_vnd": 10000.0,
+   "delta_per_kg_vnd": [
+    10000.0
+   ]
+  },
+  {
+   "origin": "HCM",
+   "product": "AIR-CAD",
+   "zone": 2,
+   "kind": "per_bill",
+   "cells": 41,
+   "changed": 41,
+   "delta_min_vnd": 5200.0,
+   "delta_max_vnd": 213200.0,
+   "delta_per_kg_vnd": [
+    10400.0
+   ]
+  },
+  {
+   "origin": "HCM",
+   "product": "AIR-CAD",
+   "zone": 2,
+   "kind": "per_kg",
+   "cells": 4,
+   "changed": 4,
+   "delta_min_vnd": 11000.0,
+   "delta_max_vnd": 11000.0,
+   "delta_per_kg_vnd": [
+    11000.0
+   ]
+  },
+  {
+   "origin": "HCM",
+   "product": "AIR-CAD",
+   "zone": 3,
+   "kind": "per_bill",
+   "cells": 41,
+   "changed": 0,
+   "delta_min_vnd": 0.0,
+   "delta_max_vnd": 0.0,
+   "delta_per_kg_vnd": [
+    0.0
+   ]
+  },
+  {
+   "origin": "HCM",
+   "product": "AIR-CAD",
+   "zone": 3,
+   "kind": "per_kg",
+   "cells": 4,
+   "changed": 0,
+   "delta_min_vnd": 0.0,
+   "delta_max_vnd": 0.0,
+   "delta_per_kg_vnd": [
+    0.0
+   ]
+  },
+  {
+   "origin": "HCM",
+   "product": "AIR-CAD EXPRESS",
+   "zone": 1,
+   "kind": "per_bill",
+   "cells": 41,
+   "changed": 41,
+   "delta_min_vnd": 5200.0,
+   "delta_max_vnd": 213200.0,
+   "delta_per_kg_vnd": [
+    10400.0
+   ]
+  },
+  {
+   "origin": "HCM",
+   "product": "AIR-CAD EXPRESS",
+   "zone": 1,
+   "kind": "per_kg",
+   "cells": 4,
+   "changed": 4,
+   "delta_min_vnd": 10000.0,
+   "delta_max_vnd": 10000.0,
+   "delta_per_kg_vnd": [
+    10000.0
+   ]
+  },
+  {
+   "origin": "HCM",
+   "product": "AIR-CAD EXPRESS",
+   "zone": 2,
+   "kind": "per_bill",
+   "cells": 41,
+   "changed": 41,
+   "delta_min_vnd": 5200.0,
+   "delta_max_vnd": 213200.0,
+   "delta_per_kg_vnd": [
+    10400.0
+   ]
+  },
+  {
+   "origin": "HCM",
+   "product": "AIR-CAD EXPRESS",
+   "zone": 2,
+   "kind": "per_kg",
+   "cells": 4,
+   "changed": 4,
+   "delta_min_vnd": 11000.0,
+   "delta_max_vnd": 11000.0,
+   "delta_per_kg_vnd": [
+    11000.0
+   ]
+  },
+  {
+   "origin": "HCM",
+   "product": "AIR-CAD EXPRESS",
+   "zone": 3,
+   "kind": "per_bill",
+   "cells": 41,
+   "changed": 0,
+   "delta_min_vnd": 0.0,
+   "delta_max_vnd": 0.0,
+   "delta_per_kg_vnd": [
+    0.0
+   ]
+  },
+  {
+   "origin": "HCM",
+   "product": "AIR-CAD EXPRESS",
+   "zone": 3,
+   "kind": "per_kg",
+   "cells": 4,
+   "changed": 0,
+   "delta_min_vnd": 0.0,
+   "delta_max_vnd": 0.0,
+   "delta_per_kg_vnd": [
+    0.0
+   ]
+  }
+ ],
+ "notes": [
+  "HCM zone 3 (HCM-AIR-CAD!D8:D53 Standard, G8:G53 Express) did not change, and HCM Express zone 3 (21-44: G50 246,000) is cheaper than HCM Standard zone 2 (C50 260,000). Louis confirmed 2026-11-03 this is correct, not a Kango error: keep as published.",
+  "RC25 243,000: the RC25 fixture kango_canada_rates_2026-10-12_sanitized.xlsx has HCM-AIR-CAD!C50 (AIR-CAD zone 2, 21-44) = 243,000 (zone 1 B50 = 237,000), and RC25 test_quotes asserts zone 2 for L5A. So 243,000 was the correct zone-2 cell of an older sheet, NOT a wrong-zone read. Zone 2, 21-44 history: 12-Oct 243,000 → 30-Oct 249,000 → 03-Nov 260,000.",
+  "HCM per-bill bands went up exactly 10,400 VND per kg of band (0.5 kg +5,200 … 20.5 kg +213,200), but HCM per-kg tiers went up 10,000 (zone 1) and 11,000 (zone 2, Express zone 2). HAN is uniform: +39,000 VND/kg on bands and tiers, zones 1-3, both services."
+ ]
+}

@@ -1,0 +1,4 @@
+legacy_reference,customer_ref,booked_on,final_status,route_group,recipient_name,recipient_city,recipient_province_state,recipient_country_code,package_count,total_weight_kg,contents_description,received_on,departed_on,customs_on,arrived_on,out_for_delivery_on,delivered_on,returned_on,cancelled_on,notes
+TEST-OLD-0001,STCA-000001,2024-03-01,delivered,VCA,Trần Thị Cũ,Toronto,ON,CA,2,18.5,Quà Tết,2024-03-04,2024-03-06,2024-03-09,2024-03-10,2024-03-11,2024-03-12,,,Synthetic history
+TEST-OLD-0002,STCA-000002,2024-05-02,cancelled,VCA,,,,,,,,,,,,,,,2024-05-03,
+TEST-OLD-0003,STCA-000001,2023-11-20,returned,VCA,Lê Văn Cũ,Montréal,QC,CA,1,3,Sách,2023-11-22,2023-11-25,,,,,2024-01-10,,

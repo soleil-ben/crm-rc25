@@ -1,0 +1,772 @@
+/* Reusable primitives. Every colour, radius, and duration comes from tokens.css. */
+
+/* --- Buttons (Design.md section 5) ---------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: var(--control-height);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-control);
+  border: 1px solid transparent;
+  font: var(--text-button);
+  cursor: pointer;
+  transition:
+    background-color var(--motion-fast) var(--easing),
+    border-color var(--motion-fast) var(--easing),
+    color var(--motion-fast) var(--easing);
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.btn--primary {
+  background: var(--brand-orange-600);
+  color: var(--white);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: #d95a22;
+}
+
+.btn--secondary {
+  background: var(--white);
+  border-color: var(--border-strong);
+  color: var(--brand-navy-900);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background: var(--surface-muted);
+}
+
+.btn--tertiary {
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 0 var(--space-2);
+}
+
+.btn--tertiary:hover:not(:disabled) {
+  background: var(--surface-muted);
+  color: var(--text-primary);
+}
+
+.btn--danger {
+  background: var(--danger-700);
+  color: var(--white);
+}
+
+.btn--danger:hover:not(:disabled) {
+  background: #97190f;
+}
+
+.btn--compact {
+  height: var(--control-height-compact);
+  padding: 0 var(--space-3);
+  font-size: 13px;
+}
+
+.btn--full {
+  width: 100%;
+}
+
+/* A loading button keeps its width so the layout does not jump. */
+.btn__spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: spin 700ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- Fields --------------------------------------------------------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.field__label {
+  font: 600 13px/20px var(--font-body);
+  color: var(--text-secondary);
+}
+
+.field__hint {
+  font: var(--text-meta-style);
+  color: var(--text-meta);
+}
+
+.field__error {
+  font: var(--text-meta-style);
+  color: var(--danger-700);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1);
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-height: var(--control-height);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
+  background: var(--white);
+  color: var(--text-primary);
+  font: var(--text-body);
+}
+
+.textarea {
+  padding: var(--space-2) var(--space-3);
+  min-height: 88px;
+  resize: vertical;
+}
+
+.select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--neutral-500) 50%),
+    linear-gradient(135deg, var(--neutral-500) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(50% + 1px),
+    calc(100% - 13px) calc(50% + 1px);
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: var(--space-8);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--text-meta);
+}
+
+.input[aria-invalid='true'],
+.select[aria-invalid='true'],
+.textarea[aria-invalid='true'] {
+  border-color: var(--danger-700);
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.checkbox-row input {
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--brand-orange-600);
+}
+
+.checkbox-row label {
+  font: var(--text-body);
+  color: var(--text-secondary);
+}
+
+/* --- Cards ---------------------------------------------------------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.card__title {
+  font: var(--text-section-title);
+}
+
+.card__body {
+  padding: var(--space-5);
+}
+
+.card__body--flush {
+  padding: 0;
+}
+
+/* --- KPI tiles ------------------------------------------------------ */
+.kpi {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-5);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--motion-fast) var(--easing);
+}
+
+.kpi:hover {
+  border-color: var(--border-strong);
+  text-decoration: none;
+}
+
+.kpi__label {
+  font: var(--text-card-title);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.kpi__value {
+  display: block;
+  font: var(--text-card-value);
+  margin-top: var(--space-2);
+}
+
+.kpi__value--danger {
+  color: var(--danger-700);
+}
+
+.kpi__value--warning {
+  color: var(--warning-700);
+}
+
+.kpi__foot {
+  display: block;
+  margin-top: var(--space-2);
+  font: var(--text-meta-style);
+  color: var(--text-meta);
+}
+
+/* --- Badges (text always present, never colour alone) --------------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  font: 600 12px/18px var(--font-body);
+  white-space: nowrap;
+}
+
+.badge--neutral {
+  background: var(--neutral-100);
+  color: var(--text-secondary);
+  border-color: var(--border-subtle);
+}
+
+.badge--success {
+  background: var(--success-100);
+  color: var(--success-700);
+  border-color: #abefc6;
+}
+
+.badge--info {
+  background: var(--info-100);
+  color: var(--info-700);
+  border-color: #b2ddff;
+}
+
+.badge--warning {
+  background: var(--warning-100);
+  color: var(--warning-700);
+  border-color: #fedf89;
+}
+
+.badge--danger {
+  background: var(--danger-100);
+  color: var(--danger-700);
+  border-color: #fecdca;
+}
+
+.badge--orange {
+  background: var(--brand-orange-100);
+  color: #a8410f;
+  border-color: #ffd7c4;
+}
+
+.badge--teal {
+  background: var(--accent-teal-100);
+  /* teal-600 on teal-100 measured 3.99:1 against the 4.5:1 that 12px text needs. This is
+     the route badge, repeated on every row of the customer and shipment lists
+     (DEC-0086). */
+  color: var(--accent-teal-700);
+  border-color: #b7e8e2;
+}
+
+/* Canada to Vietnam is navy in every chart and legend; the badge matches. */
+.badge--navy {
+  background: #e8eef4;
+  color: var(--brand-navy-900);
+  border-color: #cbd8e4;
+}
+
+.badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+/* --- Tables --------------------------------------------------------- */
+.table-wrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font: var(--text-body);
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--surface-muted);
+  text-align: left;
+  font: var(--text-table-header);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-meta);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+  white-space: nowrap;
+}
+
+.table tbody td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+  height: var(--row-height);
+  vertical-align: middle;
+}
+
+.table tbody tr:hover {
+  background: var(--neutral-50);
+}
+
+.table__id {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.table__primary {
+  font-weight: 600;
+}
+
+.table__sort {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-transform: inherit;
+  letter-spacing: inherit;
+}
+
+/* Below the medium breakpoint a table becomes stacked record cards.
+   The card must fit the viewport, so the wrapper stops scrolling sideways and every
+   value is allowed to wrap instead of being clipped (Design.md section 4). */
+@media (max-width: 767px) {
+  .table--stacked {
+    display: block;
+    width: 100%;
+  }
+
+  .table--stacked thead {
+    display: none;
+  }
+
+  .table--stacked tbody {
+    display: block;
+  }
+
+  .table--stacked tbody tr {
+    display: block;
+    width: 100%;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    margin-bottom: var(--space-3);
+    padding: var(--space-2);
+    background: var(--surface);
+  }
+
+  .table--stacked tbody td {
+    display: grid;
+    grid-template-columns: minmax(90px, 38%) 1fr;
+    align-items: start;
+    gap: var(--space-3);
+    width: 100%;
+    height: auto;
+    border-bottom: none;
+    padding: var(--space-1) var(--space-2);
+    overflow-wrap: anywhere;
+  }
+
+  .table--stacked tbody td::before {
+    content: attr(data-label);
+    font: var(--text-table-header);
+    text-transform: uppercase;
+    color: var(--text-meta);
+  }
+
+  /* Keep every value in the value column, so a second line (an email under a phone
+     number) does not slide back under the label. */
+  .table--stacked tbody td > * {
+    grid-column: 2;
+  }
+
+  /* The stacked card is already one column wide; nothing should scroll sideways. */
+  .table-wrap:has(.table--stacked) {
+    overflow-x: visible;
+  }
+}
+
+/* --- Copyable identifier ------------------------------------------- */
+.copyable {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.copyable__button {
+  border: none;
+  background: none;
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--text-meta);
+  font: var(--text-meta-style);
+}
+
+.copyable__button:hover {
+  background: var(--surface-muted);
+  color: var(--text-primary);
+}
+
+/* --- Drawer and modal ----------------------------------------------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 42, 67, 0.36);
+  z-index: 40;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.overlay--center {
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.drawer {
+  background: var(--surface);
+  width: min(560px, 100%);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-card) 0 0 var(--radius-card);
+  box-shadow: var(--shadow-overlay);
+}
+
+.modal {
+  background: var(--surface);
+  width: min(480px, 100%);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-overlay);
+  /* RC-UAT-22: a dialog taller than the window (the re-link dialog once its history is
+     shown) scrolls its body and keeps the header and footer on screen, instead of pushing
+     the confirm button past the bottom of a fixed overlay that cannot scroll. */
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__body {
+  min-height: 0;
+}
+
+.drawer__header,
+.modal__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.drawer__body,
+.modal__body {
+  padding: var(--space-5);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.drawer__footer,
+.modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--border-subtle);
+  background: var(--surface);
+}
+
+/* --- Tabs ------------------------------------------------------------ */
+.tabs {
+  display: flex;
+  gap: var(--space-1);
+  border-bottom: 1px solid var(--border-subtle);
+  overflow-x: auto;
+}
+
+.tabs__tab {
+  border: none;
+  background: none;
+  padding: var(--space-3) var(--space-4);
+  font: var(--text-button);
+  color: var(--text-meta);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition:
+    color var(--motion-fast) var(--easing),
+    border-color var(--motion-fast) var(--easing);
+}
+
+.tabs__tab[aria-selected='true'] {
+  color: var(--text-primary);
+  border-bottom-color: var(--brand-orange-500);
+}
+
+/* --- Banners and toasts ---------------------------------------------- */
+.banner {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-control);
+  border: 1px solid transparent;
+  font: var(--text-body);
+}
+
+.banner--info {
+  background: var(--info-100);
+  border-color: #b2ddff;
+  color: var(--info-700);
+}
+
+.banner--warning {
+  background: var(--warning-100);
+  border-color: #fedf89;
+  color: var(--warning-700);
+}
+
+.banner--danger {
+  background: var(--danger-100);
+  border-color: #fecdca;
+  color: var(--danger-700);
+}
+
+.banner--neutral {
+  background: var(--surface-muted);
+  border-color: var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.banner__title {
+  font-weight: 600;
+}
+
+/* The problems with a form, at its top (UAT round 5). Each entry links to its field. */
+.error-summary {
+  border: 2px solid var(--danger-700);
+  border-radius: var(--radius-control);
+  padding: var(--space-3) var(--space-4);
+  background: var(--danger-100);
+  color: var(--danger-700);
+}
+
+.error-summary:focus-visible {
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+
+.error-summary__title {
+  font: var(--text-section-title);
+  margin: 0 0 var(--space-2);
+}
+
+.error-summary__list {
+  margin: 0;
+  padding-left: var(--space-5);
+}
+
+/* A block-level link at least 24 px tall meets the WCAG 2.2 target size. */
+.error-summary__list a {
+  display: inline-block;
+  min-height: 24px;
+  padding-block: 2px;
+  color: var(--danger-700);
+}
+
+.toast-region {
+  position: fixed;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  z-index: 60;
+}
+
+.toast {
+  background: var(--brand-navy-900);
+  color: var(--text-on-dark);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-overlay);
+  font: var(--text-body);
+  max-width: 360px;
+}
+
+.toast--danger {
+  background: var(--danger-700);
+}
+
+/* --- Skeletons and empty states -------------------------------------- */
+.skeleton {
+  background: linear-gradient(90deg, var(--neutral-100), var(--neutral-200), var(--neutral-100));
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: var(--radius-control);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.state-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+  padding: var(--space-8) var(--space-5);
+  color: var(--text-secondary);
+}
+
+.state-block__title {
+  font: var(--text-section-title);
+  color: var(--text-primary);
+}
+
+.state-block__body {
+  max-width: 46ch;
+}
+
+/* --- Filter chips ----------------------------------------------------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--surface-muted);
+  border: 1px solid var(--border-subtle);
+  font: var(--text-meta-style);
+  color: var(--text-secondary);
+}
+
+.chip__remove {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text-meta);
+  padding: 0 2px;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.chip__remove:hover {
+  color: var(--danger-700);
+}
+
+/* --- Pagination -------------------------------------------------------- */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+}
+
+/* --- Definition tooltip ------------------------------------------------ */
+.info-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: none;
+  color: var(--text-meta);
+  font: 600 10px/1 var(--font-body);
+  cursor: help;
+  flex: none;
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--brand-navy-800);
+  color: var(--text-on-dark);
+  font: 600 14px/1 var(--font-heading);
+  flex: none;
+}
+
+.avatar--lg {
+  width: 56px;
+  height: 56px;
+  font-size: 18px;
+}
+
+/* A label wrapping a radio or checkbox and its text (fix pack 2). */
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 32px;
+  cursor: pointer;
+}

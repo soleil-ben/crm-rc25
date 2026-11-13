@@ -1,0 +1,706 @@
+{
+  "identifier": "RC-UAT-24",
+  "is_prerelease": true,
+  "production_ready": false,
+  "frozen_at": "2026-10-24",
+  "frozen_from_branch": "fix/owner-answers-rc17",
+  "measured_at_commit": "f4a04a337350691a9241c5fb0554123b5e96a722",
+  "refreeze_history": [
+    {
+      "date": "2026-10-24",
+      "commit": "f4a04a337350691a9241c5fb0554123b5e96a722",
+      "branch": "fix/owner-answers-rc17",
+      "reason": "First freeze of RC-UAT-24: Ben's evening answers of 2026-10-24 (I-1, I-10, I-11, I-12; OD-112, DEC-0236 to DEC-0239; PROJECT_STATUS.md section 64, docs/b2c_merge/28_BUILD_RC24_RECORD.md), committed as the application commit f4a04a3 on fix/owner-answers-rc17 (on top of the RC-UAT-23 freeze bb9a89b). One data-only migration (e7a9c1d3f5b6); no lockfile changed."
+    }
+  ],
+  "supersedes": "RC-UAT-23",
+  "superseded_baseline_commit": "3151095458910c77d3aa2c5942ca86a9c07eb6e8",
+  "supersession_reason": "The RC-UAT-24 build (Ben's evening answers of 2026-10-24: OD-112, DEC-0236 to DEC-0239; PROJECT_STATUS.md section 64; docs/b2c_merge/28_BUILD_RC24_RECORD.md) changed what a tester sees: the legal-entity name on Settings (Brand and tracking > Legal entity), the staff portal's login footer (English and Vietnamese) and the demo label sender (seed.py, scripts/render_sample_labels.py) read 'Solaris Express Inc.' (I-10, DEC-0236); the draft invoice editor's included-tax sentence reads 'Tax included in the price: subtotal before tax ..., HST ON @ 13% ..., total ...' with the invoice's summary labels (I-11, DEC-0239). I-1 (English-only invoice PDF, names without accents) and I-12 (the cent nudge) were confirmed as built (DEC-0237, DEC-0238); the held items stay unbuilt (OD-112). It added the data-only migration e7a9c1d3f5b6 (new Alembic head, down_revision d4f6b8c0e2a5; no table or column added or altered), which renames an organization_settings.legal_entity_name still holding exactly the old default 'Soleil Global Transportation Inc.' to 'Solaris Express Inc.' and leaves any other value alone; the model default changed with it. The identifier therefore moves. No route was added or removed (273; the route tables at 3151095 and f4a04a3 are identical), no permission (55, the same set), no response field (all 330 Pydantic models under app have the same field sets at both commits: public tracking 25, Customer Account 18 / 26 / 18) and no dependency lock, so both lock digests are carried unchanged. RC-UAT-23's files are unchanged; against this tree they drift on the Alembic head only (d4f6b8c0e2a5 recorded, e7a9c1d3f5b6 measured).",
+  "rc_uat_1_baseline_commit": "ee14523c258122a5ea90b28ccdf10b1ed0ed38fa",
+  "rc_uat_3_baseline_commit": "98f1fdece89254ae92905843ee494f599c6ea97e",
+  "phase_11_closure_commit": "bafbbc8",
+  "alembic_head": "e7a9c1d3f5b6",
+  "toolchain": {
+    "python": "3.12.10",
+    "node": "24.11.1",
+    "npm": "11.6.2",
+    "sqlite": "3.49.1"
+  },
+  "python_support": "64-bit CPython 3.11 to 3.14 (3.12.10 recommended and measured here; 3.14.9 verified with a 434-test backend subset from the pinned lock); 3.15 not supported yet (five pinned packages have no 3.15 wheel, P-8). docs/b2c_merge/23_FIXPACK_RC19_RECORD.md section 1.",
+  "dependency_locks": {
+    "backend/requirements.lock.txt": "3d42abe9e169da438c3d9b159aa5091aa4c05e3b50fdc358527eaae0c329e2ac",
+    "frontend/package-lock.json": "e2c92eeb8777165683a994c6d07259999556b1b17f2bafa799ea0023f70e613f"
+  },
+  "dependency_lock_note": "Neither lock changed between 3151095 (RC-UAT-23) and f4a04a3 (git diff of backend/requirements.lock.txt and frontend/package-lock.json is empty; sha256 re-computed at f4a04a3 matches), so both digests are carried from RC-UAT-23 and re-checked by verify_rc_baseline.py. backend/requirements.lock.txt last changed in Phase 13A (openpyxl, et_xmlfile); frontend/package-lock.json is unchanged since RC-UAT-5.",
+  "dependency_audit": {
+    "npm_audit_before_cleanup": {
+      "critical": 2,
+      "high": 3,
+      "moderate": 5
+    },
+    "npm_audit_at_this_commit": {
+      "critical": 0,
+      "high": 0,
+      "moderate": 2
+    },
+    "residual_findings": [
+      {
+        "advisory": "GHSA-wrjc-x8rr-h8h6",
+        "title": "React Router: open redirect via backslash in <Link> and useNavigate (CVE-2025-68470 bypass)",
+        "package": "react-router 6.30.6 (via react-router-dom)",
+        "severity": "moderate",
+        "cwe": "CWE-601",
+        "cvss": "none published",
+        "fixed_in": "7.18.4 (major)",
+        "exploitable_here": false,
+        "reason": "Requires an attacker-controlled string with a leading backslash to reach a <Link to> or navigate() target. Every dynamic target in frontend/src is either a path this application wrote into history state (checked for the /account/ prefix before use), a value from a fixed set returned by destinationForSession(), or a report/dashboard link built server-side in report_service.py as a literal '/...' path with enum values in the query string. No URL query parameter, form field or API string is ever passed to a navigation."
+      },
+      {
+        "advisory": "GHSA-337j-9hxr-rhxg",
+        "title": "React Router: arbitrary constructor injection via deserializeErrors() in SSR hydration",
+        "package": "react-router 6.30.6 (via react-router-dom)",
+        "severity": "moderate",
+        "cwe": "CWE-470",
+        "cvss": "6.1 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N)",
+        "fixed_in": "7.18.4 (major)",
+        "exploitable_here": false,
+        "reason": "Requires server-side rendering with a data router and hydrateRoot. main.jsx uses createRoot; there is no StaticRouter, createBrowserRouter, RouterProvider or hydrateRoot anywhere in frontend/src."
+      }
+    ],
+    "residual_findings_note": "Both are closed only by React Router 7, a major version. Neither is reachable in this application's setup. The upgrade is assessed in docs/DECISION_REGISTER.md and is post-launch engineering work, not a UAT or production blocker.",
+    "pip_audit": "not run; no Python audit tool is in the dev extra. No backend dependency changed since RC-UAT-17; openpyxl 3.1.5 and et_xmlfile 2.0.0 (Phase 13A) remain unaudited by a tool.",
+    "npm_audit_note": "Lockfile unchanged since RC-UAT-5; the same two moderate react-router advisories, both unreachable. npm audit was not re-run for RC-UAT-18 to RC-UAT-24."
+  },
+  "test_counts": {
+    "backend": 4940,
+    "frontend_unit": 844,
+    "playwright": 326,
+    "accessibility_screens_audited": null,
+    "accessibility_audit_invocations": null,
+    "audited_viewports": 2,
+    "uat_cases": 49,
+    "customer_account_uat_cases": 60,
+    "air_uat_cases": 96,
+    "uat_cases_executed": 0,
+    "customer_account_uat_cases_executed": 0,
+    "air_uat_cases_executed": 0
+  },
+  "test_count_notes": {
+    "backend": "Full suite on the build tree, run in nine foreground chunks covering all 159 test files (28_BUILD_RC24_RECORD.md section 2): 4,940 passed, 1 skipped, 0 failed; 4 new in test_rc24_legal_entity.py (the Settings API, the model default, both label senders, the migration renaming only the old default and its downgrade).",
+    "frontend_unit": "844 passed, 2 new in rc24LegalEntity.test.jsx; eight fixtures carrying the old name and two assertions of the editor sentence updated (28_BUILD_RC24_RECORD.md sections 1 and 2).",
+    "playwright": "326 passed: one full run on port 5173 (13.5 min); no second run needed; one assertion of the editor sentence updated (28_BUILD_RC24_RECORD.md section 2). See blank_page_observation.",
+    "accessibility_screens_audited": "Not re-counted for RC-UAT-17 to RC-UAT-24. RC-UAT-16 measured 64 screen states and 127 audit invocations; later phases added audits. Re-measured with the next counted Playwright run; null is not zero.",
+    "accessibility_audit_invocations": "See accessibility_screens_audited.",
+    "uat_cases": "Unchanged at 49 (the build adds no case to UAT_CASES.md).",
+    "customer_account_uat_cases": "60 by heading, unchanged.",
+    "air_uat_cases": "96 by heading in docs/UAT/AIR_UAT_PACK.md: the 36 of Phase 17 plus UAT-OWN-01 to -17 (RC-UAT-18), UAT-OWN-18 to -27 (RC-UAT-19), UAT-OWN-28 to -35 (RC-UAT-20), UAT-BLD-01 to -17 (RC-UAT-21), UAT-BLD-18 and -19 (B-13, RC-UAT-22), UAT-BLD-20 to -24 (the invoices, RC-UAT-23) and UAT-BLD-25 (the legal entity and the editor wording, RC-UAT-24). Checked by verify_uat_blank.py; verify_rc_baseline.py's case check counts UAT_CASES.md only."
+  },
+  "route_counts": {
+    "backend_total_path_method_pairs": 273,
+    "backend_staff_api": 242,
+    "backend_customer_account": 26,
+    "backend_customer_account_mutations": 18,
+    "backend_customer_account_review_staff": 21,
+    "backend_public": 2,
+    "backend_non_api": 3,
+    "backend_provider_webhook": 0,
+    "permissions": 55
+  },
+  "route_count_notes": {
+    "measured": "Walked at f4a04a3 with the route walker of tests/test_account_boundary.py (included routers resolved), HEAD and OPTIONS excluded, in a scratch process over a git archive, with DATABASE_URL pointed at a scratch path and a scratch working directory (no database opened or created); a Customer Account route is one defined in app.api.account, a public one in app.api.public; the framework's own documentation routes (openapi.json, docs, oauth2-redirect) are not APIRoutes and are not counted. The same walker over a git archive of 3151095 reproduces RC-UAT-23's 273 / 242 / 26 / 18 / 21 / 2 / 3 and 55 permissions, and the two route tables and permission sets are identical.",
+    "backend_customer_account": "26, unchanged from RC-UAT-23. Mutations 18, unchanged.",
+    "frontend": "Frontend route counts were not re-counted for RC-UAT-24.",
+    "backend_staff_api": "242, unchanged from RC-UAT-23 (the customer-account review set 21). The build changed a model default, a migration, seed data and frontend wording, not the route table. None added, none removed.",
+    "permissions": "Members of app.core.permissions.Permission: 55 at 3151095 and 55 at f4a04a3, the same set."
+  },
+  "field_counts": {
+    "public_tracking_result": 25,
+    "account_shipment_list_item": 18,
+    "account_shipment_detail": 26,
+    "account_quote_detail": 18,
+    "registration_field_allowlist": 43
+  },
+  "field_count_note": "Re-measured at f4a04a3 from the Pydantic models (scratch process): PublicTrackingResult 25, AccountShipmentListItem 18, AccountShipmentDetail 26, AccountQuoteDetail 18 -- unchanged from RC-UAT-23. Not in the counted set, measured the same way at 3151095 and f4a04a3: QuoteDocumentOut 21, InvoiceDocumentOut 34, ReceiptDocumentOut 18, InvoiceDetailOut 27, InvoiceLineOut 9, InvoiceDocumentLineOut 8, InvoiceDraftOut 46 -- unchanged; and every Pydantic model loaded under app (330 at each commit) has the same name and field set at both commits. The registration allowlist was not re-counted (no registration change).",
+  "customer_account_filters": {
+    "approved": 5,
+    "names": [
+      "status_group",
+      "booked_from/booked_to",
+      "reference",
+      "route_group",
+      "q"
+    ],
+    "added_by_od_41": [
+      "reference",
+      "route_group"
+    ],
+    "added_by_dec_0156": [
+      "q"
+    ],
+    "free_text_search": "q, the keyword search (DEC-0156, DEC-0161): public_id, booking_reference, origin_city, destination_city, and the shipment's own package_reference values through an EXISTS correlated on shipment_id; folded for case and accents; LIKE wildcards escaped; bound parameter; 64 characters; after the ownership clause. The screen sends q, not reference. Cancelled packages match too, still own shipments only (confirmed by DEC-0164).",
+    "extended_by_dec_0161": [
+      "q: package references"
+    ]
+  },
+  "accessibility": {
+    "measured_from": "RC-UAT-16 (commit fcd07a7); not re-measured for RC-UAT-17 to RC-UAT-24, see test_count_notes.accessibility_screens_audited",
+    "screens_audited": 64,
+    "public_screens": 7,
+    "staff_screens": 26,
+    "customer_account_screens": 31,
+    "audit_invocations": 127,
+    "viewports": {
+      "1280x800": 64,
+      "375x812": 63
+    },
+    "violations_critical": 0,
+    "violations_serious": 0,
+    "suppressed_rules": 0,
+    "suppressed_rules_note": "EXPECTED_FINDINGS in frontend/tests/e2e/axeHelpers.js is empty, and a test fails if an entry stops matching. Nothing is suppressed globally and nothing per screen.",
+    "findings_fixed_rather_than_suppressed": [
+      "link-in-text-block (serious): the Customer Account's inline links were distinguished from their sentence by colour alone. Inline links are underlined now."
+    ],
+    "human_validation": "NONE. No screen reader has been run against the Customer Account, no zoom level above 100% has been tested, forced-colors mode has not been exercised, and only Chromium has been used. Automated auditing is not human validation (OD-19, open)."
+  },
+  "invariants": {
+    "public_contract_fields": 25,
+    "production_adapters": 0,
+    "integration_resource_host_allowlist": 0,
+    "integration_resource_path_prefix_allowlist": 0,
+    "tracking_source_modes": [
+      "manual",
+      "external_link"
+    ],
+    "integration_health": "not_configured",
+    "provider_webhook_routes": 0,
+    "public_correlation_header": "absent"
+  },
+  "provisional_uat_dispositions": {
+    "public_carrier_link_hosts": 9,
+    "public_help_url": "",
+    "mfa": "undecided",
+    "retention_deletion": "disabled: the machinery exists (DEC-0233; configurable periods, a dry-run report, a hand-run worker) and is off by default; testers only dry-run it (UAT-BLD-17); periods undecided (OD-01, OD-36)",
+    "proxy_trust": "disabled",
+    "production_deployment": "prohibited",
+    "shipment_import": "built (DEC-0230): CSV, dry-run first (same user, same bytes, unused, under 24 h); no quote, invoice, email or notification from an import",
+    "legacy_history": "built (DEC-0230): a legacy history baseline imported dry-run first; legacy records staff-only, outside finance and operational lists, voided as a whole baseline, moved on a customer merge",
+    "provider_allowlists": "empty",
+    "uat_database": "data/uat/solaris_uat.uat.db (git-ignored), with the Phase 17 air dataset; mail in data/uat/account_mail, rate emails in data/uat/tariff_intake",
+    "return_shipment_records": "no workflow creates one; OD-22 open",
+    "customer_account_email": "development capture only; no production transport is written (OD-34). Quote-sent and milestone emails use the same seam. ACCOUNT_REHEARSE_NO_EMAIL_PROVIDER rehearses the closed-registration gate outside production (CA-REG-09)",
+    "customer_account_terms_version": "PLACEHOLDER-terms-unapproved (OD-37)",
+    "customer_account_privacy_version": "PLACEHOLDER-privacy-unapproved (OD-37)",
+    "customer_account_language": "Vietnamese first with an English switch on every screen (OD-71); the Vietnamese wording accepted by the owner (OD-85); no native review sheet filled in",
+    "customer_profile_editing": "built in fix pack 2 (DEC-0123): preferred language direct, one source (DEC-0128); names, phone and pickup address by staff-reviewed proposal, reviewed by Operations (DEC-0124); email change deferred (DEC-0125)",
+    "customer_consent_screens": "marketing consent built in fix pack 2; milestone email choices built in Phase 13F (OD-72), editable by the customer and by staff with tracking:write",
+    "customer_account_deactivation": "routed, Admin only, reason code and audit (DEC-0126, DEC-0131); the link row is kept and does not block a merge (DEC-0134)",
+    "staff_suppression": "Suppress address on the Consent tab, suppression:add for Marketing and Admin, evidence and reason required (DEC-0130); Operations cannot suppress by any path (DEC-0133); the evidence reference is shown on Audit access (DEC-0137)",
+    "tariff_approvers": "UAT: admin@demo.example.com only (seeded); production default: the owner (OD-76)",
+    "vendor_mailbox": "none connected; upload or the intake folder (question 11)",
+    "exchange_rate_source": "UAT: demo readings only (demo://fixture, uat_env.py --refresh-fx); the FX worker is not run in UAT because it calls the bank",
+    "vendor_names_customer_facing": "none (OD-84, OD-91): a surcharge label naming a vendor reads 'Ph\u1ee5 ph\u00ed' / 'Surcharge' on customer documents; staff-typed text naming a vendor is replaced on output; draft lines naming a vendor are refused on save; carrier links stay visible under a generic name and stored labels never reach customers; a link whose host names the vendor stays hidden (OD-105); staff leg views use the generic tracking labels too",
+    "master_lock": "a booked master locks items and fee lines; Admin unlocks with a reason (master:unlock, audited); relock by Admin or Operations; automatic relock when a member quote is finalised (OD-88, DEC-0219)",
+    "invoice_on_acceptance": "acceptance creates a draft invoice (no INV- number until Send); quotes for goods not yet received expire when a new tariff is activated (OD-89, OD-90, DEC-0220, DEC-0221)",
+    "customer_tracking_names": "'Master Tracking' (Vietnam to the vendor's Canadian warehouse) and 'Last Mile Tracking' (onward), at most one link per name (carrier_links); Vietnamese 'Theo d\u00f5i ch\u1eb7ng ch\u00ednh' / 'Theo d\u00f5i ch\u1eb7ng cu\u1ed1i' approved (OD-104)",
+    "draft_invoice_tax": "by route (OD-102): international (one end outside Canada) auto-fills 0 % zero-rated; domestic auto-fills tax included at the destination province's rate from the tax_rates table (ON 13, NS 14, NB/NL/PE 15, others 5 % GST; province from the recipient postal code, then the address; unknown means staff choose), edited by Admin in Settings > GST/HST rates (audited); staff may change the rate; the confirmation tick is required for Save, Send and Download; directly issued invoices unchanged (OD-106). P-9 (domestic quote wording vs backed-out tax) closed: OD-109 confirmed by Ben on 2026-10-24, see quote_tax_wording; issued invoices back the tax out per line, see invoice_layout; open: P-10 (no domestic service to quote)",
+    "costume_jewellery_pricing": "staff enter the vendor's VND cost and the customer CAD price, no defaults; finalising blocked until both; the charge is exactly the price; the negative-margin rule still applies (OD-103)",
+    "quote_retention": "quotes with an issued invoice or on a booked master do not expire (OD-95, OD-98); Admin soft delete and restore of eligible old quote versions with a reason and audit (OD-107, DEC-0233; quote:delete), refused when tied to an issued invoice, a live draft or an accepted offer",
+    "uat_python": "START_UAT.bat accepts 64-bit Python 3.11 to 3.14 (prefers 3.12): UAT_PYTHON, py -0p, the standard install folders and PATH; WindowsApps skipped (DEC-0226)",
+    "payment_date": "stored and shown as a plain date end to end; 'not in the future' and the M+7 lock judged by that date; legacy rows keep their old local date (RC-UAT-19 finding)",
+    "uat_domestic_shipments": "UAT only: three Canada-to-Canada shipments for A2 on master UAT-DOM-AWB with unsent drafts at 14 % (NS), 15 % (NB) and one awaiting a rate; A1's UAT-AIR-A1-1 invoiced at 0 % (zero-rated); domestic shipments cannot be quoted on screen (P-10)",
+    "quote_tax_wording": "confirmed by Ben on 2026-10-24 (OD-109 answered, OD-111, DEC-0235; was the DEC-0232 stand-in for P-9): customer quotes say domestic 'GST/HST included' at the destination province's rate, international zero-rated; the total label 'T\u1ed5ng c\u1ed9ng' kept",
+    "account_security": "built (DEC-0231): customer and staff change their own password (sessions rotated, others signed out); customer sign-in email change verified at the new address, with a notice to the old one; Admin reinstatement of a deactivated account (back to pending approval when its customer was merged)",
+    "build_stand_ins": "the builds' stand-ins A-1 to A-14, B-1 to B-20 and D-1 to D-12 are open questions in docs/b2c_merge/19_OWNER_QUESTIONS.md section 0000; of the RC-UAT-23 invoice stand-ins I-1 to I-13 in section 00000, I-1 and I-12 were confirmed by Ben on 2026-10-24 (DEC-0237, DEC-0238), I-10 built (DEC-0236) and I-11 tidied (DEC-0239) in RC-UAT-24",
+    "orphaned_account_relink": "built (DEC-0234, B-13): Customer accounts > Accounts needing a customer, Admin only (customer_account:deactivate); re-link to a named customer after previewing and acknowledging the history the link opens (fingerprint-checked; the merge survivor suggested; no customer already holding a link; the single email rule), or close as a reversible deactivation (orphan_closed, nothing emailed); each action a customer_account_relinks row and an audit event; stand-ins B-15 to B-20. Open: whether reinstatement should instead be refused outright after a merge (19_OWNER_QUESTIONS.md section 0000)",
+    "invoice_layout": "built (DEC-0235, OD-111): invoices follow the Solaris Invoicing desk -- domestic courier lines back GST/HST out per line at the destination province's rate (app/services/invoice_tax_math.py: net = round_half_up(gross / (1 + r), 2), tax = round_half_up(net * r, 2), the net nudged by the cent (I-12, confirmed by Ben, DEC-0238); Rate = net / qty to 4 dp), international Air Freight zero-rated; issued invoices store each line's net in customer_invoice_lines.amount_cad and tax_layout 'invoicing_v1' in document_json; the total stays the all-in total; invoice PDFs English only without accents (I-1, confirmed by Ben, DEC-0237); the Solaris Express Inc. company block, Terms: Due on receipt (invoice_due_days 0), CAD, E-transfer and BMO wire lines, the desk's footer; the manual Issue invoice keeps tax added on top (I-2); invoices issued before keep their stored figures (I-4); refunds and voids unchanged. Stand-ins I-1 to I-13 (19_OWNER_QUESTIONS.md section 00000)",
+    "legal_entity": "built (DEC-0236, I-10): the legal-entity name is 'Solaris Express Inc.' on Settings (Brand and tracking > Legal entity), the staff login footer (en and vi) and the demo label sender (seed.py, scripts/render_sample_labels.py); the organization_settings model default changed; the data-only migration e7a9c1d3f5b6 renames a settings row still holding exactly 'Soleil Global Transportation Inc.' and leaves any other value alone. Parent-company references (README.md, CRM.md, Soleil's warehouse and mailbox) and historical records are unchanged on purpose",
+    "draft_invoice_tax_wording": "the draft invoice editor's included-tax sentence reads 'Tax included in the price: subtotal before tax ..., <summary label> ..., total ...' with the invoice's summary labels (I-11, DEC-0239); quote wording unchanged"
+  },
+  "open_owner_decisions": {
+    "register": "docs/OWNER_DECISIONS.md",
+    "recorded": 112,
+    "answered": 90,
+    "open": 22,
+    "carrying_a_temporary_disposition": 7,
+    "blocking_uat": 5,
+    "blocking_production": 17,
+    "provider_only": 1,
+    "identifiers_with_no_record": 0,
+    "decision_log_records": 239,
+    "owner_question_sheet": "docs/b2c_merge/19_OWNER_QUESTIONS.md (the twelve questions answered as OD-81 to OD-90; the 2026-10-22 answers as OD-91 to OD-101; Ben's answers of 2026-10-23 as OD-102 to OD-108; P-9 as OD-109, confirmed by Ben on 2026-10-24, and Ben's build direction OD-110; the builds' open questions and stand-ins A-1 to A-14, B-1 to B-20 and D-1 to D-12 in section 0000; OD-111 (mimic Solaris Invoicing) and the stand-ins I-1 to I-13 in section 00000, with Ben's evening answers of 2026-10-24 (OD-112: I-1 and I-12 confirmed, I-10 built, I-11 tidied, the held items skipped for now); P-10 and the stand-ins R-1 to R-14 in section 000)"
+  },
+  "unresolved_launch_blockers": [
+    "OD-34 - no production email provider is selected; data residency, an authenticated sending domain, and bounce and complaint handling are all unaddressed. Customer Account registration cannot launch in production.",
+    "OD-37 - no approved terms or privacy text exists. Both versions are placeholders that name themselves as placeholders, and production registration refuses while either is one.",
+    "OD-39 / OD-71 - the customer-facing copy has not been reviewed: the English copy (REVIEW_customer_account_copy.md, blank) and the Vietnamese-first copy (no native review, 19_OWNER_QUESTIONS.md question 6).",
+    "OD-19 - no accessibility reviewer is assigned. 125 automated audits are not a human review.",
+    "OD-01 / OD-36 - retention periods are undecided, so no canonical deletion schedule exists. The retention machinery exists since RC-UAT-21 (DEC-0233) and stays off until they are decided.",
+    "DEC-0006 - rate limiting is in-process and per-worker. More than one worker needs a shared store.",
+    "OD-17 - staff MFA is undecided. OD-33 defers customer MFA separately.",
+    "Secrets are not in a secret store; credential_ref must name an entry, never a value.",
+    "Provider integration remains deferred (DEC-0075). No adapter, no allowlisted host, no webhook."
+  ],
+  "human_uat": {
+    "staff_pack_cases": 49,
+    "staff_pack_executed": 0,
+    "customer_account_pack_cases": 60,
+    "customer_account_pack_executed": 0,
+    "review_sheets": 5,
+    "review_sheets_completed": 0,
+    "note": "No human has executed any case in any of the three packs and no review sheet has been filled in. Every Evidence obtained, Result, Defect, Tester, Date and sign-off field is blank, checked by scripts/verify_uat_blank.py rather than by eye.",
+    "evidence_field_correction": "The single prewritten 'Evidence' row was split into 'Evidence to capture' (prewritten, part of the case definition) and 'Evidence obtained' (blank until a tester records what they captured), and the review sheets were separated into Content under review / Reviewer response / Evidence obtained / Result-sign-off. A UAT-record correction only: no case step, expected result, test or application file changed, and the tested application commit is unchanged at 48abca5.",
+    "blank_field_verifier": "scripts/verify_uat_blank.py",
+    "air_pack_cases": 96,
+    "air_pack_executed": 0
+  },
+  "blank_page_observation": {
+    "status": "root cause found and fixed in RC-UAT-22 (DEC-0234 build, 26_BUILD_RC22_RECORD.md item 2)",
+    "first_seen": "RC-UAT-1, staffKeyboard.spec.js:212, run 5 of 7",
+    "recurrence_at_rc_uat_4": true,
+    "runs_at_rc_uat_4": 3,
+    "note": "Three consecutive complete suites at this commit passed, 259 each, retries 0, one worker. Earlier in the phase, at an intermediate commit, two instances of the same class were seen: once as staffAccessibility.spec.js failing to find a report heading that was there on every other run, and once as the Vite dev server answering ERR_CONNECTION_REFUSED mid-run with nothing in its log. Neither reproduced and neither is explained. It is not classified as fixed.",
+    "recurrence_at_rc_uat_5": "One run during the fix pack failed once waiting for the staff applications heading inside an activation helper, and passed in every other run; the same unexplained class. Not classified as fixed.",
+    "recurrence_at_rc_uat_21": "Three full Playwright runs on the default port each lost one different account spec to ERR_CONNECTION_REFUSED on a Vite module request (blank page); each spec passed alone, and the full run on port 5473 passed 325. Recorded by the build as an environment flake; the same unexplained class. Not classified as fixed.",
+    "resolution_at_rc_uat_22": "The harness started Vite without --host, so on Windows it listened on ::1 only, while Chromium resolves localhost itself and, when its periodic IPv6 probe says no, connects over IPv4 -- refused, one module missing, a blank page, a different spec each run. run_e2e.mjs now binds both servers to the literal 127.0.0.1 and gives the browser that origin; diagnostics.js probes the host of E2E_BASE_URL; no name is resolved in a run. After the fix two full runs in a row on the default port 5173 passed 326 each, no failure, no retry. The earlier non-connection instances (RC-UAT-4, RC-UAT-5) are not separately explained; a recurrence would reopen this.",
+    "recurrence_at_rc_uat_23": "None: the one full Playwright run of the build, on port 5173, passed 326 (14.2 min), no failure, no retry (27_BUILD_RC23_RECORD.md section 2).",
+    "recurrence_at_rc_uat_24": "None: the one full Playwright run of the build, on port 5173, passed 326 (13.5 min), no failure (28_BUILD_RC24_RECORD.md section 2)."
+  },
+  "measurement_note": "Frozen on 2026-10-24 in the worktree C:/solaris-wt/fixpack-owner (fix/owner-answers-rc17; HEAD f4a04a3; the working tree was clean before this freeze, and uat_package/ was not touched). Measured here: verify_rc_baseline.py 10 of 10; verify_rc_baseline.py --baseline docs/RC_UAT_23_BASELINE.json 1 of 10 drifted, the Alembic head (d4f6b8c0e2a5 recorded, e7a9c1d3f5b6 measured; no lock and no public field changed, and none of the ten hashes application code); verify_uat_blank.py (49 / 60 / 96), verify_decision_log.py (239 records; the next free decision number is 0240) and verify_owner_decisions.py (112 recorded, 90 answered, 22 open) pass; route, permission and field counts walked in a scratch process; the Alembic head read from the migration scripts of git archives of 3151095 and f4a04a3 (no database). Not re-run for the freeze: the full backend suite, vitest, Playwright and Alembic up/down -- their figures are the build's gates on this application tree (28_BUILD_RC24_RECORD.md section 2).",
+  "rollback": {
+    "to": "3151095458910c77d3aa2c5942ca86a9c07eb6e8 (RC-UAT-23), or do not merge fix/owner-answers-rc17 past bb9a89b.",
+    "schema": "One data-only migration: e7a9c1d3f5b6 (down_revision d4f6b8c0e2a5) adds or alters no table or column. Its downgrade puts 'Soleil Global Transportation Inc.' back on organization_settings rows holding exactly 'Solaris Express Inc.'. A UAT database is disposable: rebuild it with the RC-UAT-23 checkout's uat_env.py --reset rather than downgrade one in place.",
+    "steps": [
+      "git checkout the RC-UAT-23 commit in a clean working tree (no dependency changed, nothing to reinstall).",
+      "Rebuild the UAT database with that checkout's scripts/uat_env.py --reset (or, on a database to keep, run alembic downgrade d4f6b8c0e2a5 from the RC-UAT-24 checkout first).",
+      "Run scripts/verify_rc_baseline.py --baseline docs/RC_UAT_23_BASELINE.json from the restored checkout."
+    ],
+    "data": "data/solaris_crm.db, data/uat/, backups/ and .env were not opened by this freeze. Route and field counts were measured in a scratch process over git archives with DATABASE_URL pointed at a scratch path; no database was created."
+  },
+  "rc_uat_4_baseline_commit": "0b772e0125431b7d2d42aa09f9b88a80ad6f277f",
+  "known_risks_at_freeze": [
+    "Accessibility counts are not re-measured for RC-UAT-24 (null in test_counts).",
+    "test_phase14_golden.py::test_document_deep_scan_is_customer_safe failed once in the RC-UAT-22 build's backend run and passed on the immediate rerun of its chunk and alone; the leak list was not captured, so the cause is not known (26_BUILD_RC22_RECORD.md section 3). It did not fail in the RC-UAT-23 run (4,936 passed, 0 failed) or the RC-UAT-24 run (4,940 passed, 0 failed); it stays a known intermittent until explained. If it recurs, the assertion message names the field.",
+    "B-13 is built but partly open: whether reinstatement should instead be refused outright after a merge (19_OWNER_QUESTIONS.md section 0000); the re-link and close choices are stand-ins B-15 to B-20.",
+    "The customer quote's GST/HST wording is confirmed (OD-109, 2026-10-24); domestic shipments cannot be quoted on screen (P-10); the builds' stand-ins A-1 to A-14, B-1 to B-20 and D-1 to D-12 are open questions in 19_OWNER_QUESTIONS.md section 0000, the remaining invoice stand-ins of I-1 to I-13 in section 00000 (I-1, I-10, I-11 and I-12 answered in RC-UAT-24), and R-1 to R-14 in section 000.",
+    "Retention deletion is built but off; the periods are undecided (OD-01, OD-36) and turning it on needs the owner's written approval. Testers only dry-run it.",
+    "Not started; Ben: skip for now (OD-112): returns (OD-22), staff MFA (OD-17), production email (OD-34), provider sync (OD-21).",
+    "Python 3.15 is not supported until the pinned packages ship 3.15 wheels (P-8).",
+    "Browser Back from an unsaved invoice draft is not intercepted (F-9).",
+    "No live vendor mailbox and no production email provider; email is test capture only.",
+    "The air dataset's dates follow the day of the reset; demo exchange rates count as live for a day (uat_env.py --refresh-fx); the FX worker must not be run in UAT.",
+    "openpyxl 3.1.5 and et_xmlfile 2.0.0 are not audited by a tool.",
+    "Unchanged from RC-UAT-23: DEC-0155's lockout and the Canada default (DEC-0157), audit actors (DEC-0153), DEC-0142, DEC-0144, DEC-0141, DEC-0148, the CA-SEC-07 residual (DEC-0122), the two react-router advisories and eslint 9.39.5.",
+    "The launch blockers in unresolved_launch_blockers are unchanged; none is a development task."
+  ],
+  "defects_found_during_validation": [
+    "None recorded by the build (28_BUILD_RC24_RECORD.md section 2). Eight frontend fixtures that carried the old legal-entity name and three earlier assertions of the editor sentence (two vitest, one Playwright) were updated for DEC-0236 and DEC-0239; these are recorded rule changes, not defects."
+  ],
+  "rc_uat_5_baseline_commit": "0dfaf23e12008e4662c5238767c34d71147f73c3",
+  "route_counts_note": "Measured by walking the application's route table with the walker the permission tests use, not by counting source lines.",
+  "rc_uat_6_baseline_commit": "92d3331d8546b70db9a73845216b24ad864b8b89",
+  "rc_uat_7_baseline_commit": "d9f61ee3c5916a0a14e11794662dd34069b3e1fd",
+  "rc_uat_8_commits": [
+    "16ffc7a",
+    "4374407"
+  ],
+  "rc_uat_8_commits_note": "16ffc7a is the RC-UAT-7 freeze (docs and scripts only). 4374407 is this baseline's application work; 17fcddc after it is documents only.",
+  "validation_evidence_2026_10_15_round_4": {
+    "commits_reviewed": "16ffc7a..4374407 on fix/uat-round-4",
+    "summary": "UAT round 4 fix pack 4 (PROJECT_STATUS.md section 35); DEC-0129 to DEC-0132.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 313 files",
+      "pytest": "2811 passed, 0 failed, 780 s",
+      "eslint": "clean",
+      "vitest": "433 passed, 31 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "270 passed, 0 failed, one worker, retries 0, 10.3 minutes (one earlier run failed 3; fixed)",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0133"
+    }
+  },
+  "rc_uat_8_baseline_commit": "4374407f5c65bd8a5cc5ef87e604944c1a88b37d",
+  "rc_uat_9_commits": [
+    "81d18e8",
+    "e1720f4"
+  ],
+  "rc_uat_9_commits_note": "81d18e8 is the RC-UAT-8 freeze (docs and scripts only). e1720f4 is this baseline's application work; f7e743d after it is documents only.",
+  "validation_evidence_2026_10_15_round_5": {
+    "commits_reviewed": "81d18e8..e1720f4 on fix/uat-round-5",
+    "summary": "UAT round 5 fix pack 5 and owner decisions (PROJECT_STATUS.md section 36); DEC-0133 to DEC-0137.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 315 files",
+      "pytest": "2832 passed, 0 failed, 772 s",
+      "eslint": "clean",
+      "vitest": "444 passed, 32 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "272 passed, 0 failed, one worker, retries 0, 10.2 minutes, first run",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0138"
+    }
+  },
+  "rc_uat_9_baseline_commit": "e1720f409cfb9145715581a746b193c2a8cad8e8",
+  "rc_uat_10_commits": [
+    "4c5a3f9",
+    "ba3fce0"
+  ],
+  "rc_uat_10_commits_note": "4c5a3f9 is the RC-UAT-9 freeze (docs and scripts only). ba3fce0 is this baseline's application work; 436c262 after it is documents only.",
+  "validation_evidence_2026_10_15_round_6": {
+    "commits_reviewed": "4c5a3f9..ba3fce0 on fix/uat-round-6",
+    "summary": "UAT round 6 fix pack 6 and owner decisions (PROJECT_STATUS.md section 37); DEC-0138 to DEC-0141.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 317 files",
+      "pytest": "2850 passed, 0 failed, 774 s",
+      "eslint": "clean",
+      "vitest": "450 passed, 33 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "272 passed, 0 failed, one worker, retries 0, 10.3 minutes, first run",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0142"
+    }
+  },
+  "rc_uat_10_baseline_commit": "ba3fce09171a946e13591e24cbc9e69f326b2be2",
+  "rc_uat_11_commits": [
+    "03461eb",
+    "e74b388"
+  ],
+  "rc_uat_11_commits_note": "03461eb is the RC-UAT-10 freeze (docs and scripts only). e74b388 is this baseline's application work; 69df7ad after it is documents only.",
+  "validation_evidence_2026_10_16_round_7": {
+    "commits_reviewed": "03461eb..e74b388 on fix/uat-round-7",
+    "summary": "UAT round 7 owner decisions (PROJECT_STATUS.md section 38); DEC-0142 to DEC-0144.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 319 files",
+      "pytest": "2857 passed, 0 failed, 808 s",
+      "eslint": "clean",
+      "vitest": "455 passed, 34 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "272 passed, 0 failed, one worker, retries 0, 10.6 minutes, first run",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0145"
+    }
+  },
+  "rc_uat_11_baseline_commit": "e74b3882d3df91a8d52e51753ef8c12bd58fbe7a",
+  "rc_uat_12_commits": [
+    "179b501",
+    "3d46044"
+  ],
+  "rc_uat_12_commits_note": "179b501 is the RC-UAT-11 freeze (docs and scripts only). 3d46044 is this baseline's application work; the documents commit after it touches documents only.",
+  "validation_evidence_2026_10_17_round_8": {
+    "commits_reviewed": "179b501..3d46044 on fix/uat-round-8",
+    "summary": "UAT round 8 real-phone feedback and staff-side gaps (PROJECT_STATUS.md section 39); DEC-0145 to DEC-0149.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 321 files",
+      "pytest": "2874 passed, 0 failed, 794 s",
+      "eslint": "clean",
+      "vitest": "471 passed, 35 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "278 passed, 0 failed, one worker, retries 0, 10.6 minutes, second full run (the first failed one new test on its own assertion)",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0150"
+    }
+  },
+  "rc_uat_12_baseline_commit": "3d46044144a021f71ccfea8677840b9d86621c8e",
+  "rc_uat_13_commits": [
+    "da0e850",
+    "9037b82",
+    "ae3d62f",
+    "f872068"
+  ],
+  "rc_uat_13_commits_note": "da0e850 is the RC-UAT-12 freeze (docs and scripts only). 9037b82 (round 9), ae3d62f (DEC-0155) and f872068 (one e2e spec) are this baseline's application work; 8f0dbab after them is documents only.",
+  "validation_evidence_2026_10_18_round_9": {
+    "commits_reviewed": "da0e850..f872068 on fix/uat-round-9",
+    "summary": "UAT round 9 owner decisions (PROJECT_STATUS.md section 40); DEC-0150 to DEC-0155.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 323 files",
+      "pytest": "2902 passed, 2 failed (environmental, worktree without the gitignored databases), 791 s",
+      "eslint": "clean",
+      "vitest": "483 passed, 36 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "283 passed, 0 failed, one worker, retries 0, 10.9 minutes, second full run (the first failed one existing case that expected one problem)",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0156"
+    }
+  },
+  "rc_uat_13_baseline_commit": "f8720689265cb47ebc0c74dbeb41373cc0a94b2e",
+  "rc_uat_14_commits": [
+    "b41430d",
+    "04123c1"
+  ],
+  "rc_uat_14_commits_note": "b41430d is the RC-UAT-13 freeze (docs and scripts only). 04123c1 is this baseline's application work; 600e41e after it is documents only.",
+  "validation_evidence_2026_10_18_round_10": {
+    "commits_reviewed": "b41430d..04123c1 on fix/uat-round-10",
+    "summary": "UAT round 10 real-phone feedback (PROJECT_STATUS.md section 41); DEC-0156.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 325 files",
+      "pytest": "2923 passed, 2 failed (environmental, worktree without the gitignored databases), 816 s",
+      "eslint": "clean",
+      "vitest": "491 passed, 37 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "284 passed, 0 failed, one worker, retries 0, 10.8 minutes, first run",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0157"
+    }
+  },
+  "rc_uat_15_commits": [
+    "51550c3",
+    "b81ad85"
+  ],
+  "rc_uat_15_commits_note": "51550c3 is the RC-UAT-14 freeze (docs and scripts only). b81ad85 is this baseline's application work; the docs commit after it is documents and one verifier constant (verify_uat_blank.py, 60 cases).",
+  "validation_evidence_2026_10_18_round_11": {
+    "commits_reviewed": "51550c3..b81ad85 on fix/uat-round-11",
+    "summary": "UAT round 11 owner decisions (PROJECT_STATUS.md section 42); DEC-0157 to DEC-0162.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 327 files",
+      "pytest": "2969 passed, 2 failed (environmental, worktree without the gitignored databases), 773 s",
+      "eslint": "clean",
+      "vitest": "506 passed, 38 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "289 passed, 0 failed, one worker, retries 0, 10.9 minutes, first full run",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass (60 Customer Account cases)",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0163"
+    }
+  },
+  "rc_uat_14_baseline_commit": "04123c155386d6ffb313572f79fe7961a1934995",
+  "rc_uat_16_commits": [
+    "9ae1b90",
+    "fc83f16",
+    "58f2039"
+  ],
+  "rc_uat_16_commits_note": "9ae1b90 is the RC-UAT-15 freeze (docs and scripts only). fc83f16 (round 12) and 58f2039 (one profile test) are this baseline's application work; the docs commit after them touches documents only.",
+  "validation_evidence_2026_10_19_round_12": {
+    "commits_reviewed": "9ae1b90..58f2039 on fix/uat-round-12",
+    "summary": "UAT round 12 owner decisions (PROJECT_STATUS.md section 43); DEC-0163 to DEC-0166.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean, 329 files",
+      "pytest": "3043 passed, 2 failed (environmental, worktree without the gitignored databases), 784 s",
+      "eslint": "clean",
+      "vitest": "538 passed, 39 files",
+      "vite_build": "ok",
+      "alembic": "8 up, check clean, 8 down, 8 up, check clean, head 6af30fcdd3a8",
+      "playwright": "295 passed, 0 failed, one worker, retries 0, 11.0 minutes, second full run (the first failed one new test on its own locator)",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass (60 Customer Account cases)",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0167"
+    }
+  },
+  "rc_uat_15_baseline_commit": "b81ad85581f6b34c71818aba2b6aa4c37179ebb9",
+  "rc_uat_16_baseline_commit": "58f2039e798e3876d2fd341cd4de4c63ca6baa41",
+  "validation_evidence_2026_10_21_phase_17": {
+    "commits_reviewed": "1089257 plus the uncommitted Phase 17 work and UAT dry-run fixes",
+    "summary": "Phase 17 UAT readiness (PROJECT_STATUS.md section 57); DEC-0218.",
+    "gates": {
+      "ruff_check": "clean",
+      "ruff_format_check": "clean",
+      "pytest_targeted": "665 passed, 1 skipped (the new files with the consolidation, event, notification, account session and boundary, quote, finance, tariff intake, seed and every test_uat_* file)",
+      "pytest_full": "not re-run; Phase 16 at 1089257: 4,188 passed, 1 skipped, 2 environmental failures",
+      "uat_env": "--reset then --check: every required category present",
+      "verify_rc_baseline": "10 of 10",
+      "verify_uat_blank": "pass (49 / 60 / 36)",
+      "verify_owner_decisions": "pass",
+      "verify_decision_log": "pass; the next free decision number is 0219",
+      "eslint": "clean",
+      "vitest": "734 passed, 54 files",
+      "vite_build": "ok"
+    }
+  },
+  "measured_at_commit_note": "Measured at f4a04a3, the application commit of the RC-UAT-24 build; the full backend suite, vitest and Playwright ran on that tree. The freeze documents and scripts are committed on top; the tester-visible application tree is unchanged by them.",
+  "rc_uat_17_baseline_commit": "911965bd7ddf575c94792f89ba1b791b16d6e700",
+  "rc_uat_18_commits": [
+    "432a9b9",
+    "03b943d"
+  ],
+  "rc_uat_18_commits_note": "432a9b9 is the RC-UAT-17 freeze documents (f6948ea cherry-picked; docs and scripts only). 03b943d is this baseline's application work. b334e93 after it adds only uat_package/; the RC-UAT-18 freeze documents are committed on top.",
+  "validation_evidence_2026_10_22_owner_fixpack": {
+    "commits_reviewed": "432a9b9..03b943d on fix/owner-answers-rc17",
+    "summary": "Owner answers to the RC-UAT-17 questions, OD-81 to OD-90 (PROJECT_STATUS.md section 58, docs/b2c_merge/22_FIXPACK_RC18_RECORD.md); DEC-0219 to DEC-0222.",
+    "gates": {
+      "ruff_check": "clean, 343 files",
+      "ruff_format_check": "clean",
+      "pytest": "4323 passed, 1 skipped, 2 failed (environmental, worktree without the gitignored databases)",
+      "eslint": "clean",
+      "vitest": "747 passed",
+      "vite_build": "ok",
+      "alembic": "on a scratch database: upgrade head -> d4f7a2c9e1b8, check clean, downgrade -1, upgrade",
+      "playwright": "318 passed, run alone (second run; the first caught accountQuotes.spec.js not passing the new Send confirmation)",
+      "verify_rc_baseline": "10 of 10 (at the freeze)",
+      "verify_uat_blank": "pass (49 / 60 / 53)",
+      "verify_owner_decisions": "pass (90 recorded)",
+      "verify_decision_log": "pass; the next free decision number is 0223"
+    }
+  },
+  "rc_uat_18_baseline_commit": "03b943d3429eca005bddd4d914edf850ab508e41",
+  "rc_uat_19_commits": [
+    "8b954e4",
+    "418cf3f"
+  ],
+  "rc_uat_19_commits_note": "8b954e4 is the RC-UAT-18 freeze (docs, scripts and uat_package/). 418cf3f is this baseline's application work; the RC-UAT-19 freeze documents are committed on top.",
+  "validation_evidence_2026_10_22_owner_fixpack_rc19": {
+    "commits_reviewed": "8b954e4..418cf3f on fix/owner-answers-rc17",
+    "summary": "Owner answers of 2026-10-22, OD-91 to OD-101, and the UAT Python fix (PROJECT_STATUS.md section 59, docs/b2c_merge/23_FIXPACK_RC19_RECORD.md); DEC-0223 to DEC-0226.",
+    "gates": {
+      "ruff_check": "clean, 346 files",
+      "ruff_format_check": "clean",
+      "pytest": "4397 passed, 1 skipped, 3 failed: test_e2e_safety (environmental, worktree-only) and two public-field count pins (24 to 25) fixed and rerun green (189 passed with the register guard)",
+      "eslint": "clean",
+      "vitest": "757 passed",
+      "vite_build": "ok",
+      "alembic": "on a scratch database: upgrade head -> e6b1c4a8d2f3, check clean, downgrade -1, upgrade",
+      "playwright": "319 passed, run alone (second run; the first caught accountQuotes.spec.js sending without the GST/HST confirmation)",
+      "python_3_14": "CPython 3.14.9 venv from the pinned lock, 434-test backend subset passed",
+      "verify_rc_baseline": "10 of 10 (at the freeze)",
+      "verify_uat_blank": "pass (49 / 60 / 63)",
+      "verify_owner_decisions": "pass (101 recorded)",
+      "verify_decision_log": "pass; the next free decision number is 0227"
+    }
+  },
+  "rc_uat_19_baseline_commit": "418cf3ff50a5fc6fbb2175e967da64c195018442",
+  "rc_uat_20_commits": [
+    "f90927a",
+    "98ca88b"
+  ],
+  "rc_uat_20_commits_note": "f90927a is the RC-UAT-19 freeze (docs, scripts and the UAT launcher). 98ca88b is this baseline's application work; the RC-UAT-20 freeze documents are committed on top.",
+  "validation_evidence_2026_10_24_owner_fixpack_rc20": {
+    "commits_reviewed": "f90927a..98ca88b on fix/owner-answers-rc17",
+    "summary": "Ben's answers of 2026-10-23, OD-102 to OD-108, and the RC-UAT-19 UAT fixes (PROJECT_STATUS.md section 60, docs/b2c_merge/24_FIXPACK_RC20_RECORD.md); DEC-0227 to DEC-0229.",
+    "gates": {
+      "ruff_check": "clean, 356 files",
+      "ruff_format_check": "clean",
+      "pytest": "4622 passed, 1 skipped, 1 failed: test_e2e_safety (environmental, worktree-only)",
+      "eslint": "clean",
+      "vitest": "795 passed",
+      "vite_build": "ok",
+      "alembic": "on a scratch database: upgrade head -> f7c2d9e3a1b5, check clean, downgrade -1, upgrade",
+      "playwright": "319 passed, run alone",
+      "verify_rc_baseline": "10 of 10 (at the freeze)",
+      "verify_uat_blank": "pass (49 / 60 / 71)",
+      "verify_owner_decisions": "pass (108 recorded)",
+      "verify_decision_log": "pass; the next free decision number is 0230"
+    }
+  },
+  "rc_uat_20_baseline_commit": "98ca88b107da8936013ab9bc514344f0036a0ec7",
+  "rc_uat_21_commits": [
+    "16d80fc",
+    "be7d2df"
+  ],
+  "rc_uat_21_commits_note": "16d80fc is the RC-UAT-20 freeze (docs and scripts only). be7d2df is this baseline's application work; the RC-UAT-21 freeze documents are committed on top.",
+  "validation_evidence_2026_10_24_build_rc21": {
+    "commits_reviewed": "16d80fc..be7d2df on fix/owner-answers-rc17",
+    "summary": "Build run on Ben's direction of 2026-10-24, OD-110: packaging, the P-9 stand-in (OD-109), imports and legacy history, account security, quote soft delete and retention (PROJECT_STATUS.md section 61, docs/b2c_merge/25_BUILD_RC21_RECORD.md); DEC-0230 to DEC-0233.",
+    "gates": {
+      "ruff_check": "clean, 382 files",
+      "pytest": "4852 passed, 1 skipped, 1 failed: test_e2e_safety (environmental, worktree-only)",
+      "eslint": "clean",
+      "vitest": "825 passed",
+      "vite_build": "ok",
+      "alembic": "up, current, check, down, up -- head c3e5a7b9d2f4",
+      "playwright": "325 passed, the full suite run alone, Vite on port 5473 (three earlier runs on the default port each lost one spec to ERR_CONNECTION_REFUSED)",
+      "golden_tests": "11 (test_rc21_golden.py); the smoke route-tax rule passed against a reset UAT database",
+      "verify_rc_baseline": "10 of 10 (at the freeze)",
+      "verify_uat_blank": "pass (49 / 60 / 88)",
+      "verify_owner_decisions": "pass (110 recorded)",
+      "verify_decision_log": "pass; the next free decision number is 0234"
+    }
+  },
+  "rc_uat_21_baseline_commit": "be7d2dfce0f0aa5019d24396e8129a2e50d3e1c0",
+  "rc_uat_22_commits": [
+    "d25df41",
+    "61f5c22"
+  ],
+  "rc_uat_22_commits_note": "d25df41 is the RC-UAT-21 freeze (docs and scripts only). 61f5c22 is this baseline's application work; the RC-UAT-22 freeze documents are committed on top.",
+  "validation_evidence_2026_10_24_build_rc22": {
+    "commits_reviewed": "d25df41..61f5c22 on fix/owner-answers-rc17",
+    "summary": "Build RC-UAT-22: orphaned-account re-link and close (B-13), the Playwright blank-page flake fixed at its cause, test_e2e_safety honest in worktrees, dialogs that scroll (PROJECT_STATUS.md section 62, docs/b2c_merge/26_BUILD_RC22_RECORD.md); DEC-0234.",
+    "gates": {
+      "ruff": "clean, 386 files formatted",
+      "pytest": "4881 passed, 1 skipped, in six foreground chunks; test_e2e_safety passes in the worktree; one intermittent failure (test_phase14_golden.py::test_document_deep_scan_is_customer_safe) passed on rerun",
+      "eslint": "clean",
+      "vitest": "835 passed",
+      "vite_build": "ok",
+      "alembic": "upgrade, current, check, downgrade -1, upgrade on a scratch database -- head d4f6b8c0e2a5, no drift",
+      "playwright": "326 passed, then 326 passed: two full runs in a row on port 5173 (browser at 127.0.0.1:5173), no failure, no retry",
+      "verify_rc_baseline": "10 of 10 (at the freeze)",
+      "verify_uat_blank": "pass (49 / 60 / 90)",
+      "verify_owner_decisions": "pass (110 recorded)",
+      "verify_decision_log": "pass; the next free decision number is 0235"
+    }
+  },
+  "rc_uat_22_baseline_commit": "61f5c22f3f215ebbdada8999d9a6309e955a9e9a",
+  "rc_uat_23_commits": [
+    "ecb19b7",
+    "3151095"
+  ],
+  "rc_uat_23_commits_note": "ecb19b7 is the RC-UAT-22 freeze (docs and scripts only). 3151095 is this baseline's application work; the RC-UAT-23 freeze documents are committed on top.",
+  "validation_evidence_2026_10_24_build_rc23": {
+    "commits_reviewed": "ecb19b7..3151095 on fix/owner-answers-rc17",
+    "summary": "Build RC-UAT-23: invoices follow the Solaris Invoicing desk -- per-line GST/HST back-out by destination province, zero-rated international, net lines and a tax summary, English-only PDF, the Solaris Express Inc. company block, payment lines and footer (PROJECT_STATUS.md section 63, docs/b2c_merge/27_BUILD_RC23_RECORD.md); OD-111, OD-109 answered; DEC-0235.",
+    "gates": {
+      "ruff": "clean, 389 files formatted",
+      "pytest": "4936 passed, 1 skipped, 0 failed, in nine foreground chunks; 52 new in test_rc23_invoice_tax_math.py and test_rc23_invoice_layout.py",
+      "eslint": "clean",
+      "vitest": "842 passed",
+      "vite_build": "ok",
+      "alembic": "upgrade, current, check, downgrade -1, upgrade on a scratch database -- head d4f6b8c0e2a5 (unchanged), no new upgrade operations detected",
+      "playwright": "326 passed, one full run on port 5173 (14.2 min), no failure, no retry",
+      "verify_rc_baseline": "10 of 10 (at the freeze)",
+      "verify_uat_blank": "pass (49 / 60 / 95)",
+      "verify_owner_decisions": "pass (111 recorded)",
+      "verify_decision_log": "pass; the next free decision number is 0236"
+    }
+  },
+  "rc_uat_23_baseline_commit": "3151095458910c77d3aa2c5942ca86a9c07eb6e8",
+  "rc_uat_24_commits": [
+    "bb9a89b",
+    "f4a04a3"
+  ],
+  "rc_uat_24_commits_note": "bb9a89b is the RC-UAT-23 freeze (docs and scripts only). f4a04a3 is this baseline's application work; the RC-UAT-24 freeze documents are committed on top.",
+  "validation_evidence_2026_10_24_build_rc24": {
+    "commits_reviewed": "bb9a89b..f4a04a3 on fix/owner-answers-rc17",
+    "summary": "Build RC-UAT-24: Ben's evening answers of 2026-10-24 -- the legal entity Solaris Express Inc. on Settings, the login footer and the label sender (I-10, data-only migration e7a9c1d3f5b6), I-1 and I-12 confirmed, the draft editor's tax wording (I-11), held items skipped (PROJECT_STATUS.md section 64, docs/b2c_merge/28_BUILD_RC24_RECORD.md); OD-112; DEC-0236 to DEC-0239.",
+    "gates": {
+      "ruff": "clean, 391 files formatted",
+      "pytest": "4940 passed, 1 skipped, 0 failed, in nine foreground chunks covering all 159 test files; 4 new in test_rc24_legal_entity.py",
+      "eslint": "clean",
+      "vitest": "844 passed",
+      "vite_build": "ok",
+      "alembic": "upgrade, current, check, downgrade -1, upgrade on a scratch database -- head e7a9c1d3f5b6, no new upgrade operations detected (data only)",
+      "playwright": "326 passed, one full run on port 5173 (13.5 min)",
+      "verify_rc_baseline": "10 of 10 (at the freeze)",
+      "verify_uat_blank": "pass (49 / 60 / 96)",
+      "verify_owner_decisions": "pass (112 recorded)",
+      "verify_decision_log": "pass; the next free decision number is 0240"
+    }
+  }
+}

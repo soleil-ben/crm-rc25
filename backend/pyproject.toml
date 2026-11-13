@@ -1,0 +1,81 @@
+[project]
+name = "solaris-crm-backend"
+version = "0.1.0"
+description = "Solaris Express CRM - FastAPI backend (Phases 1-2: customer CRM, bookings, packages, labels)"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "sqlalchemy>=2.0.36",
+    "alembic>=1.14",
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
+    "email-validator>=2.2",
+    "argon2-cffi>=23.1",
+    "phonenumbers>=8.13",
+    "python-dateutil>=2.9",
+    # The IANA timezone database. Windows ships no system tz database at all, and slim
+    # Linux images often omit one, in which case `zoneinfo` raises and every "Toronto"
+    # timestamp would otherwise have to fall back to UTC. Report period boundaries are
+    # cut in the organization timezone (DEC-0076), so this is load-bearing, not cosmetic.
+    "tzdata>=2024.2",
+    # 4 x 6 label PDFs: page geometry, Code 128, QR, and Unicode font embedding.
+    # BSD-licensed; pulls in Pillow.
+    "reportlab>=4.2",
+    # Multipart form parsing, required by FastAPI for the CSV import upload.
+    "python-multipart>=0.0.9",
+    # Reads the vendor tariff workbook (.xlsx) for the versioned tariff importer
+    # (Phase 13A). MIT-licensed; pulls in et_xmlfile. Formulas are never evaluated:
+    # the importer reads cached values only.
+    "openpyxl>=3.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "pytest-cov>=6.0",
+    # Starlette's TestClient is built on `httpx2` (the httpx 2.x line, published under its
+    # own name) and warns when it has to fall back to `httpx`. Nothing here imports either
+    # directly; the test client is the only consumer.
+    "httpx2>=2.0",
+    "ruff>=0.8",
+    # Label PDF assertions: page geometry, page count, and visible text.
+    "pypdf>=5.1",
+    # Asserts the embedded label font really covers the Vietnamese repertoire.
+    "fonttools>=4.55",
+]
+
+# Optional extra for decoding the generated barcodes and QR codes.
+#
+# `pymupdf` is AGPL-3.0. It is used only by the local test suite to rasterize a page for
+# decoding; it is never imported by the application and is not part of the shipped
+# product. `tests/test_labels.py` skips the decoding tests with a clear message when
+# these are absent, so a missing tool can never be mistaken for a passing scan check.
+verify = [
+    "pymupdf>=1.24",
+    "zxing-cpp>=2.2",
+    "pillow>=10.4",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["error::DeprecationWarning:app.*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "C4", "SIM"]
+ignore = ["B008"]
+
+[tool.ruff.lint.per-file-ignores]
+"alembic/*" = ["E501"]
+"tests/*" = ["E501"]

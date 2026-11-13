@@ -1,0 +1,860 @@
+/* Unified workspace (Phase 13D). Built from the shared tokens; nothing new in colour. */
+
+.ws-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.ws-main,
+.ws-customers {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+/* Grid items default to min-width: auto, so a wide table would push its card past the
+   column (under the vendor-cost panel); the table scrolls inside .table-wrap instead. */
+.ws-main > *,
+.ws-customers > * {
+  min-width: 0;
+}
+
+.ws-side {
+  position: sticky;
+  top: var(--space-4);
+}
+
+.ws-section-title {
+  margin: var(--space-2) 0 0;
+}
+
+.ws-subtitle {
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: 0.95rem;
+}
+
+.ws-form {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.ws-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-3);
+}
+
+.ws-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+}
+
+.ws-details--stack {
+  grid-template-columns: 1fr;
+}
+
+.ws-detail dt {
+  font-size: 0.8rem;
+  color: var(--text-meta);
+}
+
+.ws-detail dd {
+  margin: 2px 0 0;
+}
+
+.ws-results,
+.ws-rule-list,
+.ws-items,
+.ws-fees,
+.ws-cartons,
+.ws-split,
+.ws-issues {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ws-issues {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+.ws-results li,
+.ws-fee,
+.ws-item__head,
+.ws-split li,
+.ws-quote__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.ws-results li {
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ws-split li {
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.ws-item {
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ws-fees {
+  margin: var(--space-2) 0 0 var(--space-4);
+}
+
+.ws-fee {
+  padding: 4px 0;
+}
+
+.ws-picker {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+}
+
+.ws-rule-list {
+  max-height: 320px;
+  overflow-y: auto;
+  margin: var(--space-2) 0;
+}
+
+.ws-rule {
+  display: grid;
+  width: 100%;
+  text-align: left;
+  gap: 2px;
+  padding: var(--space-2);
+  border: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.ws-rule:hover,
+.ws-rule:focus-visible {
+  background: var(--surface-muted);
+}
+
+.ws-rule__name {
+  font-weight: 600;
+}
+
+.ws-quote {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 2px solid var(--border-subtle);
+}
+
+.ws-quote__head h4 {
+  margin: 0;
+}
+
+.ws-add-member {
+  margin-top: var(--space-4);
+}
+
+.ws-carton-table input {
+  min-width: 72px;
+}
+
+@media (max-width: 1100px) {
+  .ws-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ws-side {
+    position: static;
+  }
+}
+
+.ws-invoice {
+  margin-top: var(--space-3);
+}
+
+.fin-bill {
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Phase 14: master milestone result. */
+.ws-event-result ul {
+  margin: var(--space-2) 0 0;
+  padding-left: var(--space-4);
+}
+
+/* Owner decision 8: the booked master's edit lock. */
+.ws-lock {
+  margin-bottom: var(--space-3);
+}
+
+.ws-locked-note {
+  margin: 0 0 var(--space-2);
+}
+
+/* Cost vs quote (step 2, DEC-0270). */
+.cq-table .num {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.cq-negative {
+  color: var(--danger-700);
+  font-weight: 600;
+}
+
+.cq-why {
+  margin-top: var(--space-3);
+}
+
+.cq-why ul {
+  margin: var(--space-2) 0 0;
+  padding-left: var(--space-4);
+  font-size: 0.85rem;
+}
+
+/* Workspace redesign (DEC-0272): master → pieces → the customers inside each piece. */
+.ws-piece {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.ws-piece__customers {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+  padding-left: var(--space-4);
+  border-left: 3px solid var(--border-subtle);
+}
+
+.ws-piece__customers > * {
+  min-width: 0;
+}
+
+.ws-tracking {
+  margin-top: var(--space-3);
+}
+
+.ws-base {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.ws-base-line {
+  margin: 0 0 var(--space-2);
+}
+
+.ws-cw-note {
+  margin-top: var(--space-3);
+}
+
+.ws-suggest {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-2) 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-muted);
+  border-radius: 6px;
+}
+
+.ws-unassigned {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.ws-add-piece {
+  align-items: center;
+}
+
+/* Owner review, 2026-11-05 (DEC-0273): collapsible cards, the bottom action bar, the new form. */
+.ws-toggle {
+  background: none;
+  border: 0;
+  padding: 0 var(--space-2) 0 0;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: inherit;
+}
+
+.ws-toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.ws-collapsible.is-collapsed .card__header {
+  border-bottom: 0;
+}
+
+.ws-summary {
+  margin-left: var(--space-3);
+}
+
+.ws-expand-bar {
+  justify-content: flex-end;
+}
+
+.ws-action-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  box-shadow: var(--shadow-overlay);
+}
+
+.ws-part {
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: var(--space-3) var(--space-4);
+  margin: 0 0 var(--space-4);
+}
+
+.ws-part > legend,
+.ws-items-editor > legend {
+  font-weight: 600;
+  padding: 0 var(--space-2);
+}
+
+.ws-items-editor {
+  border: 1px dashed var(--border-subtle);
+  border-radius: 8px;
+  padding: var(--space-3);
+  margin: var(--space-3) 0;
+}
+
+.ws-item-row {
+  display: grid;
+  grid-template-columns: minmax(12rem, 2fr) minmax(5rem, 1fr) minmax(6rem, 1fr) auto;
+  gap: var(--space-2);
+  align-items: end;
+  margin-bottom: var(--space-2);
+}
+
+.ws-item-row .ws-item-hint {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .ws-item-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ws-confirm {
+  align-items: center;
+}
+
+.ws-edit-customer {
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Cost and quote in one card (DEC-0274). */
+.ws-layout--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.ws-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-3);
+  margin: var(--space-3) 0;
+}
+
+.ws-tile {
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: var(--space-3);
+}
+
+.ws-tile dt {
+  font-size: 0.8rem;
+  color: var(--text-meta);
+}
+
+.ws-tile dd {
+  margin: var(--space-1, 4px) 0 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.ws-tile.cq-negative dd {
+  color: var(--danger-700);
+}
+
+.ws-cost-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+
+.ws-cost-lines {
+  margin: 0;
+}
+
+.ws-cost-line {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ws-cost-line dt {
+  margin: 0;
+}
+
+.ws-cost-line dd {
+  margin: 0;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* --- Two panes (DEC-0277): summary bar, structure tree, one thing at a time ------------------ */
+
+.ws2-num {
+  font-variant-numeric: tabular-nums;
+}
+
+.ws2-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.ws2-kv {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ws2-kv span {
+  font-size: 0.75rem;
+  color: var(--text-meta);
+}
+
+.ws2-kv b {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ws2-profit {
+  color: var(--success-700);
+}
+
+.ws2-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 170px;
+  font-size: 0.75rem;
+  color: var(--text-meta);
+}
+
+.ws2-track {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--neutral-200);
+  overflow: hidden;
+}
+
+.ws2-fill {
+  height: 100%;
+  background: var(--success-700);
+  border-radius: 3px;
+}
+
+.ws2-dirty {
+  font-size: 0.75rem;
+  color: var(--warning-700);
+  background: var(--warning-100);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.ws2 {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .ws2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ws2-tree {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  padding: var(--space-3) var(--space-2);
+  position: sticky;
+  top: 92px;
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+}
+
+@media (max-width: 1100px) {
+  .ws2-tree {
+    position: static;
+    max-height: none;
+  }
+}
+
+.ws2-tree ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ws2-filter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  padding: 0 var(--space-2) var(--space-3);
+  margin-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ws2-node {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 36px;
+  padding: 6px var(--space-2);
+  border: 0;
+  border-radius: var(--radius-control);
+  background: transparent;
+  font: inherit;
+  color: var(--text-secondary);
+  text-align: left;
+  cursor: pointer;
+}
+
+.ws2-node:hover {
+  background: var(--surface-muted);
+}
+
+.ws2-node:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.ws2-node--l1 {
+  padding-left: 26px;
+}
+
+.ws2-node--group {
+  margin-top: var(--space-2);
+}
+
+.ws2-node__label {
+  color: var(--text-primary);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ws2-node--l0 .ws2-node__label {
+  font-weight: 600;
+}
+
+.ws2-node--add .ws2-node__label {
+  color: var(--brand-orange-700);
+  font-weight: 500;
+}
+
+.ws2-node__sub {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--text-meta);
+  white-space: nowrap;
+}
+
+.ws2-node.is-selected {
+  background: var(--brand-orange-100);
+}
+
+.ws2-node.is-selected .ws2-node__label {
+  color: var(--brand-orange-700);
+}
+
+.ws2-tree__group-label {
+  margin-top: var(--space-3);
+  padding: 4px var(--space-2);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--danger-700);
+}
+
+.ws2-tree__sep {
+  border-top: 1px solid var(--border-subtle);
+  margin: var(--space-3) var(--space-2);
+}
+
+.ws2-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.ws2-dot--none,
+.ws2-dot--unknown {
+  background: #b97800;
+}
+
+.ws2-dot--draft {
+  background: var(--info-700);
+}
+
+.ws2-dot--final {
+  background: var(--success-700);
+}
+
+.ws2-dot--error {
+  background: var(--danger-700);
+}
+
+.ws2-badge {
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ws2-badge--error {
+  background: var(--danger-100);
+  color: var(--danger-700);
+}
+
+.ws2-badge--warning {
+  background: var(--warning-100);
+  color: var(--warning-700);
+}
+
+.ws2-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px var(--space-3);
+  font-size: 0.75rem;
+  color: var(--text-meta);
+  padding: var(--space-3) var(--space-2) 0;
+  margin-top: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.ws2-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ws2-pane {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.ws2-pane > * {
+  min-width: 0;
+}
+
+.ws2-crumb {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-meta);
+}
+
+.ws2-cust-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.ws2-alerts {
+  display: grid;
+  gap: 6px;
+}
+
+.ws2-alert {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 8px var(--space-3);
+  border-radius: var(--radius-control);
+  font-size: 0.875rem;
+}
+
+.ws2-alert svg {
+  flex: none;
+}
+
+.ws2-alert--error {
+  background: var(--danger-100);
+  color: var(--danger-700);
+}
+
+.ws2-alert--warning {
+  background: var(--warning-100);
+  color: var(--warning-700);
+}
+
+.ws2-alert--ok {
+  background: var(--success-100);
+  color: var(--success-700);
+}
+
+.ws2-checks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ws2-check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 40px;
+  padding: 6px var(--space-2);
+  border: 0;
+  border-radius: var(--radius-control);
+  background: transparent;
+  font: inherit;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+}
+
+.ws2-check:hover {
+  background: var(--surface-muted);
+}
+
+.ws2-check__icon {
+  display: inline-flex;
+  flex: none;
+}
+
+.ws2-check--ok .ws2-check__icon {
+  color: var(--success-700);
+}
+
+.ws2-check--error .ws2-check__icon {
+  color: var(--danger-700);
+}
+
+.ws2-check--warning .ws2-check__icon {
+  color: var(--warning-700);
+}
+
+.ws2-check__go {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--brand-orange-700);
+  white-space: nowrap;
+}
+
+.ws2-table td.num,
+.ws2-table th.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.ws2-total td {
+  font-weight: 600;
+  background: var(--surface-muted);
+}
+
+.ws2-link {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  text-align: left;
+}
+
+.ws2-link:hover {
+  color: var(--brand-orange-700);
+  text-decoration: underline;
+}
+
+.ws2-confirm-list {
+  margin: var(--space-2) 0 0;
+  padding-left: 1.2em;
+}
+
+.ws2-bar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+.ws2-bar .banner {
+  flex-basis: 100%;
+}
+
+/* Calmer suggestions inside the two-pane customer screen. */
+.ws2-pane .ws-suggest {
+  background: var(--warning-100);
+  border: 1px dashed #e3c37a;
+  padding: 4px var(--space-2);
+  font-size: 0.8125rem;
+}

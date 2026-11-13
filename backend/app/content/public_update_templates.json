@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "_doc": "Approved public wording. Rules, immutability policy and rationale: backend/app/services/public_update_templates.py",
+  "retired": [
+    "received_at_solaris.v1"
+  ],
+  "event_types": {
+    "received_at_solaris": {
+      "default_public": true,
+      "templates": [
+        "received_at_solaris.v2"
+      ]
+    },
+    "processing": {
+      "default_public": true,
+      "templates": [
+        "processing.v1"
+      ]
+    },
+    "departed_origin": {
+      "default_public": true,
+      "templates": [
+        "departed_origin.v1"
+      ]
+    },
+    "in_transit": {
+      "default_public": true,
+      "templates": [
+        "in_transit.v1",
+        "in_transit.delayed.v1"
+      ]
+    },
+    "customs_processing": {
+      "default_public": true,
+      "templates": [
+        "customs_processing.v1",
+        "customs_processing.held.v1"
+      ]
+    },
+    "arrived_destination": {
+      "default_public": true,
+      "templates": [
+        "arrived_destination.v1"
+      ]
+    },
+    "out_for_delivery": {
+      "default_public": true,
+      "templates": [
+        "out_for_delivery.v1"
+      ]
+    },
+    "delivered_to_collection_point": {
+      "default_public": true,
+      "templates": [
+        "delivered_to_collection_point.v1"
+      ]
+    },
+    "delivered_to_recipient": {
+      "default_public": true,
+      "templates": [
+        "delivered_to_recipient.v1"
+      ]
+    },
+    "returned": {
+      "default_public": true,
+      "templates": [
+        "returned.v1"
+      ]
+    },
+    "delivery_attempted": {
+      "default_public": false,
+      "templates": [
+        "delivery_attempted.v1"
+      ]
+    },
+    "exception": {
+      "default_public": false,
+      "templates": [
+        "exception.v1",
+        "exception.delay.v1"
+      ]
+    },
+    "return_in_progress": {
+      "default_public": false,
+      "templates": [
+        "return_in_progress.v1"
+      ]
+    },
+    "awaiting_parcel": {
+      "default_public": false,
+      "templates": [
+        "awaiting_parcel.v1"
+      ]
+    }
+  },
+  "templates": {
+    "received_at_solaris.v2": {
+      "text": {
+        "en": "We have received your shipment at our warehouse.",
+        "vi": "Chúng tôi đã nhận lô hàng của bạn tại kho."
+      }
+    },
+    "received_at_solaris.v1": {
+      "text": {
+        "en": "We have received your shipment at our facility.",
+        "vi": "Chúng tôi đã nhận lô hàng của bạn tại kho."
+      }
+    },
+    "processing.v1": {
+      "text": {
+        "en": "Your shipment is being prepared for departure.",
+        "vi": "Lô hàng của bạn đang được chuẩn bị để gửi đi."
+      }
+    },
+    "departed_origin.v1": {
+      "text": {
+        "en": "Your shipment has left the origin facility.",
+        "vi": "Lô hàng của bạn đã rời kho xuất phát."
+      }
+    },
+    "in_transit.v1": {
+      "text": {
+        "en": "Your shipment is on its way.",
+        "vi": "Lô hàng của bạn đang trên đường vận chuyển."
+      }
+    },
+    "in_transit.delayed.v1": {
+      "text": {
+        "en": "Your shipment is on its way and is taking longer than usual.",
+        "vi": "Lô hàng của bạn đang trên đường vận chuyển và lâu hơn thường lệ."
+      }
+    },
+    "customs_processing.v1": {
+      "text": {
+        "en": "Your shipment is going through customs clearance.",
+        "vi": "Lô hàng của bạn đang làm thủ tục hải quan."
+      }
+    },
+    "customs_processing.held.v1": {
+      "text": {
+        "en": "Your shipment is being held at customs. We will update you when it is released.",
+        "vi": "Lô hàng của bạn đang bị giữ tại hải quan. Chúng tôi sẽ thông báo khi hàng được thông quan."
+      }
+    },
+    "arrived_destination.v1": {
+      "text": {
+        "en": "Your shipment has arrived in the destination country.",
+        "vi": "Lô hàng của bạn đã đến nước nhận."
+      }
+    },
+    "out_for_delivery.v1": {
+      "text": {
+        "en": "Your shipment is out for delivery.",
+        "vi": "Lô hàng của bạn đang được giao đến bạn."
+      }
+    },
+    "delivered_to_collection_point.v1": {
+      "text": {
+        "en": "Your shipment is ready to collect at the pickup point.",
+        "vi": "Lô hàng của bạn đã sẵn sàng để nhận tại điểm giao nhận."
+      }
+    },
+    "delivered_to_recipient.v1": {
+      "text": {
+        "en": "Your shipment has been delivered.",
+        "vi": "Lô hàng của bạn đã được giao thành công."
+      }
+    },
+    "returned.v1": {
+      "text": {
+        "en": "Your shipment has been returned to the sender.",
+        "vi": "Lô hàng của bạn đã được trả về người gửi."
+      }
+    },
+    "delivery_attempted.v1": {
+      "text": {
+        "en": "We tried to deliver your shipment and could not complete it. We will contact you to arrange another time.",
+        "vi": "Chúng tôi đã thử giao lô hàng của bạn nhưng chưa thành công. Chúng tôi sẽ liên hệ với bạn để sắp xếp lại."
+      }
+    },
+    "exception.v1": {
+      "text": {
+        "en": "There is a problem with your shipment. Our team is looking into it and will update you.",
+        "vi": "Lô hàng của bạn đang gặp sự cố. Bộ phận của chúng tôi đang kiểm tra và sẽ thông báo cho bạn."
+      }
+    },
+    "exception.delay.v1": {
+      "text": {
+        "en": "Your shipment is delayed. Our team is looking into it and will update you.",
+        "vi": "Lô hàng của bạn bị chậm trễ. Bộ phận của chúng tôi đang kiểm tra và sẽ thông báo cho bạn."
+      }
+    },
+    "return_in_progress.v1": {
+      "text": {
+        "en": "Your shipment is on its way back to the sender.",
+        "vi": "Lô hàng của bạn đang được chuyển trả về người gửi."
+      }
+    },
+    "awaiting_parcel.v1": {
+      "text": {
+        "en": "We are waiting to receive your parcel.",
+        "vi": "Chúng tôi đang chờ nhận kiện hàng của bạn."
+      }
+    }
+  }
+}

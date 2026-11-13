@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      Never indexed. This entry serves both shells: the internal staff portal, which has
+      no business in a search index, and the public tracking page, whose URLs contain a
+      customer's tracking reference (CRM.md section 10, Design.md section 14).
+    -->
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="referrer" content="no-referrer" />
+    <!--
+      A deliberately generic title. The public route never puts a tracking reference in
+      the document title, because a title reaches the browser tab, the history entry, the
+      bookmark, and anything reading the page's metadata.
+    -->
+    <title>Solaris Express</title>
+    <!--
+      No third-party font, stylesheet, script, or preconnect. Poppins and Inter are
+      self-hosted under /fonts and declared in src/styles/fonts.css; the provenance and
+      licence are in public/fonts/README.md (DEC-0046).
+
+      This is not a performance decision. A font request to a third-party host would tell
+      that host that a browser at a given address opened a Solaris tracking page, and a
+      customer checking on a parcel did not agree to that.
+
+      `tests/publicTracking.test.jsx` asserts that this file contains no absolute http(s)
+      URL at all, so a well-meaning re-addition of a CDN link fails the build.
+    -->
+    <!-- The Vietnamese subset is not preloaded: it is fetched only when a page needs it. -->
+    <link
+      rel="preload"
+      href="/fonts/inter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

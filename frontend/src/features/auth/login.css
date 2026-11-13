@@ -1,0 +1,39 @@
+.login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background: var(--brand-navy-900);
+}
+
+.login__panel {
+  width: min(420px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.login__brand {
+  font: 600 26px/34px var(--font-heading);
+  color: var(--white);
+  text-align: center;
+}
+
+.login__brand-accent {
+  /*
+   * orange-500, deliberately. The login page background is `--brand-navy-900`, where
+   * this measures 5.36:1 -- the same surface as the sidebar and the public header.
+   *
+   * An earlier pass in this phase changed it to the darker text token on the assumption
+   * that the wordmark sat on a light card. It does not, and the darker token made it
+   * worse; the audit caught the regression on the next run. Left with a note so the
+   * mistake is not repeated: check the surface before darkening the ink.
+   */
+  color: var(--brand-orange-500);
+}
+
+.login__foot {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+}

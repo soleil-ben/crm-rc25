@@ -1,0 +1,349 @@
+/* Customer list, form, and profile styles. All values come from tokens.css. */
+
+.filter-bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.filter-bar__row {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-bar__row--more {
+  padding-top: var(--space-2);
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.filter-bar__chips {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.customer-row__flags {
+  margin-top: var(--space-1);
+}
+
+/* --- Forms --------------------------------------------------------------- */
+
+.form-section {
+  border: none;
+  border-top: 1px solid var(--border-subtle);
+  padding: var(--space-4) 0 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.form-section:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.form-section > legend {
+  font: var(--text-section-title);
+  padding: 0;
+  margin-bottom: var(--space-2);
+}
+
+/* Two columns that collapse to one; Vietnamese labels get room to wrap. */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+
+.route-interests {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  padding: var(--space-3);
+  margin: 0;
+}
+
+.duplicate-panel {
+  border: 1px solid var(--warning-700);
+  border-radius: var(--radius-card);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  background: var(--warning-100);
+}
+
+.duplicate-panel__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.duplicate-panel__list li {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  align-items: flex-start;
+}
+
+/* --- Profile -------------------------------------------------------------- */
+
+.profile-summary {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.profile-summary__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.profile-summary__meta {
+  color: var(--text-secondary);
+}
+
+.profile-notes {
+  white-space: pre-wrap;
+  color: var(--text-secondary);
+}
+
+.detail-list {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.detail-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 40%) 1fr;
+  gap: var(--space-3);
+  align-items: baseline;
+}
+
+.detail-row dt {
+  color: var(--text-meta);
+  font: var(--text-card-title);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.detail-row dd {
+  margin: 0;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-4);
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.metric__label {
+  font: var(--text-card-title);
+  color: var(--text-meta);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.metric__value {
+  font: 600 20px/28px var(--font-heading);
+}
+
+.route-count-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.route-count-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* --- Timeline -------------------------------------------------------------- */
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.timeline__item {
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: var(--space-3);
+  position: relative;
+}
+
+.timeline__item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 16px;
+  bottom: calc(var(--space-4) * -1);
+  width: 2px;
+  background: var(--border-subtle);
+}
+
+.timeline__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--brand-orange-500);
+  margin-top: 4px;
+  z-index: 1;
+}
+
+.timeline__dot--success {
+  background: var(--success-700);
+}
+
+.timeline__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.timeline__text {
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+}
+
+/* --- Address book ----------------------------------------------------------- */
+
+.address-list {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-4) var(--space-5);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+.address-card {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* --- Pickers ----------------------------------------------------------------- */
+
+.picker-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.picker-list__item {
+  display: flex;
+  gap: var(--space-3);
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface);
+  border-radius: var(--radius-control);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  font: var(--text-body);
+}
+
+.picker-list__item.is-selected {
+  border-color: var(--brand-orange-600);
+  background: var(--brand-orange-100);
+}
+
+.app-boot {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  color: var(--text-secondary);
+}
+
+@media (max-width: 767px) {
+  .profile-summary {
+    flex-direction: column;
+  }
+
+  .detail-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+}
+
+/* --- Duplicates: compare and merge (fix pack item 9) --------------------- */
+
+/* The "Possible duplicate" badge is a button that opens the Duplicates tab. */
+.badge-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.badge-button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-control);
+}
+
+.compare-table th[scope='row'] {
+  width: 30%;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.compare-table td {
+  vertical-align: top;
+}
+
+/* Phase 14: milestone email choices. Spaced so each 16px box keeps a 24px target
+   (WCAG 2.2 target size). */
+.notify-choices {
+  display: grid;
+  gap: var(--space-3);
+  border: 0;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+}
